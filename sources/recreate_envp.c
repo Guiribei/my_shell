@@ -6,7 +6,7 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 16:36:34 by etachott          #+#    #+#             */
-/*   Updated: 2022/12/07 17:52:16 by etachott         ###   ########.fr       */
+/*   Updated: 2022/12/07 19:06:43 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	**recreate_envp(t_list *env_lst)
 	t_list	*trav;
 	int		i;
 
-	envp = ft_calloc(ft_lstsize(env_lst), sizeof(char *));
+	envp = ft_calloc(ft_lstsize(env_lst) + 1, sizeof(char *));
 	i = 0;
 	trav = env_lst;
 	while (trav)
@@ -29,6 +29,6 @@ char	**recreate_envp(t_list *env_lst)
 		trav = trav->next;
 		i++;
 	}
-	envp[i - 1] = NULL;
+	envp[i] = NULL;
 	return (envp);
 }

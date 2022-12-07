@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 14:28:57 by coder             #+#    #+#             */
-/*   Updated: 2022/10/21 23:01:49 by guribeir         ###   ########.fr       */
+/*   Updated: 2022/12/07 19:22:07 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ char	*set_key(char *cont)
 			return (ft_substr(cont, 0, i));
 		i++;
 	}
-	return(NULL);
+	return (NULL);
 }
 
-char *set_value(char *cont)
+char	*set_value(char *cont)
 {
 	int		i;
 
@@ -37,14 +37,14 @@ char *set_value(char *cont)
 			return (ft_substr(cont, i + 1, (ft_strlen(cont) - (i + 1))));
 		i++;
 	}
-	return(NULL);
+	return (NULL);
 }
 
 t_list	*ft_lstenv_new(void *content)
 {
 	t_list	*lst;
 
-	lst = malloc(sizeof(t_list));
+	lst = ft_calloc(sizeof(t_list), 1);
 	if (lst == NULL)
 		return (NULL);
 	lst->key = set_key(content);

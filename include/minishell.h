@@ -6,7 +6,7 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2022/12/07 16:47:37 by etachott         ###   ########.fr       */
+/*   Updated: 2022/12/07 18:30:00 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ char	**get_paths(t_list *env);
 char	*find_command(char *command, char **paths);
 char	**recreate_envp(t_list *env_lst);
 char	*join_three(char *s1, char *s2, char *s3);
+void	ft_envfree(t_list **env);
 
 #endif

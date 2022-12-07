@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 17:37:30 by guribeir          #+#    #+#             */
-/*   Updated: 2022/10/05 17:37:45 by guribeir         ###   ########.fr       */
+/*   Updated: 2022/12/07 19:08:06 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,28 @@ void	strclear(char **str)
 	}
 }
 
-void	strsclear(char **ptrs)
+int	count_rows(char **matrix)
 {
 	int	i;
 
+	i = 0;
+	while (matrix[i])
+		i++;
+	return (i);
+}
+
+void	strsclear(char **ptrs)
+{
+	int	i;
+	int	elements;
+
+	if (!ptrs)
+		return ;
 	if (ptrs != NULL)
 	{
+		elements = count_rows(ptrs);
 		i = 0;
-		while (ptrs[i])
+		while (i < elements)
 		{
 			if (ptrs[i] != NULL)
 				free(ptrs[i]);

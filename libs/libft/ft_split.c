@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 20:09:11 by vcastilh          #+#    #+#             */
-/*   Updated: 2022/12/06 20:30:09 by guribeir         ###   ########.fr       */
+/*   Updated: 2022/12/07 18:49:51 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static char	**ft_get_words(char const *s, char c, size_t num_words, char **arr)
 			s++;
 		while (s[i] != c && s[i] != '\0')
 			i++;
-		arr[j] = (char *)malloc((i + 1) * sizeof(char));
+		arr[j] = (char *)ft_calloc((i + 1), sizeof(char));
 		if (!*arr)
 			return (NULL);
 		i = 0;
@@ -69,7 +69,7 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	num_words = ft_count_words(s, c);
-	arr = (char **)malloc((num_words + 1) * sizeof(char *));
+	arr = (char **)ft_calloc((num_words + 1), sizeof(char *));
 	if (!arr)
 		return (NULL);
 	arr = ft_get_words(s, c, num_words, arr);
