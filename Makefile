@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+         #
+#    By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/03 19:44:22 by coder             #+#    #+#              #
-#    Updated: 2022/11/30 16:49:39 by guribeir         ###   ########.fr        #
+#    Updated: 2022/12/07 16:47:08 by etachott         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
-SRCS = prompt.c main.c signal.c env.c env_utils.c executor.c pathing.c clear.c
+SRCS = prompt.c main.c signal.c env.c env_utils.c executor.c pathing.c clear.c recreate_envp.c join.c
 OBJS = ${SRCS:%.c=$(PATH_OBJS)%.o}	
 LIBS = libft.a
 PATH_SRCS = ./sources/

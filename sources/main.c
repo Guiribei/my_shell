@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 22:13:00 by coder             #+#    #+#             */
-/*   Updated: 2022/12/06 20:33:52 by guribeir         ###   ########.fr       */
+/*   Updated: 2022/12/07 18:08:59 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	main(int argc, char *argv[], char *envp[])
 	struct sigaction	act_2;
 	t_list				*env;
 	char				*str;
+	char				**my_env;
 
 	if (argc == 0 || !argv[0])
 		return (1);
@@ -27,8 +28,9 @@ int	main(int argc, char *argv[], char *envp[])
 	while (1)
 	{
 		str = set_prompt("minishell$ ");
+		my_env = recreate_envp(env);
 		if (str == NULL)
-			break;
+			break ;
 		prompt = ft_split(str, ' ');
 		if (!prompt)
 		{
@@ -37,8 +39,7 @@ int	main(int argc, char *argv[], char *envp[])
 			write(1, "\n", 1);
 			exit(127);
 		}
-		executor(prompt, env);
+		executor(prompt, env, my_env);
 		free(prompt);
 	}
-	free(prompt);
 }

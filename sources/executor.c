@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 19:34:51 by guribeir          #+#    #+#             */
-/*   Updated: 2022/12/06 20:04:40 by guribeir         ###   ########.fr       */
+/*   Updated: 2022/12/07 18:16:40 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,20 @@ void	error_handler(char *cmd, char *error)
 
 int	is_builtin(char **prompt)
 {
-	if (ft_strncmp(prompt[0], "cd", 3) == 0)
+	if (!prompt[0])
 		return (1);
 	return (0);
 }
 
-int	executor(char **prompt, t_list *env)
+int	executor(char **prompt, t_list *env, char **envp)
 {
 	int		pid;
 	int		status;
 	char	**paths;
 	char	*cmd;
+
 	if (prompt == NULL)
-		return(0);
+		return (0);
 	if (is_builtin(prompt) == 0)
 	{
 		paths = get_paths(env);
@@ -46,14 +47,10 @@ int	executor(char **prompt, t_list *env)
 			return (127);
 		}
 		pid = fork();
-		if (pid == 0 && env != NULL)
-		{
-			execve(cmd, &prompt[0], NULL);
-		}
+		if (pid == 0 && envp != NULL)
+			execve(cmd, &prompt[0], envp);
 		else
-		{
-			waitpid(pid, &status, 0);	
-		}
+			waitpid(pid, &status, 0);
 	}
-	return(0);
+	return (0);
 }
