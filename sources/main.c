@@ -6,7 +6,7 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 22:13:00 by coder             #+#    #+#             */
-/*   Updated: 2022/12/07 19:47:28 by etachott         ###   ########.fr       */
+/*   Updated: 2022/12/08 16:33:07 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ int	main(int argc, char *argv[], char *envp[])
 			write(1, "\n", 1);
 			exit(127);
 		}
-		prompt = ft_split(str, ' ');
+		//prompt = ft_split(str, ' ');
+		executor(prompt, env, my_env);
 		half_break_free(prompt, str, my_env);
 	}
 }
