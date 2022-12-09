@@ -3,28 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2022/12/07 18:30:00 by etachott         ###   ########.fr       */
+/*   Updated: 2022/12/09 20:43:46 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+# include "../libft/libft.h"
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <signal.h>
+# include <stdarg.h>
+# include <sys/wait.h>
 
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <signal.h>
-#include "../libs/libft/libft.h"
-#include <stdarg.h>
-#include <sys/wait.h>
-
-int		echo(char **str);
+void	echo(char **str);
 void	strclear(char **str);
 void	strsclear(char **ptrs);
 int		pwd(void);

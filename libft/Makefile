@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: vcastilh <vcastilh@student.42sp.org.br>    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/08/18 10:20:32 by vcastilh          #+#    #+#              #
-#    Updated: 2022/10/18 22:24:21 by vcastilh         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = libft.a
 CFLAGS = -Wall -Werror -Wextra -I. -c -g3
 CC = gcc 
@@ -63,16 +51,16 @@ OBJFILES = $(FILES:%.c=%.o)
 all: $(NAME)
 
 $(NAME): $(OBJFILES)
-	ar rcs $@ $^
+	@ar rcs $@ $^
 
 $(OBJFILES): $(FILES)
-	$(CC) $(CFLAGS) $^
+	@$(CC) $(CFLAGS) $^
 	
 clean:
-	rm -f $(OBJFILES)
+	@rm -f $(OBJFILES)
 
 fclean: clean 
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 

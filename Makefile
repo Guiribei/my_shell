@@ -1,44 +1,39 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/10/03 19:44:22 by coder             #+#    #+#              #
-#    Updated: 2022/12/07 16:47:08 by etachott         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
-SRCS = prompt.c main.c signal.c env.c env_utils.c executor.c pathing.c clear.c recreate_envp.c join.c
-OBJS = ${SRCS:%.c=$(PATH_OBJS)%.o}	
-LIBS = libft.a
-PATH_SRCS = ./sources/
-PATH_OBJS = ./objects/
-PATH_LIBS = ./libs/libft
-
 NAME = minishell
+PATH_SRC = ./sources/
+PATH_OBJ = ./objects/
 
-all: $(NAME)
+SRC = prompt.c main.c signal.c env.c env_utils.c executor.c pathing.c clear.c recreate_envp.c join.c echo.c pwd.c
 
-$(NAME): $(OBJS) $(LIBS)
-	$(CC) $(CFLAGS) -I ./include/ $(OBJS) $(PATH_LIBS)/$(LIBS) -lrt -lm -lreadline -o $(NAME)
+OBJ = ${SRC:%.c=$(PATH_OBJ)%.o}
 
-$(PATH_OBJS)%.o: $(PATH_SRCS)%.c
-	mkdir -p $(PATH_OBJS)
-	cc $(CFLAGS) -I./include/ -c $< -o $@
+INCLUDE = -I ./includes/
+LIBFT = ./libft/libft.a
+FLAGS = -Wall -Wextra -Werror
+LINKERS = -lrt -lm -lreadline
 
-$(LIBS):
-	make -C $(PATH_LIBS)
-	
+all:		$(NAME)
+
+$(NAME): 	$(LIBFT) $(OBJ)
+	cc $(FLAGS) $(OBJ) $(LIBFT) $(LINKERS) -o $(NAME)
+
+$(LIBFT):
+	@make all -C ./libft/
+
+$(PATH_OBJ)%.o: $(PATH_SRC)%.c
+	@mkdir -p $(PATH_OBJ)
+	cc $(FLAGS) $(INCLUDE) -c $< -o $@
+	@echo "\033[1;92m[SUCCESS] Objects creation done!\033[0m"
+
 clean:
-	rm -rf $(PATH_OBJS) 
-	make clean -C $(PATH_LIBS)
+	@make clean -C ./libft/
+	@rm -rf $(PATH_OBJ)
+	@echo "\33[1;93m[SUCCESS] Objects removal done!\33[0m"
+
 fclean: clean
-	rm -f $(NAME)
-	make fclean -C $(PATH_LIBS)
+	@rm -f $(NAME)
+	@make fclean -C ./libft/
+	@echo "\033[1;93m[SUCCESS] Removal done!\33[0m"
+
 re: fclean all
 
 .PHONY: all clean fclean re
