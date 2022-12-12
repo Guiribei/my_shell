@@ -17,7 +17,7 @@ $(NAME): 	$(LIBFT) $(OBJ)
 	cc $(FLAGS) $(OBJ) $(LIBFT) $(LINKERS) -o $(NAME)
 
 $(LIBFT):
-	@make all -C ./libft/
+	@make all --no-print-directory -C ./libft/
 
 $(PATH_OBJ)%.o: $(PATH_SRC)%.c
 	@mkdir -p $(PATH_OBJ)
@@ -25,13 +25,13 @@ $(PATH_OBJ)%.o: $(PATH_SRC)%.c
 	@echo "\033[1;92m[SUCCESS] Objects creation done!\033[0m"
 
 clean:
-	@make clean -C ./libft/
+	@make clean --no-print-directory -C ./libft/
 	@rm -rf $(PATH_OBJ)
 	@echo "\33[1;93m[SUCCESS] Objects removal done!\33[0m"
 
 fclean: clean
 	@rm -f $(NAME)
-	@make fclean -C ./libft/
+	@make fclean --no-print-directory -C ./libft/
 	@echo "\033[1;93m[SUCCESS] Removal done!\33[0m"
 
 re: fclean all
