@@ -6,7 +6,7 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 22:13:00 by coder             #+#    #+#             */
-/*   Updated: 2022/12/08 16:33:07 by etachott         ###   ########.fr       */
+/*   Updated: 2022/12/12 16:21:38 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void	half_break_free(char**prompt, char *str, char **my_env)
 
 void	break_free(char **prompt, char *str, char **my_env, t_list **env)
 {
-	printf("saiu\n");
 	half_break_free(prompt, str, my_env);
 	if (env)
 		ft_envfree(env);
+	rl_clear_history();
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -40,6 +40,7 @@ int	main(int argc, char *argv[], char *envp[])
 	char				**my_env;
 
 	(void)envp;
+	str = NULL;
 	if (argc == 0 || !argv[0])
 		return (1);
 	set_signals(&act, &act_2);
@@ -51,12 +52,10 @@ int	main(int argc, char *argv[], char *envp[])
 		prompt = ft_split(str, ' ');
 		if (!str)
 		{
-			printf("STRING = %s\n", str);
 			break_free(prompt, str, my_env, &env);
 			write(1, "\n", 1);
 			exit(127);
 		}
-		//prompt = ft_split(str, ' ');
 		executor(prompt, env, my_env);
 		half_break_free(prompt, str, my_env);
 	}

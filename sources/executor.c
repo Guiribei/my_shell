@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 19:34:51 by guribeir          #+#    #+#             */
-/*   Updated: 2022/12/09 19:49:30 by guribeir         ###   ########.fr       */
+/*   Updated: 2022/12/12 16:22:43 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	executor(char **prompt, t_list *env, char **envp)
 	{
 		paths = get_paths(env);
 		cmd = find_command(prompt[0], paths);
+		strsclear(paths);
 		if (!cmd)
 		{
 			error_handler(prompt[0], "command not found");
@@ -51,6 +52,7 @@ int	executor(char **prompt, t_list *env, char **envp)
 			execve(cmd, &prompt[0], envp);
 		else
 			waitpid(pid, &status, 0);
+		free(cmd);
 	}
 	return (0);
 }
