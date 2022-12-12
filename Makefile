@@ -8,7 +8,7 @@ OBJ = ${SRC:%.c=$(PATH_OBJ)%.o}
 
 INCLUDE = -I ./includes/
 LIBFT = ./libft/libft.a
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g3# -fsanitize=address
 LINKERS = -lrt -lm -lreadline
 
 all:		$(NAME)
