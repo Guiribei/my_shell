@@ -6,7 +6,7 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 20:09:11 by vcastilh          #+#    #+#             */
-/*   Updated: 2022/12/07 18:49:51 by etachott         ###   ########.fr       */
+/*   Updated: 2022/12/12 18:35:20 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,16 @@ static size_t	ft_count_words(char const *s, char c)
 	return (n);
 }
 
-static char	**ft_get_words(char const *s, char c, size_t num_words, char **arr)
+static char	**ft_get_words(char const *s, char c, size_t num_words)
 {
 	size_t	i;
 	size_t	j;
+	char	**arr;
 
 	j = 0;
+	arr = ft_calloc((num_words + 1), sizeof(char *));
+	if (!arr)
+		return (NULL);
 	while (num_words--)
 	{
 		i = 0;
@@ -48,7 +52,7 @@ static char	**ft_get_words(char const *s, char c, size_t num_words, char **arr)
 			s++;
 		while (s[i] != c && s[i] != '\0')
 			i++;
-		arr[j] = (char *)ft_calloc((i + 1), sizeof(char));
+		arr[j] = ft_calloc((i + 1), sizeof(char));
 		if (!*arr)
 			return (NULL);
 		i = 0;
@@ -57,7 +61,6 @@ static char	**ft_get_words(char const *s, char c, size_t num_words, char **arr)
 		arr[j][i] = '\0';
 		j++;
 	}
-	arr[j] = NULL;
 	return (arr);
 }
 
@@ -69,9 +72,6 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	num_words = ft_count_words(s, c);
-	arr = (char **)ft_calloc((num_words + 1), sizeof(char *));
-	if (!arr)
-		return (NULL);
-	arr = ft_get_words(s, c, num_words, arr);
+	arr = ft_get_words(s, c, num_words);
 	return (arr);
 }

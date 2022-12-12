@@ -6,7 +6,7 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 19:35:53 by guribeir          #+#    #+#             */
-/*   Updated: 2022/12/12 16:23:58 by etachott         ###   ########.fr       */
+/*   Updated: 2022/12/12 20:07:31 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,16 @@
 
 void	append_slash_to_path(char **paths)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
 	i = -1;
 	while (paths[++i])
-		paths[i] = ft_strjoin(paths[i], "/");
+	{
+		tmp = ft_strjoin(paths[i], "/");
+		free(paths[i]);
+		paths[i] = tmp;
+	}
 }
 
 char	**get_paths(t_list *env)
@@ -37,6 +42,7 @@ char	**get_paths(t_list *env)
 	append_slash_to_path(paths);
 	return (paths);
 }
+
 
 char	*find_command(char *command, char **paths)
 {
