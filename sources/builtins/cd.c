@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 19:17:37 by guribeir          #+#    #+#             */
-/*   Updated: 2022/12/13 23:30:18 by guribeir         ###   ########.fr       */
+/*   Updated: 2022/12/13 19:49:42 by tkomeno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	call_error(char *folder, char *errcode)
 	return (1);
 }
 
-int	builtin_cd(t_list *env, char *folder)
+int	cd(t_list *env, char *folder)
 {
 	char	*pwd;
 	char	*oldpwd;

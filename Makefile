@@ -3,7 +3,21 @@ PATH_SRC = ./sources/
 PATH_SRCS = ./sources/builtins/
 PATH_OBJ = ./objects/
 
-SRC = prompt.c main.c signal.c env_utils.c executor.c pathing.c clear.c recreate_envp.c join.c env.c echo.c pwd.c cd.c utils.c
+SRC = prompt.c \
+	  main.c \
+	  signal.c \
+	  env_utils.c \
+	  executor.c \
+	  pathing.c \
+	  clear.c \
+	  recreate_envp.c \
+	  join.c \
+	  env.c \
+	  echo.c \
+	  pwd.c \
+	  cd.c \
+	  utils.c \
+	  exit.c
 
 OBJ = ${SRC:%.c=$(PATH_OBJ)%.o}
 

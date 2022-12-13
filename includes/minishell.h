@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2022/12/13 22:27:09 by guribeir         ###   ########.fr       */
+/*   Updated: 2022/12/13 20:02:13 by tkomeno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,9 @@ char	*find_command(char *command, char **paths);
 char	**recreate_envp(t_list *env_lst);
 char	*join_three(char *s1, char *s2, char *s3);
 void	ft_envfree(t_list **env);
-int		builtin_cd(t_list *env, char *folder);
+int		cd(t_list *env, char *folder);
 char	*read_env(t_list *env, char *key);
 t_bool	is(const char *s, int c);
+int builtin_exit(char **args, t_list **env);
 
 #endif

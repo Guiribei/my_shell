@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 19:34:51 by guribeir          #+#    #+#             */
-/*   Updated: 2022/12/13 21:44:20 by guribeir         ###   ########.fr       */
+/*   Updated: 2022/12/13 20:02:52 by tkomeno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,15 @@ void	error_handler(char *cmd, char *error)
 int	is_builtin(char **prompt, t_list *env)
 {
 	if (ft_strncmp(prompt[0], "cd", 2) == 0)
-		builtin_cd(env, prompt[1]);
+		cd(env, prompt[1]);
 	else if (ft_strncmp(prompt[0], "pwd", 3) == 0)
 		pwd();
 	else if (ft_strncmp(prompt[0], "echo", 4) == 0)
 		echo(prompt);
 	else if (ft_strncmp(prompt[0], "env", 4) == 0)
 		builtin_env(env);
+	else if (ft_strncmp(prompt[0], "exit", 4) == 0)
+		builtin_exit(prompt, &env);
 	else
 		return(1);
 	return (0);

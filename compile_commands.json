@@ -1,0 +1,257 @@
+[
+ {
+  "directory": "/nfs/homes/tkomeno/my_shell",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "-I",
+   "./includes/",
+   "-c",
+   "sources/prompt.c",
+   "-o",
+   "objects/prompt.o"
+  ],
+  "file": "sources/prompt.c"
+ },
+ {
+  "directory": "/nfs/homes/tkomeno/my_shell",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "-I",
+   "./includes/",
+   "-c",
+   "sources/main.c",
+   "-o",
+   "objects/main.o"
+  ],
+  "file": "sources/main.c"
+ },
+ {
+  "directory": "/nfs/homes/tkomeno/my_shell",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "-I",
+   "./includes/",
+   "-c",
+   "sources/signal.c",
+   "-o",
+   "objects/signal.o"
+  ],
+  "file": "sources/signal.c"
+ },
+ {
+  "directory": "/nfs/homes/tkomeno/my_shell",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "-I",
+   "./includes/",
+   "-c",
+   "sources/env_utils.c",
+   "-o",
+   "objects/env_utils.o"
+  ],
+  "file": "sources/env_utils.c"
+ },
+ {
+  "directory": "/nfs/homes/tkomeno/my_shell",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "-I",
+   "./includes/",
+   "-c",
+   "sources/executor.c",
+   "-o",
+   "objects/executor.o"
+  ],
+  "file": "sources/executor.c"
+ },
+ {
+  "directory": "/nfs/homes/tkomeno/my_shell",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "-I",
+   "./includes/",
+   "-c",
+   "sources/pathing.c",
+   "-o",
+   "objects/pathing.o"
+  ],
+  "file": "sources/pathing.c"
+ },
+ {
+  "directory": "/nfs/homes/tkomeno/my_shell",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "-I",
+   "./includes/",
+   "-c",
+   "sources/clear.c",
+   "-o",
+   "objects/clear.o"
+  ],
+  "file": "sources/clear.c"
+ },
+ {
+  "directory": "/nfs/homes/tkomeno/my_shell",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "-I",
+   "./includes/",
+   "-c",
+   "sources/recreate_envp.c",
+   "-o",
+   "objects/recreate_envp.o"
+  ],
+  "file": "sources/recreate_envp.c"
+ },
+ {
+  "directory": "/nfs/homes/tkomeno/my_shell",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "-I",
+   "./includes/",
+   "-c",
+   "sources/join.c",
+   "-o",
+   "objects/join.o"
+  ],
+  "file": "sources/join.c"
+ },
+ {
+  "directory": "/nfs/homes/tkomeno/my_shell",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "-I",
+   "./includes/",
+   "-c",
+   "sources/builtins/env.c",
+   "-o",
+   "objects/env.o"
+  ],
+  "file": "sources/builtins/env.c"
+ },
+ {
+  "directory": "/nfs/homes/tkomeno/my_shell",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "-I",
+   "./includes/",
+   "-c",
+   "sources/builtins/echo.c",
+   "-o",
+   "objects/echo.o"
+  ],
+  "file": "sources/builtins/echo.c"
+ },
+ {
+  "directory": "/nfs/homes/tkomeno/my_shell",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "-I",
+   "./includes/",
+   "-c",
+   "sources/builtins/pwd.c",
+   "-o",
+   "objects/pwd.o"
+  ],
+  "file": "sources/builtins/pwd.c"
+ },
+ {
+  "directory": "/nfs/homes/tkomeno/my_shell",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "-I",
+   "./includes/",
+   "-c",
+   "sources/builtins/cd.c",
+   "-o",
+   "objects/cd.o"
+  ],
+  "file": "sources/builtins/cd.c"
+ },
+ {
+  "directory": "/nfs/homes/tkomeno/my_shell",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "-I",
+   "./includes/",
+   "-c",
+   "sources/utils.c",
+   "-o",
+   "objects/utils.o"
+  ],
+  "file": "sources/utils.c"
+ },
+ {
+  "directory": "/nfs/homes/tkomeno/my_shell",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g3",
+   "-I",
+   "./includes/",
+   "-c",
+   "sources/builtins/exit.c",
+   "-o",
+   "objects/exit.o"
+  ],
+  "file": "sources/builtins/exit.c"
+ }
+]
