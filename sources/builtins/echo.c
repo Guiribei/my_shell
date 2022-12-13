@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/27 18:16:37 by vcastilh          #+#    #+#             */
-/*   Updated: 2022/12/13 21:42:57 by guribeir         ###   ########.fr       */
+/*   Created: 2022/10/05 16:20:44 by guribeir          #+#    #+#             */
+/*   Updated: 2022/12/13 21:33:15 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t len)
+void	echo(char **str)
 {
-	size_t	i;
+	int	i;
+	int	flag;
 
-	i = 0;
-	while (len--)
+	i = 1;
+	flag = 0;
+	if (ft_strncmp(str[i], "-n", 2) == 0)
 	{
-		if (s1[i] == s2[i] && s1[i] && s2[i])
-			i++;
-		else
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
+		flag = -1;
 	}
-	return (0);
+	while (str[i])
+	{
+		ft_putstr_fd(str[i], 1);
+		ft_putchar_fd(' ', 1);
+		i++;
+	}
+	if (flag == 0)
+		ft_putchar_fd('\n', 1);
 }

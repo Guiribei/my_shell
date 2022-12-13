@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 16:29:35 by guribeir          #+#    #+#             */
-/*   Updated: 2022/12/07 19:44:35 by etachott         ###   ########.fr       */
+/*   Updated: 2022/12/13 19:27:46 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,22 @@ t_list	*change_env(t_list *env, char *key, char *value)
 		tmp = tmp->next;
 	}
 	return (env);
+}
+
+char	*read_env(t_list *env, char *key)
+{
+	t_list	*tmp;
+	int		len;
+
+	len = ft_strlen(key);
+	tmp = env;
+	if (!key)
+		return (NULL);
+	while(tmp)
+	{
+		if (ft_strncmp(key, tmp->key, len) == 0)
+			return (tmp->value);
+		tmp = tmp->next;
+	}
+	return(NULL);
 }

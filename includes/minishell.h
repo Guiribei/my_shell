@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2022/12/12 20:08:01 by etachott         ###   ########.fr       */
+/*   Updated: 2022/12/13 22:27:09 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@
 # include <signal.h>
 # include <stdarg.h>
 # include <sys/wait.h>
+# include <errno.h> //checkar
+
+typedef enum e_bool
+{
+	FALSE,
+	TRUE
+} t_bool;
 
 void	echo(char **str);
 void	strclear(char **str);
@@ -39,5 +46,8 @@ char	*find_command(char *command, char **paths);
 char	**recreate_envp(t_list *env_lst);
 char	*join_three(char *s1, char *s2, char *s3);
 void	ft_envfree(t_list **env);
+int		builtin_cd(t_list *env, char *folder);
+char	*read_env(t_list *env, char *key);
+t_bool	is(const char *s, int c);
 
 #endif

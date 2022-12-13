@@ -1,8 +1,9 @@
 NAME = minishell
 PATH_SRC = ./sources/
+PATH_SRCS = ./sources/builtins/
 PATH_OBJ = ./objects/
 
-SRC = prompt.c main.c signal.c env.c env_utils.c executor.c pathing.c clear.c recreate_envp.c join.c echo.c pwd.c
+SRC = prompt.c main.c signal.c env_utils.c executor.c pathing.c clear.c recreate_envp.c join.c env.c echo.c pwd.c cd.c utils.c
 
 OBJ = ${SRC:%.c=$(PATH_OBJ)%.o}
 
@@ -14,13 +15,17 @@ LINKERS = -lrt -lm -lreadline
 all:		$(NAME)
 
 $(NAME): 	$(LIBFT) $(OBJ)
-	cc $(FLAGS) $(OBJ) $(LIBFT) $(LINKERS) -o $(NAME)
+	@cc $(FLAGS) $(OBJ) $(LIBFT) $(LINKERS) -o $(NAME)
 
 $(LIBFT):
 	@make all --no-print-directory -C ./libft/
 
 $(PATH_OBJ)%.o: $(PATH_SRC)%.c
 	@mkdir -p $(PATH_OBJ)
+	cc $(FLAGS) $(INCLUDE) -c $< -o $@
+	@echo "\033[1;92m[SUCCESS] Objects creation done!\033[0m"
+
+$(PATH_OBJ)%.o: $(PATH_SRCS)%.c
 	cc $(FLAGS) $(INCLUDE) -c $< -o $@
 	@echo "\033[1;92m[SUCCESS] Objects creation done!\033[0m"
 

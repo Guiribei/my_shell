@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/05 16:20:44 by guribeir          #+#    #+#             */
-/*   Updated: 2022/12/09 20:01:19 by guribeir         ###   ########.fr       */
+/*   Created: 2022/12/13 22:23:50 by guribeir          #+#    #+#             */
+/*   Updated: 2022/12/13 22:26:10 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	echo(char **str)
+t_bool	is(const char *s, int c)
 {
-	int	i;
-	int	flag;
+	size_t	s_len;
+	char	*ptr;
 
-	i = 0;
-	flag = 0;
-	if (ft_strncmp(str[i], "-n", 2) == 0)
+	ptr = (char *)s;
+	s_len = ft_strlen(ptr) + 1;
+	while (s_len--)
 	{
-		i++;
-		flag = -1;
+		if (*ptr == (unsigned char)c)
+			return (TRUE);
+		ptr++;
 	}
-	while (str[i])
-	{
-		ft_putstr_fd(str[i], 1);
-		ft_putchar_fd(' ', 1);
-		i++;
-	}
-	if (flag == 0)
-		ft_putchar_fd('\n', 1);
+	return (FALSE);
 }

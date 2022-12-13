@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 19:34:51 by guribeir          #+#    #+#             */
-/*   Updated: 2022/12/12 21:04:55 by etachott         ###   ########.fr       */
+/*   Updated: 2022/12/13 21:44:20 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,18 @@ void	error_handler(char *cmd, char *error)
 	write(1, "\n", 1);
 }
 
-int	is_builtin(char **prompt)
+int	is_builtin(char **prompt, t_list *env)
 {
-	if (!prompt[0])
-		return (1);
+	if (ft_strncmp(prompt[0], "cd", 2) == 0)
+		builtin_cd(env, prompt[1]);
+	else if (ft_strncmp(prompt[0], "pwd", 3) == 0)
+		pwd();
+	else if (ft_strncmp(prompt[0], "echo", 4) == 0)
+		echo(prompt);
+	else if (ft_strncmp(prompt[0], "env", 4) == 0)
+		builtin_env(env);
+	else
+		return(1);
 	return (0);
 }
 
@@ -35,9 +43,9 @@ int	executor(char **prompt, t_list *env, char **envp)
 	char	**paths;
 	char	*cmd;
 
-	if (prompt == NULL)
+	if (prompt[0] == NULL)
 		return (0);
-	if (is_builtin(prompt) == 0)
+	if (is_builtin(prompt, env) == 1)
 	{
 		paths = get_paths(env);
 		cmd = find_command(prompt[0], paths);
