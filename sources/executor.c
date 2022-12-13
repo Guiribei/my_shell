@@ -6,7 +6,7 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 19:34:51 by guribeir          #+#    #+#             */
-/*   Updated: 2022/12/12 18:51:49 by etachott         ###   ########.fr       */
+/*   Updated: 2022/12/12 21:03:03 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,15 @@ int	executor(char **prompt, t_list *env, char **envp)
 		}
 		pid = fork();
 		if (pid == 0 && envp != NULL)
+		{
 			execve(cmd, &prompt[0], envp);
+			printf("Entrou no if\n");
+		}
 		else
+		{
 			waitpid(pid, &status, 0);
+			printf("Entrou no else\n");
+		}
 		free(cmd);
 	}
 	return (0);

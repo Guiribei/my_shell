@@ -6,13 +6,13 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 22:13:00 by coder             #+#    #+#             */
-/*   Updated: 2022/12/12 16:21:38 by etachott         ###   ########.fr       */
+/*   Updated: 2022/12/12 20:38:08 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	half_break_free(char**prompt, char *str, char **my_env)
+void	half_break_free(char **prompt, char *str, char **my_env)
 {
 	if (prompt)
 		strsclear(prompt);
@@ -39,7 +39,6 @@ int	main(int argc, char *argv[], char *envp[])
 	char				*str;
 	char				**my_env;
 
-	(void)envp;
 	str = NULL;
 	if (argc == 0 || !argv[0])
 		return (1);

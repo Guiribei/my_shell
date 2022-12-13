@@ -6,7 +6,7 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 19:35:53 by guribeir          #+#    #+#             */
-/*   Updated: 2022/12/12 20:07:31 by etachott         ###   ########.fr       */
+/*   Updated: 2022/12/12 21:02:23 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ char	**get_paths(t_list *env)
 	return (paths);
 }
 
-
 char	*find_command(char *command, char **paths)
 {
 	int		i;
@@ -52,7 +51,10 @@ char	*find_command(char *command, char **paths)
 
 	path = NULL;
 	if (access(command, F_OK | X_OK) == 0)
-		return (command);
+	{
+		tmp = ft_strdup(command);
+		return (tmp);
+	}
 	i = -1;
 	while (paths[++i])
 	{
