@@ -6,7 +6,7 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:25:43 by coder             #+#    #+#             */
-/*   Updated: 2022/12/14 18:43:46 by etachott         ###   ########.fr       */
+/*   Updated: 2022/12/14 18:47:05 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ char	**set_env(char *envp[])
 	new_envp = NULL;
 	while (envp[index])
 		index++;
-	printf("INDEX = %d\n", index);
 	new_envp = ft_calloc(sizeof(char *), index + 1);
 	new_envp[index] = NULL;
 	index = 0;
