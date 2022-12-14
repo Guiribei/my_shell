@@ -6,7 +6,7 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:54:20 by etachott          #+#    #+#             */
-/*   Updated: 2022/12/14 20:03:46 by etachott         ###   ########.fr       */
+/*   Updated: 2022/12/14 20:17:01 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,16 @@ static int	matrix_size(char **matrix)
 	return (index);
 }
 
-void	ft_matrixcpy(char **dst, char **src)
+char	**ft_matrixcpy(char **src)
 {
-	int	index;
-	int	m_size;
+	int		index;
+	int		m_size;
+	char	**dst;
 
 	index = 0;
 	m_size = matrix_size(src);
-	if (dst || !src)
-		return ;
+	if (!src)
+		return (NULL);
 	dst = ft_calloc(sizeof(char *), m_size + 1);
 	dst[m_size] = NULL;
 	while (src[index])
@@ -38,4 +39,5 @@ void	ft_matrixcpy(char **dst, char **src)
 		dst[index] = ft_strdup(src[index]);
 		index++;
 	}
+	return (dst);
 }
