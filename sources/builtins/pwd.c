@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 17:55:38 by guribeir          #+#    #+#             */
-/*   Updated: 2022/10/05 18:29:21 by guribeir         ###   ########.fr       */
+/*   Updated: 2022/12/14 18:48:52 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@ int	pwd(void)
 	str = NULL;
 	str = getcwd(str, 4096);
 	ft_putendl_fd(str, 1);
+	strclear(&str);
 	return (0);
 }
