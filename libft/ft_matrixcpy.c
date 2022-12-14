@@ -6,13 +6,13 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:54:20 by etachott          #+#    #+#             */
-/*   Updated: 2022/12/14 20:17:01 by etachott         ###   ########.fr       */
+/*   Updated: 2022/12/14 20:20:14 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	matrix_size(char **matrix)
+int	ft_matrix_size(char **matrix)
 {
 	int	index;
 
@@ -29,7 +29,7 @@ char	**ft_matrixcpy(char **src)
 	char	**dst;
 
 	index = 0;
-	m_size = matrix_size(src);
+	m_size = ft_matrix_size(src);
 	if (!src)
 		return (NULL);
 	dst = ft_calloc(sizeof(char *), m_size + 1);
