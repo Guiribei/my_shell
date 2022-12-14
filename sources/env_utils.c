@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 16:29:35 by guribeir          #+#    #+#             */
-/*   Updated: 2022/12/13 19:27:46 by guribeir         ###   ########.fr       */
+/*   Updated: 2022/12/14 18:32:24 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,42 +32,47 @@ void	ft_envfree(t_list **env)
 	*env = NULL;
 }
 
-t_list	*change_env(t_list *env, char *key, char *value)
+char	**change_env(char **envp, char *key, char *value)
 {
-	t_list	*tmp;
 	int		len;
+	int		index;
+	char	*tmp;
+	char	*tmp2;
 
 	len = ft_strlen(key);
-	tmp = env;
+	index = 0;
+	tmp = ft_strjoin(key, "=");
+	tmp2 = ft_strjoin(tmp, value);
+	free(tmp);
 	if (!key || !value)
 		return (NULL);
-	while (tmp)
+	while (envp[index])
 	{
-		if (ft_strncmp(key, tmp->key, len) == 0)
+		if (ft_strncmp(key, envp[index], len) == 0)
 		{
-			free(tmp->value);
-			tmp->value = NULL;
-			tmp->value = ft_strdup(value);
+			free(envp[index]);
+			envp[index] = ft_strdup(tmp2);
+			free(tmp2);
 		}
-		tmp = tmp->next;
+		index++;
 	}
-	return (env);
+	return (envp);
 }
 
-char	*read_env(t_list *env, char *key)
+char	*read_env(char **envp, char *key)
 {
-	t_list	*tmp;
 	int		len;
+	int		index;
 
+	index = 0;
 	len = ft_strlen(key);
-	tmp = env;
 	if (!key)
 		return (NULL);
-	while(tmp)
+	while (envp[index])
 	{
-		if (ft_strncmp(key, tmp->key, len) == 0)
-			return (tmp->value);
-		tmp = tmp->next;
+		if (ft_strncmp(key, envp[index], len) == 0)
+			return (envp[index] + len + 1);
+		index++;
 	}
-	return(NULL);
+	return (NULL);
 }

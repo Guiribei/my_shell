@@ -17,7 +17,8 @@ SRC = prompt.c \
 	  pwd.c \
 	  cd.c \
 	  utils.c \
-	  exit.c
+	  exit.c \
+	  init.c
 
 OBJ = ${SRC:%.c=$(PATH_OBJ)%.o}
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pathing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 19:35:53 by guribeir          #+#    #+#             */
-/*   Updated: 2022/12/13 21:47:46 by guribeir         ###   ########.fr       */
+/*   Updated: 2022/12/14 18:09:42 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,21 @@ void	append_slash_to_path(char **paths)
 	}
 }
 
-char	**get_paths(t_list *env)
+char	**get_paths(char **envp)
 {
 	char	*path;
 	char	**paths;
+	int		index;
 
-	paths = NULL;
-	while (env)
+	index = 0;
+	while (envp[index])
 	{
-		if (ft_strncmp(env->key, "PATH", 5) == 0)
-			path = env->value;
-		env = env->next;
+		if (ft_strncmp(envp[index], "PATH", 5) == 0)
+			path = ft_strdup(envp[index]);
+		index++;
 	}
 	paths = ft_split(path, ':');
+	free(path);
 	append_slash_to_path(paths);
 	return (paths);
 }

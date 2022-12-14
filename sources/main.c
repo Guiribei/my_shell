@@ -3,66 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 22:13:00 by coder             #+#    #+#             */
-/*   Updated: 2022/12/13 23:19:44 by guribeir         ###   ########.fr       */
+/*   Updated: 2022/12/14 18:27:33 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	half_break_free(char **prompt, char *str, char **my_env, char *name)
+t_data	g_data;
+
+void	half_break_free(t_data	*data)
 {
-	if (prompt)
-		strsclear(prompt);
-	if (str)
-		strclear(&str);
-	if (my_env)
-		strsclear(my_env);
-	if (name)
-		strclear(&name);
+	if (data->prompt)
+		strsclear(data->prompt);
+	if (data->str)
+		strclear(&data->str);
+	if (data->prompt_name)
+		strclear(&data->prompt_name);
+	if (data->envp)
+		strsclear(data->envp);
 }
 
-static void	break_free(char **prompt, char *str, char **my_env, t_list **env, char *name)
+void	break_free(t_data *data)
 {
-	half_break_free(prompt, str, my_env, name);
-	if (env)
-		ft_envfree(env);
+	half_break_free(data);
 	rl_clear_history();
 }
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	char				**prompt;
 	struct sigaction	act;
 	struct sigaction	act_2;
-	t_list				*env;
-	char				*str;
-	char				**my_env;
-	char				*name;
-	char				*cwd;
 
-	str = NULL;
 	if (argc == 0 || !argv[0])
 		return (1);
 	set_signals(&act, &act_2);
-	env = set_env(envp);
+	init_global(&g_data);
+	(void)envp;
 	while (1)
 	{
-		cwd = getcwd(NULL, 0);
-		name = join_three("minishell:~", cwd, "$ ");
-		free(cwd);
-		str = set_prompt(name);
-		my_env = recreate_envp(env);
-		prompt = ft_split(str, ' ');
-		if (!str)
+		g_data.cwd = getcwd(NULL, 0);
+		g_data.prompt_name = join_three("minishell:~", g_data.cwd, "$ ");
+		free(g_data.cwd);
+		g_data.str = set_prompt(g_data.prompt_name);
+		g_data.envp = set_env(envp);
+		g_data.prompt = ft_split(g_data.str, ' ');
+		if (!g_data.str)
 		{
-			break_free(prompt, str, my_env, &env, name);
+			break_free(&g_data);
 			write(1, "\n", 1);
 			exit(127);
 		}
-		executor(prompt, env, my_env);
-		half_break_free(prompt, str, my_env, name);
+		executor(g_data.prompt, g_data.envp);
+		half_break_free(&g_data);
 	}
 }

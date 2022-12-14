@@ -6,17 +6,38 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:25:43 by coder             #+#    #+#             */
-/*   Updated: 2022/12/07 18:53:15 by etachott         ###   ########.fr       */
+/*   Updated: 2022/12/14 16:45:42 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_list	*set_env(char *envp[])
+char	**set_env(char *envp[])
+{
+	int		index;
+	char	**new_envp;
+
+	index = 0;
+	new_envp = NULL;
+	while (envp[index])
+		index++;
+	printf("INDEX = %d\n", index);
+	new_envp = ft_calloc(sizeof(char *), index + 1);
+	new_envp[index] = NULL;
+	index = 0;
+	while (envp[index])
+	{
+		new_envp[index] = ft_strdup(envp[index]);
+		index++;
+	}
+	return (new_envp);
+}
+
+t_list	*st_env(char *envp[])
 {
 	int		i;
 	t_list	*env;
-	
+
 	i = 0;
 	env = ft_lstenv_new(envp[i++]);
 	while (envp[i] != NULL)
@@ -37,7 +58,7 @@ int	builtin_env(t_list *env)
 		tmp = tmp->next;
 	}
 	return (0);
-} 
+}
 
 int	builtin_export(t_list *env, char *name)
 {
