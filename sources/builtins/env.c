@@ -6,7 +6,7 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:25:43 by coder             #+#    #+#             */
-/*   Updated: 2022/12/14 18:47:05 by etachott         ###   ########.fr       */
+/*   Updated: 2022/12/14 18:52:40 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,6 @@ char	**set_env(char *envp[])
 		index++;
 	}
 	return (new_envp);
-}
-
-t_list	*st_env(char *envp[])
-{
-	int		i;
-	t_list	*env;
-
-	i = 0;
-	env = ft_lstenv_new(envp[i++]);
-	while (envp[i] != NULL)
-		ft_lstadd_back(&env, ft_lstenv_new(envp[i++]));
-	return (env);
 }
 
 int	builtin_env(char **envp)
