@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkomeno <tkomeno@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 21:48:04 by tkomeno           #+#    #+#             */
-/*   Updated: 2022/12/14 21:48:27 by tkomeno          ###   ########.fr       */
+/*   Updated: 2022/12/15 14:54:24 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
 int	ft_isspace(char c)
 {

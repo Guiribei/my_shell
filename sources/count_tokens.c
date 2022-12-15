@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   count_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkomeno <tkomeno@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:09:58 by tkomeno           #+#    #+#             */
-/*   Updated: 2022/12/14 21:57:59 by tkomeno          ###   ########.fr       */
+/*   Updated: 2022/12/15 14:51:30 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,6 @@ t_token *allocate_tokens(char *line)
 }
 
 //TODO: fill the allocated array with the token content
-void fill_tokens(char *line, t_token *tokens)
+/*void fill_tokens(char *line, t_token *tokens)
 {
-}
+}*/
