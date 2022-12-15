@@ -6,7 +6,7 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 19:34:51 by guribeir          #+#    #+#             */
-/*   Updated: 2022/12/15 14:59:41 by etachott         ###   ########.fr       */
+/*   Updated: 2022/12/15 16:27:58 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,11 @@ int	is_builtin(char **prompt, char **envp)
 	else if (ft_strncmp(prompt[0], "echo", 4) == 0)
 		echo(prompt);
 	else if (ft_strncmp(prompt[0], "env", 4) == 0)
-		builtin_env(envp);
+		builtin_env();
 	else if (ft_strncmp(prompt[0], "exit", 4) == 0)
 		builtin_exit(prompt);
+	else if (ft_strncmp(prompt[0], "export", 6) == 0)
+		builtin_export(prompt[1]);
 	else
 		return (1);
 	return (0);

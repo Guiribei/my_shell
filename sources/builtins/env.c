@@ -6,11 +6,13 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:25:43 by coder             #+#    #+#             */
-/*   Updated: 2022/12/15 15:19:35 by etachott         ###   ########.fr       */
+/*   Updated: 2022/12/15 16:53:53 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern t_data	g_data;
 
 char	**set_env(char *envp[])
 {
@@ -32,25 +34,38 @@ char	**set_env(char *envp[])
 	return (new_envp);
 }
 
-int	builtin_env(char **envp)
+int	builtin_env(void)
 {
 	int	index;
 
 	index = 0;
-	while (envp[index])
+	while (g_data.envp[index])
 	{
-		ft_putendl_fd(envp[index], 1);
+		ft_putendl_fd(g_data.envp[index], 1);
 		index++;
 	}
 	return (0);
 }
 
-int	builtin_export(t_list *env, char *name)
+int	builtin_export(char *name)
 {
-	t_list	*tmp;
+	char	**temp;
+	int		size;
+	int		index;
 
-	tmp = env;
-	tmp = ft_lstlast(tmp);
-	ft_lstadd_back(&tmp, ft_lstenv_new(name));
+	if (!name)
+		return (0);
+	index = 0;
+	size = ft_matrix_size(g_data.envp);
+	temp = ft_calloc(sizeof(char *), size + 2);
+	temp[size + 1] = NULL;
+	while (g_data.envp[index])
+	{
+		temp[index] = ft_strdup(g_data.envp[index]);
+		index++;
+	}
+	temp[index] = ft_strdup(name);
+	strsclear(g_data.envp);
+	g_data.envp = temp;
 	return (0);
 }

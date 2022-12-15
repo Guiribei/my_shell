@@ -6,7 +6,7 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 22:13:00 by coder             #+#    #+#             */
-/*   Updated: 2022/12/14 21:52:32 by tkomeno          ###   ########.fr       */
+/*   Updated: 2022/12/15 16:34:20 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ void	half_break_free(t_data	*data)
 		strclear(&data->str);
 	if (data->prompt_name)
 		strclear(&data->prompt_name);
-	if (data->envp)
-		strsclear(data->envp);
 }
 
 void	break_free(t_data *data)
 {
 	half_break_free(data);
+	if (data->envp)
+		strsclear(data->envp);
 	rl_clear_history();
 }
 
@@ -41,14 +41,13 @@ int	main(int argc, char *argv[], char *envp[])
 		return (1);
 	set_signals(&act, &act_2);
 	init_global(&g_data);
-	(void)envp;
+	g_data.envp = set_env(envp);
 	while (1)
 	{
 		g_data.cwd = getcwd(NULL, 0);
 		g_data.prompt_name = join_three("minishell:~", g_data.cwd, "$ ");
 		free(g_data.cwd);
 		g_data.str = set_prompt(g_data.prompt_name);
-		g_data.envp = set_env(envp);
 		// g_data.prompt = ft_split(g_data.str, ' ');
 		g_data.prompt = ft_split(g_data.str, ' ');
 		if (!g_data.str)
