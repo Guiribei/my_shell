@@ -6,7 +6,7 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2022/12/14 21:53:22 by tkomeno          ###   ########.fr       */
+/*   Updated: 2022/12/15 20:06:11 by tkomeno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ typedef struct s_data
 
 typedef struct s_token
 {
-	char *name;
-} t_token;
+	char	*name;
+	int		size;
+}			t_token;
 
 void		echo(char **str);
 void		strclear(char **str);
@@ -75,5 +76,10 @@ void		skip_single_quotes(char *line, int *i, int *tokens);
 void		skip_pipe(int *i, int *tokens);
 void		count_as_token(char *line, int *i, int *tokens);
 int			ft_isspace(char c);
+int			count_tokens(char *line);
+t_token		*allocate_tokens(char *line);
+t_token		*allocate_tokens_content(char *line, t_token *tokens);
+t_token		*fill_tokens_content(char *line, t_token *tokens);
+t_token		*tokenize(char *line);
 
 #endif

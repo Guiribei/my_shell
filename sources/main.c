@@ -6,7 +6,7 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 22:13:00 by coder             #+#    #+#             */
-/*   Updated: 2022/12/14 21:52:32 by tkomeno          ###   ########.fr       */
+/*   Updated: 2022/12/15 20:10:39 by tkomeno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,3 +61,14 @@ int	main(int argc, char *argv[], char *envp[])
 		half_break_free(&g_data);
 	}
 }
+
+
+//TO DEBUG: TOKENIZER FILLING PROCESS
+// int main(void)
+// {
+// 	char *line = "echo \"hello world\" | cat -e";
+// 	t_token *tokens = tokenize(line);
+
+// 	(void)tokens;
+	// }
+// }
