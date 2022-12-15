@@ -6,7 +6,7 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 22:13:00 by coder             #+#    #+#             */
-/*   Updated: 2022/12/14 18:27:33 by etachott         ###   ########.fr       */
+/*   Updated: 2022/12/14 19:17:21 by tkomeno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int	main(int argc, char *argv[], char *envp[])
 		free(g_data.cwd);
 		g_data.str = set_prompt(g_data.prompt_name);
 		g_data.envp = set_env(envp);
-		g_data.prompt = ft_split(g_data.str, ' ');
+		// g_data.prompt = ft_split(g_data.str, ' ');
+		g_data.prompt = tokenizer(g_data.str);
 		if (!g_data.str)
 		{
 			break_free(&g_data);

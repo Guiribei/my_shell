@@ -18,7 +18,8 @@ SRC = prompt.c \
 	  cd.c \
 	  utils.c \
 	  exit.c \
-	  init.c
+	  init.c \
+	  tokenizer.c
 
 OBJ = ${SRC:%.c=$(PATH_OBJ)%.o}
 
