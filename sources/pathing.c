@@ -6,7 +6,7 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 19:35:53 by guribeir          #+#    #+#             */
-/*   Updated: 2022/12/14 18:09:42 by etachott         ###   ########.fr       */
+/*   Updated: 2022/12/15 15:22:13 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	**get_paths(char **envp)
 	index = 0;
 	while (envp[index])
 	{
-		if (ft_strncmp(envp[index], "PATH", 5) == 0)
+		if (ft_strncmp(envp[index], "PATH", 4) == 0)
 			path = ft_strdup(envp[index]);
 		index++;
 	}
