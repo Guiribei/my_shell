@@ -6,7 +6,7 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:25:43 by coder             #+#    #+#             */
-/*   Updated: 2022/12/15 16:53:53 by etachott         ###   ########.fr       */
+/*   Updated: 2022/12/17 15:57:18 by edu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,37 @@ int	builtin_export(char *name)
 	temp[index] = ft_strdup(name);
 	strsclear(g_data.envp);
 	g_data.envp = temp;
+	return (0);
+}
+
+int	builtin_unset(char *key)
+{
+	char	**temp;
+	char	*tmp_str;
+	int		size;
+	int		index;
+
+	if (!key)
+		return (0);
+	tmp_str = ft_strjoin(key, "=");
+	index = 0;
+	size = ft_matrix_size(g_data.envp);
+	temp = ft_calloc(sizeof(char *), size);
+	temp[size - 1] = NULL;
+	size = 0;
+	while (size < ft_matrix_size(g_data.envp) - 1)
+	{
+		if (ft_strncmp(g_data.envp[index], tmp_str, ft_strlen(key) + 1) == 0)
+			index++;
+		else
+		{
+			temp[size] = ft_strdup(g_data.envp[index]);
+			size++;
+			index++;
+		}
+	}
+	strsclear(g_data.envp);
+	g_data.envp = temp;
+	free(tmp_str);
 	return (0);
 }

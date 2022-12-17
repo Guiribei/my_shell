@@ -6,7 +6,7 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2022/12/15 20:12:06 by tkomeno          ###   ########.fr       */
+/*   Updated: 2022/12/16 12:29:01 by edu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void		set_signals(struct sigaction *act, struct sigaction *act_2);
 char		**set_env(char *envp[]);
 int			builtin_env(void);
 int			builtin_export(char *name);
+int			builtin_unset(char *key);
 int			executor(char **prompt, char **envp);
 char		**get_paths(char **envp);
 char		*find_command(char *command, char **paths);
