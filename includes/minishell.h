@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: vkist-si <vkist-si@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2022/12/16 12:29:01 by edu              ###   ########.fr       */
+/*   Updated: 2022/12/19 01:58:03 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
+
+# define LLONG_MAX 9223372036854775807
 
 typedef enum e_bool
 {
@@ -67,7 +69,7 @@ int			cd(char **envp, char *folder);
 char		*read_env(char **env, char *key);
 char		**change_env(char **envp, char *key, char *value);
 t_bool		is(const char *s, int c);
-int			builtin_exit(char **args);
+void		builtin_exit(char **args);
 void		init_global(t_data *d);
 void		break_free(t_data *data);
 void		half_break_free(t_data *data);
@@ -82,5 +84,7 @@ t_token		*allocate_tokens(char *line);
 t_token		*allocate_tokens_content(char *line, t_token *tokens);
 t_token		*fill_tokens_content(char *line, t_token *tokens);
 t_token		*tokenize(char *line);
+void		exit_with_error(char *cmd, char *msg, int error);
+long long	ft_atoi_long(char *str);
 
 #endif

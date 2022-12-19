@@ -21,7 +21,9 @@ SRC = prompt.c \
 	  init.c \
 	  tokenizer.c \
 	  count_tokens_utils.c \
-	  count_tokens.c
+	  count_tokens.c \
+	  error.c \
+	  ft_atoi_long.c
 
 OBJ = ${SRC:%.c=$(PATH_OBJ)%.o}
 
