@@ -6,7 +6,7 @@
 /*   By: etachott <etachott@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:09:50 by etachott          #+#    #+#             */
-/*   Updated: 2022/12/21 13:54:01 by etachott         ###   ########.fr       */
+/*   Updated: 2022/12/21 14:05:11 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ char	*key_to_value(char *key)
 	temp = ft_strjoin(key, "=");
 	while (g_data.envp[index])
 	{
-		if (ft_strncmp(g_data.envp[index], key, ft_strlen(key)) == 0)
-			final = ft_strdup(g_data.envp[index] + (ft_strlen(key) + 2));
+		if (ft_strncmp(g_data.envp[index], temp, ft_strlen(temp)) == 0)
+			final = ft_strdup(g_data.envp[index] + ft_strlen(temp));
 		index++;
 	}
 	if (!final)
