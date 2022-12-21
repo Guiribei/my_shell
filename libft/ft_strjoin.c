@@ -6,7 +6,7 @@
 /*   By: vcastilh <vcastilh@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 07:30:15 by vcastilh          #+#    #+#             */
-/*   Updated: 2021/09/01 07:56:02 by vcastilh         ###   ########.fr       */
+/*   Updated: 2022/12/21 13:37:03 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*join;
 
+	if (!s2 || !s1)
+		return (ft_strdup(s1));
 	join = malloc(((ft_strlen(s1) + ft_strlen(s2)) + 1) * sizeof(char));
 	if (! join)
 		return (NULL);

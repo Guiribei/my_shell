@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 16:20:44 by guribeir          #+#    #+#             */
-/*   Updated: 2022/12/13 21:33:15 by guribeir         ###   ########.fr       */
+/*   Updated: 2022/12/21 13:44:58 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ void	echo(char **str)
 
 	i = 1;
 	flag = 0;
+	if (!str[1])
+	{
+		ft_putendl_fd("", 1);
+		return ;
+	}
 	if (ft_strncmp(str[i], "-n", 2) == 0)
 	{
 		i++;

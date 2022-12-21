@@ -23,7 +23,8 @@ SRC = prompt.c \
 	  count_tokens_utils.c \
 	  count_tokens.c \
 	  error.c \
-	  ft_atoi_long.c
+	  ft_atoi_long.c \
+	  expand_variables.c
 
 OBJ = ${SRC:%.c=$(PATH_OBJ)%.o}
 

@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2022/12/19 01:58:03 by vkist-si         ###   ########.fr       */
+/*   Updated: 2022/12/20 19:04:11 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,7 @@ t_token		*fill_tokens_content(char *line, t_token *tokens);
 t_token		*tokenize(char *line);
 void		exit_with_error(char *cmd, char *msg, int error);
 long long	ft_atoi_long(char *str);
+int			is_expansible(char *str);
+char		*expand_str(char *str);
 
 #endif

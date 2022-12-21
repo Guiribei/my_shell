@@ -6,7 +6,7 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 22:13:00 by coder             #+#    #+#             */
-/*   Updated: 2022/12/15 20:12:16 by tkomeno          ###   ########.fr       */
+/*   Updated: 2022/12/20 20:00:19 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	main(int argc, char *argv[], char *envp[])
 		g_data.prompt_name = join_three("minishell:~", g_data.cwd, "$ ");
 		free(g_data.cwd);
 		g_data.str = set_prompt(g_data.prompt_name);
+		if (is_expansible(g_data.str))
+			g_data.str = expand_str(g_data.str);
 		// g_data.prompt = ft_split(g_data.str, ' ');
 		g_data.prompt = ft_split(g_data.str, ' ');
 		if (!g_data.str)

@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   join.c                                             :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: etachott <etachott@student.42sp.org.b      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/07 16:46:45 by etachott          #+#    #+#             */
-/*   Updated: 2022/12/21 13:36:20 by etachott         ###   ########.fr       */
+/*   Created: 2022/12/20 21:34:32 by etachott          #+#    #+#             */
+/*   Updated: 2022/12/21 12:31:47 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-char	*join_three(char *s1, char *s2, char *s3)
+char	*ft_strndup(const char *s, size_t n)
 {
-	char	*tmp;
-	char	*tmp2;
+	char	*ptr;
 
-	tmp = ft_strjoin(s1, s2);
-	tmp2 = ft_strjoin(tmp, s3);
-	free(tmp);
-	return (tmp2);
+	if (!n)
+		return (NULL);
+	ptr = ft_calloc((n + 1), sizeof(char));
+	if (!ptr)
+		return (NULL);
+//	ptr[n] = '\0';
+	return (ft_memcpy(ptr, s, n));
 }
