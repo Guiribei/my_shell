@@ -6,25 +6,13 @@
 /*   By: vkist-si <vkist-si@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 19:48:47 by tkomeno           #+#    #+#             */
-/*   Updated: 2022/12/19 02:08:02 by vkist-si         ###   ########.fr       */
+/*   Updated: 2022/12/21 18:45:10 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 extern t_data	g_data;
-
-void	ft_matrixfree(char **matrix)
-{
-	int	i;
-
-	i = 0;
-	if (!matrix)
-		return ;
-	while (matrix[i])
-		free(matrix[i++]);
-	free(matrix);
-}
 
 static int	fits_in_long_long(char *str)
 {
@@ -53,24 +41,20 @@ static int	fits_in_long_long(char *str)
 
 void	check_exit(char **args)
 {
+	int exit_status;
+	
+	exit_status = 0;
 	if (args[2])
-	{
-		ft_matrixfree(args);
 		exit_with_error("exit", "too many arguments", EXIT_FAILURE);
-	}
 	else if (!fits_in_long_long(args[1]))
-	{
-		ft_matrixfree(args);
 		exit_with_error("exit", "numeric argument required", 2);	
-	}
 	else
 	{
 		rl_clear_history();
-	//	ft_matrixfree(args);
-		break_free(&g_data);
 		//close_all_fds();
-		g_data.exit_status = ft_atoi_long(args[1]);
-		exit(g_data.exit_status);
+		exit_status = ft_atoi_long(args[1]);
+		break_free(&g_data);
+		exit(exit_status);
 	}
 }
 
@@ -81,7 +65,6 @@ void	builtin_exit(char **args)
 	{
 		break_free(&g_data);
 	//	close_all_fds();
-	//	ft_matrixfree(args);
 		exit(EXIT_SUCCESS);
 	}
 	else
