@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   count_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:09:58 by tkomeno           #+#    #+#             */
-/*   Updated: 2022/12/15 20:09:00 by tkomeno          ###   ########.fr       */
+/*   Updated: 2022/12/22 13:22:32 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_token	*allocate_tokens_content(char *line, t_token *tokens)
 	int	curr_token;
 	int	curr_token_size;
 
-	curr_token = 0;
+	curr_token = -1;
 	i = -1;
 	while (line[++i])
 	{
@@ -92,10 +92,10 @@ t_token	*allocate_tokens_content(char *line, t_token *tokens)
 		{
 			while (line[i] && !ft_isspace(line[i]))
 			{
-				curr_token++;
 				i++;
 				curr_token_size++;
 			}
+			curr_token++;
 		}
 		tokens[curr_token].size = curr_token_size;
 		tokens[curr_token].name = ft_calloc(sizeof(char), (curr_token_size
@@ -119,24 +119,23 @@ t_token	*fill_tokens_content(char *line, t_token *tokens)
 	{
 		curr_token_size = 0;
 		if (ft_isspace(line[i]))
-			skip_space(&i);
+			i++;
 		else if (line[i] == '"')
 		{
-			curr_token++;
 			i++;
 			while (line[i] && line[i] != '"'
 				&& curr_token_size < tokens[curr_token].size)
 			{
-				curr_token_size++;
 				tokens[curr_token].name[curr_token_size] = line[i];
+				curr_token_size++;
 				i++;
 			}
+			curr_token++;
 			if (line[i] == '"')
 				i++;
 		}
 		else if (line[i] == '\'')
 		{
-			curr_token++;
 			i++;
 			while (line[i] && line[i] != '\''
 				&& curr_token_size < tokens[curr_token].size)
@@ -145,13 +144,14 @@ t_token	*fill_tokens_content(char *line, t_token *tokens)
 				tokens[curr_token].name[curr_token_size] = line[i];
 				i++;
 			}
+			curr_token++;
 			if (line[i] == '\'')
 				i++;
 		}
 		else if (line[i] == '|')
 		{
-			curr_token_size++;
 			tokens[curr_token].name[curr_token_size] = line[i];
+			curr_token_size++;
 			curr_token++;
 			i++;
 		}
@@ -160,10 +160,11 @@ t_token	*fill_tokens_content(char *line, t_token *tokens)
 			while (line[i] && !ft_isspace(line[i])
 				&& curr_token_size < tokens[curr_token].size)
 			{
-				curr_token++;
 				tokens[curr_token].name[curr_token_size] = line[i];
 				i++;
+				curr_token_size++; // acrescentado
 			}
+			curr_token++; // troquei de lugar, tava na linha 162 ou 163
 		}
 	}
 	return (tokens);
