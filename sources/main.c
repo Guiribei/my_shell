@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 22:13:00 by coder             #+#    #+#             */
-/*   Updated: 2022/12/22 13:21:03 by guribeir         ###   ########.fr       */
+/*   Updated: 2022/12/23 15:32:38 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,12 @@ int main(void)
 {
 	int i = 0;
 	char *line;
-	line = ft_strdup("echo \"hello world\" | cat -e");
+	line = ft_strdup("echo \"hello world\" || >> << <> cat -e");
 	t_token *tokens = tokenize(line);
 	while (tokens[i].name)
 	{
 		printf("O token atual é: %s\n", tokens[i].name);
 		i++;
 	}
-
 	(void)tokens;
 }

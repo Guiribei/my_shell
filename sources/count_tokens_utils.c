@@ -43,6 +43,22 @@ void	skip_pipe(int *i, int *tokens)
 	(*tokens)++;
 }
 
+void	skip_gt(int *i, int *tokens, char *line)
+{
+	(*i)++;
+	if (line[*i] == '>')
+		(*i)++;
+	(*tokens)++;
+}
+
+void	skip_lt(int *i, int *tokens, char *line)
+{
+	(*i)++;
+	if (line[*i] == '<')
+		(*i)++;
+	(*tokens)++;
+}
+
 void	count_as_token(char *line, int *i, int *tokens)
 {
 	(*tokens)++;

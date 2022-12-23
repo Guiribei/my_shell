@@ -88,5 +88,7 @@ void		exit_with_error(char *cmd, char *msg, int error);
 long long	ft_atoi_long(char *str);
 int			is_expansible(char *str);
 char		*expand_str(char *str);
+void		skip_gt(int *i, int *tokens, char *line);
+void		skip_lt(int *i, int *tokens, char *line);
 
 #endif

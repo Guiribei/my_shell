@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:09:58 by tkomeno           #+#    #+#             */
-/*   Updated: 2022/12/22 13:22:32 by guribeir         ###   ########.fr       */
+/*   Updated: 2022/12/23 15:31:26 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ int	count_tokens(char *line)
 			skip_single_quotes(line, &i, &tokens);
 		else if (line[i] == '|')
 			skip_pipe(&i, &tokens);
+		else if (line[i] == '>')
+			skip_gt(&i, &tokens, line);
+		else if (line[i] == '<')
+			skip_lt(&i, &tokens, line);
 		else
 			count_as_token(line, &i, &tokens);
 	}
@@ -57,7 +61,7 @@ t_token	*allocate_tokens_content(char *line, t_token *tokens)
 	{
 		curr_token_size = 0;
 		if (ft_isspace(line[i]))
-			skip_space(&i);
+			continue;
 		else if (line[i] == '"')
 		{
 			curr_token++;
@@ -84,9 +88,28 @@ t_token	*allocate_tokens_content(char *line, t_token *tokens)
 		}
 		else if (line[i] == '|')
 		{
-			i++;
 			curr_token++;
 			curr_token_size++;
+		}
+		else if (line[i] == '>')
+		{
+			curr_token++;
+			curr_token_size++;
+			if (line[i + 1] && line[i + 1] == '>')
+			{
+				i++;
+				curr_token_size++;
+			}
+		}
+		else if (line[i] == '<')
+		{
+			curr_token++;
+			curr_token_size++;
+			if (line[i + 1] && line[i + 1] == '<')
+			{
+				i++;
+				curr_token_size++;
+			}
 		}
 		else
 		{
@@ -119,7 +142,7 @@ t_token	*fill_tokens_content(char *line, t_token *tokens)
 	{
 		curr_token_size = 0;
 		if (ft_isspace(line[i]))
-			i++;
+			continue;
 		else if (line[i] == '"')
 		{
 			i++;
@@ -151,9 +174,29 @@ t_token	*fill_tokens_content(char *line, t_token *tokens)
 		else if (line[i] == '|')
 		{
 			tokens[curr_token].name[curr_token_size] = line[i];
-			curr_token_size++;
 			curr_token++;
-			i++;
+		}
+		else if (line[i] == '>')
+		{
+			tokens[curr_token].name[curr_token_size] = line[i];
+			if (line[i + 1] && line[i + 1] == '>')
+			{
+				i++;
+				curr_token_size++;
+				tokens[curr_token].name[curr_token_size] = line[i];
+			}
+			curr_token++;
+		}
+		else if (line[i] == '<')
+		{
+			tokens[curr_token].name[curr_token_size] = line[i];
+			if (line[i + 1] && line[i + 1] == '<')
+			{
+				i++;
+				curr_token_size++;
+				tokens[curr_token].name[curr_token_size] = line[i];
+			}
+			curr_token++;
 		}
 		else
 		{
@@ -162,9 +205,9 @@ t_token	*fill_tokens_content(char *line, t_token *tokens)
 			{
 				tokens[curr_token].name[curr_token_size] = line[i];
 				i++;
-				curr_token_size++; // acrescentado
+				curr_token_size++;
 			}
-			curr_token++; // troquei de lugar, tava na linha 162 ou 163
+			curr_token++;
 		}
 	}
 	return (tokens);
