@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   count_tokens_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkomeno <tkomeno@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 21:46:36 by tkomeno           #+#    #+#             */
-/*   Updated: 2022/12/15 20:06:29 by tkomeno          ###   ########.fr       */
+/*   Updated: 2022/12/23 22:13:25 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	skip_space(int *i)
-{
-	(*i)++;
-}
 
 void	skip_double_quotes(char *line, int *i, int *tokens)
 {
@@ -57,11 +52,4 @@ void	skip_lt(int *i, int *tokens, char *line)
 	if (line[*i] == '<')
 		(*i)++;
 	(*tokens)++;
-}
-
-void	count_as_token(char *line, int *i, int *tokens)
-{
-	(*tokens)++;
-	while (line[*i] && !ft_isspace(line[*i]))
-		(*i)++;
 }

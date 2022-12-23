@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkist-si <vkist-si@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2022/12/20 19:04:11 by etachott         ###   ########.fr       */
+/*   Updated: 2022/12/23 22:23:51 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ void		count_as_token(char *line, int *i, int *tokens);
 int			ft_isspace(char c);
 int			count_tokens(char *line);
 t_token		*allocate_tokens(char *line);
-t_token		*allocate_tokens_content(char *line, t_token *tokens);
+t_token		*allocate_tokens_content(char *line, t_token *tokens,
+			int curr_token,int curr_token_size);
 t_token		*fill_tokens_content(char *line, t_token *tokens);
 t_token		*tokenize(char *line);
 void		exit_with_error(char *cmd, char *msg, int error);
@@ -90,5 +91,24 @@ int			is_expansible(char *str);
 char		*expand_str(char *str);
 void		skip_gt(int *i, int *tokens, char *line);
 void		skip_lt(int *i, int *tokens, char *line);
+void		allocate_double(int *curr_token, int *curr_token_size, char *line,
+			int *i);
+void		allocate_single(int *curr_token, int *curr_token_size, char *line,
+			int *i);
+void		allocate_greater(int *curr_token, int *curr_token_size, char *line,
+			int *i);
+void		allocate_less(int *curr_token, int *curr_token_size,
+			char *line, int *i);
+void		allocate_pipe(int *curr_token, int *curr_token_size);
+void		skip_double_quotes(char *line, int *i, int *tokens);
+void		skip_single_quotes(char *line, int *i, int *tokens);
+void		skip_pipe(int *i, int *tokens);
+void		skip_gt(int *i, int *tokens, char *line);
+void		skip_lt(int *i, int *tokens, char *line);
+void		fill_double(int *i, char *line, int *curr_token, t_token **tokens);
+void		fill_single(int *i, char *line, int *curr_token, t_token **tokens);
+void		fill_pipe(t_token **tokens, int *curr_token, char *line, int i);
+void		fill_greater(t_token **tokens, int *curr_token, int *i, char *line);
+void		fill_less(t_token **tokens, int *curr_token, int *i, char *line);
 
 #endif

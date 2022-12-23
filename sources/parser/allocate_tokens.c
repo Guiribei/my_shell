@@ -3,70 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   allocate_tokens_content.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkomeno <tkomeno@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 17:06:54 by tkomeno           #+#    #+#             */
-/*   Updated: 2022/12/23 17:37:29 by tkomeno          ###   ########.fr       */
+/*   Updated: 2022/12/23 22:11:37 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	allocate_double(int *curr_token, int *curr_token_size, char *line,
-		int *i)
+t_token	*allocate_tokens(char *line)
 {
-	(*curr_token)++;
-	(*i)++;
-	while (line[*i] && line[*i] != '"')
-	{
-		(*i)++;
-		(*curr_token_size)++;
-	}
-	if (line[*i] == '"')
-		(*i)++;
-}
+	t_token	*tokens;
 
-void	allocate_single(int *curr_token, int *curr_token_size, char *line,
-		int *i)
-{
-	(*curr_token)++;
-	(*i)++;
-	while (line[*i] && line[*i] != '\'')
-	{
-		(*i)++;
-		(*curr_token_size)++;
-	}
-	if (line[*i] == '\'')
-		(*i)++;
-}
-
-void	allocate_pipe(int *curr_token, int *curr_token_size)
-{
-	(*curr_token)++;
-	(*curr_token_size)++;
-}
-
-void	allocate_greater(int *curr_token, int *curr_token_size, char *line,
-		int *i)
-{
-	(*curr_token)++;
-	(*curr_token_size)++;
-	if (line[*i + 1] && line[*i + 1] == '>')
-	{
-		(*i)++;
-		(*curr_token_size)++;
-	}
-}
-
-void	allocate_less(int *curr_token, int *curr_token_size, char *line, int *i)
-{
-	(*curr_token)++;
-	(*curr_token_size)++;
-	if (line[*i + 1] && line[*i + 1] == '<')
-	{
-		(*i)++;
-		(*curr_token_size)++;
-	}
+	tokens = ft_calloc(sizeof(t_token), (count_tokens(line) + 1));
+	if (!tokens)
+		return (NULL);
+	return (tokens);
 }
 
 void	allocate_normal(char *line, int *i, int *curr_token,

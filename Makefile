@@ -1,6 +1,7 @@
 NAME = minishell
 PATH_SRC = ./sources/
 PATH_SRCS = ./sources/builtins/
+PATH_SORCS = ./sources/parser/
 PATH_OBJ = ./objects/
 
 SRC = prompt.c \
@@ -19,12 +20,17 @@ SRC = prompt.c \
 	  utils.c \
 	  exit.c \
 	  init.c \
-	  tokenizer.c \
-	  count_tokens_utils.c \
-	  count_tokens.c \
 	  error.c \
 	  ft_atoi_long.c \
-	  expand_variables.c
+	  expand_variables.c \
+	  tokenize.c \
+	  count_tokens.c \
+	  count_tokens_utils.c \
+	  allocate_tokens.c \
+	  allocate_tokens_utils.c \
+	  fill_tokens.c \
+	  fill_tokens_utils.c
+
 
 OBJ = ${SRC:%.c=$(PATH_OBJ)%.o}
 
@@ -47,6 +53,10 @@ $(PATH_OBJ)%.o: $(PATH_SRC)%.c
 	@echo "\033[1;92m[SUCCESS] Objects creation done!\033[0m"
 
 $(PATH_OBJ)%.o: $(PATH_SRCS)%.c
+	cc $(FLAGS) $(INCLUDE) -c $< -o $@
+	@echo "\033[1;92m[SUCCESS] Objects creation done!\033[0m"
+
+$(PATH_OBJ)%.o: $(PATH_SORCS)%.c
 	cc $(FLAGS) $(INCLUDE) -c $< -o $@
 	@echo "\033[1;92m[SUCCESS] Objects creation done!\033[0m"
 

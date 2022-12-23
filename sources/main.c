@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 22:13:00 by coder             #+#    #+#             */
-/*   Updated: 2022/12/23 15:32:38 by guribeir         ###   ########.fr       */
+/*   Updated: 2022/12/23 22:04:55 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,19 @@ void	break_free(t_data *data)
 //TO DEBUG: TOKENIZER FILLING PROCESS
 int main(void)
 {
-	int i = 0;
+	int i;
+	t_token *tokens;
+
+	i = 0;
 	char *line;
-	line = ft_strdup("echo \"hello world\" || >> << <> cat -e");
-	t_token *tokens = tokenize(line);
+	line = ft_strdup("echo \"hello world\" ||| >>><< <> cat -e");
+	tokens = tokenize(line);
 	while (tokens[i].name)
 	{
 		printf("O token atual é: %s\n", tokens[i].name);
 		i++;
 	}
+	// if (ft_strcmp(tokens[i].name, tokens[i + 1].name) == 0)
+	// 	return (error_message());
 	(void)tokens;
 }

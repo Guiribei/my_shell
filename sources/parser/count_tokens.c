@@ -6,11 +6,18 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:09:58 by tkomeno           #+#    #+#             */
-/*   Updated: 2022/12/23 17:07:15 by tkomeno          ###   ########.fr       */
+/*   Updated: 2022/12/23 22:13:32 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	count_as_token(char *line, int *i, int *tokens)
+{
+	(*tokens)++;
+	while (line[*i] && !ft_isspace(line[*i]))
+		(*i)++;
+}
 
 int	count_tokens(char *line)
 {
@@ -22,7 +29,7 @@ int	count_tokens(char *line)
 	while (line[i])
 	{
 		if (ft_isspace(line[i]))
-			skip_space(&i);
+			i++;
 		else if (line[i] == '"')
 			skip_double_quotes(line, &i, &tokens);
 		else if (line[i] == '\'')
