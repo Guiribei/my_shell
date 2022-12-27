@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2022/12/23 22:23:51 by guribeir         ###   ########.fr       */
+/*   Updated: 2022/12/27 00:34:42 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,14 @@ typedef struct s_token
 	char	*name;
 	int		size;
 }			t_token;
+
+typedef struct s_cmd
+{
+	char	*name;
+	char	*args;
+	int		fd_in;
+	int		fd_out;
+}			t_cmd;
 
 void		echo(char **str);
 void		strclear(char **str);
@@ -110,5 +118,8 @@ void		fill_single(int *i, char *line, int *curr_token, t_token **tokens);
 void		fill_pipe(t_token **tokens, int *curr_token, char *line, int i);
 void		fill_greater(t_token **tokens, int *curr_token, int *i, char *line);
 void		fill_less(t_token **tokens, int *curr_token, int *i, char *line);
+void		check_syntax(t_token *tokens);
+t_cmd		*init_cmd_table(t_token *tokens);
+t_bool		cmp(char *s1, char *s2);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 08:47:36 by vcastilh          #+#    #+#             */
-/*   Updated: 2022/12/20 21:39:40 by etachott         ###   ########.fr       */
+/*   Updated: 2022/12/26 18:20:55 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,6 @@ char		**ft_matrixcpy(char **src);
 int			ft_matrix_size(char **matrix);
 char		*set_key(char *cont);
 char		*set_value(char *cont);
+int			ft_strcmp(char *s1, char *s2);
+
 #endif

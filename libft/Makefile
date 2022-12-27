@@ -46,7 +46,8 @@ FILES = ft_isalpha.c \
 		ft_lstadd_back.c \
 		ft_lstdelone.c \
 		ft_lstclear.c \
-		ft_matrixcpy.c
+		ft_matrixcpy.c \
+		ft_strcmp.c
 
 
 OBJFILES = $(FILES:%.c=%.o)
