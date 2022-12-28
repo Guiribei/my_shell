@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 22:13:00 by coder             #+#    #+#             */
-/*   Updated: 2022/12/28 13:19:27 by guribeir         ###   ########.fr       */
+/*   Updated: 2022/12/28 20:59:12 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ int main(void)
 	tokens = tokenize(line);
 	check_syntax(tokens);
 	cmds = init_cmd_table(tokens);
-	while (tokens[i].name)
+	while (cmds[i].name)
 	{
-		printf("O token atual é: %s\n", tokens[i].name);
+		printf("O token atual é: %s %s\n", cmds[i].name, cmds[i].args);
 		i++;
 	}
 	(void)tokens;

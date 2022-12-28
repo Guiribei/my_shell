@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 22:15:25 by guribeir          #+#    #+#             */
-/*   Updated: 2022/12/23 22:15:38 by guribeir         ###   ########.fr       */
+/*   Updated: 2022/12/28 20:46:08 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ void	fill_single(int *i, char *line, int *curr_token, t_token **tokens)
 	while (line[*i] && line[*i] != '\''
 		&& curr_token_size < (*tokens)[*curr_token].size)
 	{
-		(*tokens)[*curr_token].name[curr_token_size] = line[*i];
+		if (line[*i] == '~')
+			(*tokens)[*curr_token].name[curr_token_size] = ' ';
+		else
+			(*tokens)[*curr_token].name[curr_token_size] = line[*i];
 		curr_token_size++;
 		(*i)++;
 	}
