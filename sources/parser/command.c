@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 19:01:13 by guribeir          #+#    #+#             */
-/*   Updated: 2022/12/28 20:13:10 by guribeir         ###   ########.fr       */
+/*   Updated: 2022/12/28 23:50:44 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	safe_init(t_cmd **cmds, int size)
 	{
 		cmds[i]->name = NULL;
 		cmds[i]->args = NULL;
-		cmds[i]->fd_in = -1;
-		cmds[i]->fd_out = -1;
+		cmds[i]->fd_in = 0;
+		cmds[i]->fd_out = 1;
 		cmds[i]->pipe = ft_calloc(2, sizeof(int));
 		i++;
 	}
@@ -89,7 +89,7 @@ t_cmd	*init_cmd_table(t_token *tokens)
 			open_input_file(&cmds[j - 1], tokens[i + 1].name);
 			i++;
 		}
-		else if ((cmp(tokens[i].name, ">") || cmp(tokens[i].name, ">>")) && i == 0)
+		else if (cmp(tokens[i].name, ">") || cmp(tokens[i].name, ">>"))
 		{
 			while (tokens[i + 2].name && (cmp(tokens[i + 2].name, ">") || cmp(tokens[i + 2].name, ">>")))
 				i += 2;
@@ -99,20 +99,22 @@ t_cmd	*init_cmd_table(t_token *tokens)
 				open_append_file(&cmds[j], tokens[i + 1].name);
 			i++;
 		}
-		else if (cmp(tokens[i].name, ">") || cmp(tokens[i].name, ">>"))
-		{
-			while (tokens[i + 2].name && (cmp(tokens[i + 2].name, ">") || cmp(tokens[i + 2].name, ">>")))
-				i += 2;
-			if (cmp(tokens[i].name, ">"))
-				open_output_file(&cmds[j - 1], tokens[i + 1].name);
-			else
-				open_append_file(&cmds[j - 1], tokens[i + 1].name);
-			i++;
-		}
+		// else if (cmp(tokens[i].name, ">") || cmp(tokens[i].name, ">>"))
+		// {
+		// 	while (tokens[i + 2].name && (cmp(tokens[i + 2].name, ">") || cmp(tokens[i + 2].name, ">>")))
+		// 		i += 2;
+		// 	if (cmp(tokens[i].name, ">"))
+		// 		open_output_file(&cmds[j], tokens[i + 1].name);
+		// 	else
+		// 		open_append_file(&cmds[j], tokens[i + 1].name);
+		// 	i++;
+		// }
 		else if (cmp(tokens[i].name, "|"))
 		{
 			if (pipe(cmds[j].pipe) == -1) // pra funcionar aqui tem q ser j - 1 pra registrar no comando anterior.
 				printf("minishell: pipe failed\n");
+			cmds[j].fd_out = cmds[j].pipe[0];
+			cmds[j + 1].fd_in = cmds[j].pipe[1];
 			j++;
 		}
 		else
