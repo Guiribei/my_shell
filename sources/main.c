@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 22:13:00 by coder             #+#    #+#             */
-/*   Updated: 2022/12/27 02:01:31 by guribeir         ###   ########.fr       */
+/*   Updated: 2022/12/28 13:19:27 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int main(void)
 
 	i = 0;
 	char *line;
-	line = ft_strdup("echo \"Hello World\" < filezo | wc -w");
+	line = ft_strdup("< infile echo \"Hello World\" | wc -w >> outfile");
 	tokens = tokenize(line);
 	check_syntax(tokens);
 	cmds = init_cmd_table(tokens);
