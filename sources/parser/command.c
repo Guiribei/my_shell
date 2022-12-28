@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 19:01:13 by guribeir          #+#    #+#             */
-/*   Updated: 2022/12/28 23:50:44 by guribeir         ###   ########.fr       */
+/*   Updated: 2022/12/29 00:15:52 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,10 @@ t_cmd	*init_cmd_table(t_token *tokens)
 	
 	i = 0;
 	j = 0;
-	cmds = ft_calloc(count_args(tokens), sizeof (t_cmd)); //aloquei, tem q dar free dps
-	safe_init(&cmds, count_args(tokens));
+	cmds = ft_calloc(count_args(tokens), sizeof (t_cmd)); //aloquei (isso e mais mt coisa), tem q dar free dps
+	safe_init(&cmds, count_args(tokens));// aqui também tem calloc (dos ints fd_in e fd_out)
 	while (tokens[i].name)
 	{
-		//esse primeiro if dá o open no cmds[j], o else if ali dá o open no cmds[j - 1], tirei o else q deixaria o fd_in na entrada padrão pq acho q o normal é já estar assim
 		if (cmp(tokens[i].name, "<") && i == 0)
 		{
 			while (tokens[i + 2].name && (cmp(tokens[i + 2].name, "<")))
@@ -99,20 +98,10 @@ t_cmd	*init_cmd_table(t_token *tokens)
 				open_append_file(&cmds[j], tokens[i + 1].name);
 			i++;
 		}
-		// else if (cmp(tokens[i].name, ">") || cmp(tokens[i].name, ">>"))
-		// {
-		// 	while (tokens[i + 2].name && (cmp(tokens[i + 2].name, ">") || cmp(tokens[i + 2].name, ">>")))
-		// 		i += 2;
-		// 	if (cmp(tokens[i].name, ">"))
-		// 		open_output_file(&cmds[j], tokens[i + 1].name);
-		// 	else
-		// 		open_append_file(&cmds[j], tokens[i + 1].name);
-		// 	i++;
-		// }
 		else if (cmp(tokens[i].name, "|"))
 		{
-			if (pipe(cmds[j].pipe) == -1) // pra funcionar aqui tem q ser j - 1 pra registrar no comando anterior.
-				printf("minishell: pipe failed\n");
+			if (pipe(cmds[j].pipe) == -1)
+				printf("minishell: pipe failed\n");//lacking a decent error message and loop breaking
 			cmds[j].fd_out = cmds[j].pipe[0];
 			cmds[j + 1].fd_in = cmds[j].pipe[1];
 			j++;
@@ -120,10 +109,10 @@ t_cmd	*init_cmd_table(t_token *tokens)
 		else
 		{
 			if (!cmds[j].name)
-				cmds[j].name = ft_strdup(tokens[i].name);
+				cmds[j].name = ft_strdup(tokens[i].name); //mais alocações de memória
 			else if (!cmds[j].args)
 			{
-				cmds[j].args = ft_strdup(tokens[i].name);
+				cmds[j].args = ft_strdup(tokens[i].name);//mais alocações 
 				cmds[j + 1].args = NULL; // isso daqui vai dar mt b.o. de memória
 			}
 			else
@@ -131,5 +120,6 @@ t_cmd	*init_cmd_table(t_token *tokens)
 		}
 		i++;
 	}
+	//free_tokens(ainda n existe a função, tem q criar);
 	return(cmds);
 }
