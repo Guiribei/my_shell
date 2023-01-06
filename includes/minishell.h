@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2022/12/28 20:10:05 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/06 20:49:29 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,6 @@ void		fill_less(t_token **tokens, int *curr_token, int *i, char *line);
 void		check_syntax(t_token *tokens);
 t_cmd		*init_cmd_table(t_token *tokens);
 t_bool		cmp(char *s1, char *s2);
-void		safe_init(t_cmd **cmds, int size);
+void		safe_init(t_cmd *cmds, int size);
 
 #endif

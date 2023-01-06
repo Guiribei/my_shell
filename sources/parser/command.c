@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 19:01:13 by guribeir          #+#    #+#             */
-/*   Updated: 2022/12/29 00:15:52 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/06 20:43:18 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,27 @@ int	count_args(t_token *tokens)
 
 	count = 1;
 	i = 0;
-	while(tokens[i++].name)
-		if(cmp(tokens[count].name, "|"))
+	while(tokens[i].name)
+	{
+		if(cmp(tokens[i].name, "|"))
 			count++;
+		i++;
+	}
 	return (count);
 }
 
-void	safe_init(t_cmd **cmds, int size)
+void	safe_init(t_cmd *cmds, int size)
 {
 	int		i;
 
 	i = 0;
 	while(i < size)
 	{
-		cmds[i]->name = NULL;
-		cmds[i]->args = NULL;
-		cmds[i]->fd_in = 0;
-		cmds[i]->fd_out = 1;
-		cmds[i]->pipe = ft_calloc(2, sizeof(int));
+		cmds[i].name = NULL;
+		cmds[i].args = NULL;
+		cmds[i].fd_in = 0;
+		cmds[i].fd_out = 1;
+		cmds[i].pipe = NULL;
 		i++;
 	}
 }
@@ -71,7 +74,7 @@ t_cmd	*init_cmd_table(t_token *tokens)
 	i = 0;
 	j = 0;
 	cmds = ft_calloc(count_args(tokens), sizeof (t_cmd)); //aloquei (isso e mais mt coisa), tem q dar free dps
-	safe_init(&cmds, count_args(tokens));// aqui também tem calloc (dos ints fd_in e fd_out)
+	safe_init(cmds, count_args(tokens));// aqui também tem calloc (dos ints fd_in e fd_out)
 	while (tokens[i].name)
 	{
 		if (cmp(tokens[i].name, "<") && i == 0)
@@ -100,6 +103,7 @@ t_cmd	*init_cmd_table(t_token *tokens)
 		}
 		else if (cmp(tokens[i].name, "|"))
 		{
+			cmds[j].pipe = ft_calloc(2, sizeof(int));
 			if (pipe(cmds[j].pipe) == -1)
 				printf("minishell: pipe failed\n");//lacking a decent error message and loop breaking
 			cmds[j].fd_out = cmds[j].pipe[0];
