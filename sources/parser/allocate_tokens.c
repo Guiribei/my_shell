@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   allocate_tokens_content.c                          :+:      :+:    :+:   */
+/*   allocate_tokens.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 17:06:54 by tkomeno           #+#    #+#             */
-/*   Updated: 2022/12/23 22:11:37 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/16 16:57:17 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ t_token	*allocate_tokens_content(char *line, t_token *tokens, int curr_token,
 			allocate_normal(line, &i, &curr_token, &curr_token_size);
 		if (actual_allocation(&tokens, curr_token, curr_token_size) == -1)
 			return (NULL);
+		if (!line[i])
+			break ;
 	}
 	return (tokens);
 }

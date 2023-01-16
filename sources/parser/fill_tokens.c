@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_tokens.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 17:07:22 by tkomeno           #+#    #+#             */
-/*   Updated: 2022/12/28 20:46:23 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/16 16:57:43 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ t_token	*fill_tokens_content(char *line, t_token *tokens)
 			fill_less(&tokens, &curr_token, &i, line);
 		else
 			fill_normal(line, &i, &tokens, &curr_token);
+		if (!line[i])
+		break ;
 	}
 	return (tokens);
 }
