@@ -75,5 +75,10 @@ fclean: clean
 	@echo "\033[1;93m[SUCCESS] Removal done!\33[0m"
 
 re: fclean all
+	
+incendio: fclean
+	git add .
+	git commit -m "Emergency commit"
+	git push
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re incendio
