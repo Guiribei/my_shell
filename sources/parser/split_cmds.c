@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_cmds.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:34:34 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/16 16:53:05 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/16 19:00:04 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ static void	put_space(t_cmd *cmds)
 
 void	split_cmds(t_cmd *cmds)
 {
-	int	i;
-	int	flag;
+	int		i;
+	int		flag;
 	
 	if (!cmds)
 		return ;
@@ -98,5 +98,4 @@ void	split_cmds(t_cmd *cmds)
 			printf("Error malloc\n");
 		i++;
 	}
-	
 }

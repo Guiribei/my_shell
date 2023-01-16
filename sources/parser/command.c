@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 19:01:13 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/16 14:33:22 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/16 19:06:48 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,11 @@ t_cmd	*init_cmd_table(t_token *tokens)
 		else
 		{
 			if (!cmds[j].cmd)
+			{
+				printf("ENTERING STRUCT %d\n", j);
 		 		cmds[j].cmd = ft_strdup(tokens[i].name); //mais alocações de memória
+				printf("ALLOCATED: %s\n", cmds[j].cmd);
+			}
 			else
 				cmds[j].cmd = join_three(cmds[j].cmd, " ", tokens[i].name);
 		}

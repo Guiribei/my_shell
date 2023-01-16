@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 22:13:00 by coder             #+#    #+#             */
-/*   Updated: 2023/01/16 14:34:14 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/16 19:08:41 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,37 @@ void	break_free(t_data *data)
 // 	}
 // }
 
+void	free_cmds(t_cmd *cmds)
+{
+	int	index;
+
+	index = 0;
+	while (cmds[index].cmd)
+		index++;
+	printf("SIZE = %d\n", index);
+	while (index >= 0)
+	{
+		free(cmds[index].pipe);
+		printf("FREEING: %s\n", cmds[index].cmd);
+		free(cmds[index].cmd);
+		strsclear(cmds[index].cmds);
+		index--;
+	}
+	free(cmds);
+}
+
+void	free_tokens(t_token *tokens)
+{
+	int	index;
+
+	index = 0;
+	while(tokens[index].name)
+	{
+		free(tokens[index].name);
+		index++;
+	}
+	free(tokens);
+}
 
 //TO DEBUG: TOKENIZER FILLING PROCESS
 int main(void)
@@ -78,11 +109,15 @@ int main(void)
 	tokens = tokenize(line);
 	check_syntax(tokens);
 	cmds = init_cmd_table(tokens);
+	printf("BEFORE SPLIT: \"%s\" \"%s\"", cmds[0].cmd);
 	split_cmds(cmds);
 	while (cmds[i].cmd)
 	{
 		printf("O token atual é: \n%s \ninfile: %d\noutfile: %d\n\n", cmds[i].cmds[0], cmds[i].fd_in, cmds[i].fd_out);
 		i++;
 	}
+	free_cmds(cmds);
+	free_tokens(tokens);
+	free(line);
 	(void)tokens;
 }

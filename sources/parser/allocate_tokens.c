@@ -6,7 +6,7 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 17:06:54 by tkomeno           #+#    #+#             */
-/*   Updated: 2023/01/16 16:57:17 by etachott         ###   ########.fr       */
+/*   Updated: 2023/01/16 18:17:27 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ t_token	*allocate_tokens_content(char *line, t_token *tokens, int curr_token,
 		if (!line[i])
 			break ;
 	}
+	//tokens[count_tokens]
 	return (tokens);
 }
