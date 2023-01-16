@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 22:13:00 by coder             #+#    #+#             */
-/*   Updated: 2022/12/28 23:38:55 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/16 14:34:14 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,18 @@ int main(void)
 	int i;
 	t_token *tokens;
 	t_cmd	*cmds;
+	char *line;
 
 	i = 0;
-	char *line;
+	line = NULL;
 	line = ft_strdup("< infile echo \"Hello World\" | wc -w >> outfile");
 	tokens = tokenize(line);
 	check_syntax(tokens);
 	cmds = init_cmd_table(tokens);
-	while (cmds[i].name)
+	split_cmds(cmds);
+	while (cmds[i].cmd)
 	{
-		printf("O token atual é: \n%s %s\ninfile: %d\noutfile: %d\n\n", cmds[i].name, cmds[i].args, cmds[i].fd_in, cmds[i].fd_out);
+		printf("O token atual é: \n%s \ninfile: %d\noutfile: %d\n\n", cmds[i].cmds[0], cmds[i].fd_in, cmds[i].fd_out);
 		i++;
 	}
 	(void)tokens;

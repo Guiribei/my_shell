@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 19:01:13 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/06 20:43:18 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/16 14:33:22 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	open_append_file(t_cmd	*cmds, char *file)
 		printf("minishell: open failed\n");
 }
 
-int	count_args(t_token *tokens)
+int	count_cmds(t_token *tokens)
 {
 	int	count;
 	int	i;
@@ -56,8 +56,8 @@ void	safe_init(t_cmd *cmds, int size)
 	i = 0;
 	while(i < size)
 	{
-		cmds[i].name = NULL;
-		cmds[i].args = NULL;
+		cmds[i].cmd = NULL;
+		cmds[i].cmds = NULL;
 		cmds[i].fd_in = 0;
 		cmds[i].fd_out = 1;
 		cmds[i].pipe = NULL;
@@ -73,8 +73,8 @@ t_cmd	*init_cmd_table(t_token *tokens)
 	
 	i = 0;
 	j = 0;
-	cmds = ft_calloc(count_args(tokens), sizeof (t_cmd)); //aloquei (isso e mais mt coisa), tem q dar free dps
-	safe_init(cmds, count_args(tokens));// aqui também tem calloc (dos ints fd_in e fd_out)
+	cmds = ft_calloc(count_cmds(tokens) + 1, sizeof (t_cmd)); //aloquei (isso e mais mt coisa), tem q dar free dps
+	safe_init(cmds, count_cmds(tokens) + 1);// aqui também tem calloc (dos ints fd_in e fd_out)
 	while (tokens[i].name)
 	{
 		if (cmp(tokens[i].name, "<") && i == 0)
@@ -112,16 +112,22 @@ t_cmd	*init_cmd_table(t_token *tokens)
 		}
 		else
 		{
-			if (!cmds[j].name)
-				cmds[j].name = ft_strdup(tokens[i].name); //mais alocações de memória
-			else if (!cmds[j].args)
-			{
-				cmds[j].args = ft_strdup(tokens[i].name);//mais alocações 
-				cmds[j + 1].args = NULL; // isso daqui vai dar mt b.o. de memória
-			}
+			if (!cmds[j].cmd)
+		 		cmds[j].cmd = ft_strdup(tokens[i].name); //mais alocações de memória
 			else
-				cmds[j].args = join_three(cmds[j].args, " ", tokens[i].name);
+				cmds[j].cmd = join_three(cmds[j].cmd, " ", tokens[i].name);
 		}
+		// {
+		// 	if (!cmds[j].cmd[0])
+		// 		cmds[j].cmd[0] = ft_strdup(tokens[i].name); //mais alocações de memória
+		// 	else if (!cmds[j].cmd[k])
+		// 	{
+		// 		cmds[j].cmd[k] = ft_strdup(tokens[i].name);//mais alocações 
+		// 		cmds[j + 1].cmd[k] = NULL; // isso daqui vai dar mt b.o. de memória
+		// 		k++;
+		// 	}
+		// 	else
+		// 		cmds[j].cmd[k] = join_three(cmds[j].args, " ", tokens[i].name);
 		i++;
 	}
 	//free_tokens(ainda n existe a função, tem q criar);

@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2023/01/06 20:49:29 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/16 14:24:43 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ typedef struct s_token
 
 typedef struct s_cmd
 {
-	char	*name;
-	char	*args;
+	char	*cmd;
+	char	**cmds;
 	int		fd_in;
 	int		fd_out;
 	int		*pipe;
@@ -123,5 +123,6 @@ void		check_syntax(t_token *tokens);
 t_cmd		*init_cmd_table(t_token *tokens);
 t_bool		cmp(char *s1, char *s2);
 void		safe_init(t_cmd *cmds, int size);
+void		split_cmds(t_cmd *cmds);
 
 #endif
