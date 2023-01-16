@@ -6,7 +6,7 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 19:01:13 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/16 19:06:48 by etachott         ###   ########.fr       */
+/*   Updated: 2023/01/16 20:06:36 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	safe_init(t_cmd *cmds, int size)
 t_cmd	*init_cmd_table(t_token *tokens)
 {
 	t_cmd	*cmds;
+	char	*temp;
 	int		i;
 	int		j;
 	
@@ -113,13 +114,14 @@ t_cmd	*init_cmd_table(t_token *tokens)
 		else
 		{
 			if (!cmds[j].cmd)
-			{
-				printf("ENTERING STRUCT %d\n", j);
 		 		cmds[j].cmd = ft_strdup(tokens[i].name); //mais alocações de memória
-				printf("ALLOCATED: %s\n", cmds[j].cmd);
-			}
 			else
-				cmds[j].cmd = join_three(cmds[j].cmd, " ", tokens[i].name);
+			{
+				temp = ft_strdup(cmds[j].cmd);
+				free(cmds[j].cmd);
+				cmds[j].cmd = join_three(temp, " ", tokens[i].name);
+				free(temp);
+			}
 		}
 		// {
 		// 	if (!cmds[j].cmd[0])

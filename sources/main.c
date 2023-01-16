@@ -6,7 +6,7 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 22:13:00 by coder             #+#    #+#             */
-/*   Updated: 2023/01/16 19:08:41 by etachott         ###   ########.fr       */
+/*   Updated: 2023/01/16 20:07:48 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,9 @@ void	free_cmds(t_cmd *cmds)
 	index = 0;
 	while (cmds[index].cmd)
 		index++;
-	printf("SIZE = %d\n", index);
 	while (index >= 0)
 	{
 		free(cmds[index].pipe);
-		printf("FREEING: %s\n", cmds[index].cmd);
 		free(cmds[index].cmd);
 		strsclear(cmds[index].cmds);
 		index--;
@@ -109,7 +107,6 @@ int main(void)
 	tokens = tokenize(line);
 	check_syntax(tokens);
 	cmds = init_cmd_table(tokens);
-	printf("BEFORE SPLIT: \"%s\" \"%s\"", cmds[0].cmd);
 	split_cmds(cmds);
 	while (cmds[i].cmd)
 	{
