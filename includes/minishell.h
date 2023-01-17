@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2023/01/16 14:24:43 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/17 17:11:52 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ typedef struct s_cmd
 	int		fd_in;
 	int		fd_out;
 	int		*pipe;
+	char	*path_cmd;
+	int		pid;
 }			t_cmd;
 
 void		echo(char **str);
@@ -124,5 +126,6 @@ t_cmd		*init_cmd_table(t_token *tokens);
 t_bool		cmp(char *s1, char *s2);
 void		safe_init(t_cmd *cmds, int size);
 void		split_cmds(t_cmd *cmds);
+int			core(t_cmd *cmds, char **envp);
 
 #endif

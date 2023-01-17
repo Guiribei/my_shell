@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 19:01:13 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/16 20:06:36 by etachott         ###   ########.fr       */
+/*   Updated: 2023/01/17 16:31:21 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void	safe_init(t_cmd *cmds, int size)
 		cmds[i].fd_in = 0;
 		cmds[i].fd_out = 1;
 		cmds[i].pipe = NULL;
+		cmds[i].path_cmd = NULL;
+		cmds[i].pid = -1;
 		i++;
 	}
 }

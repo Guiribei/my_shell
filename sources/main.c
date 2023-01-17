@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 22:13:00 by coder             #+#    #+#             */
-/*   Updated: 2023/01/16 20:07:48 by etachott         ###   ########.fr       */
+/*   Updated: 2023/01/17 17:19:48 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,25 +94,29 @@ void	free_tokens(t_token *tokens)
 }
 
 //TO DEBUG: TOKENIZER FILLING PROCESS
-int main(void)
+int main(int argc, char **argv, char **envp)
 {
-	int i;
+	int 	i;
 	t_token *tokens;
 	t_cmd	*cmds;
-	char *line;
+	char 	*line;
+	int		exitcode;
 
 	i = 0;
 	line = NULL;
-	line = ft_strdup("< infile echo \"Hello World\" | wc -w >> outfile");
+	(void)argc;
+	(void)argv;
+	line = ft_strdup("< infile grep \"Brasil\" | wc -w >> outfile");
 	tokens = tokenize(line);
 	check_syntax(tokens);
 	cmds = init_cmd_table(tokens);
 	split_cmds(cmds);
-	while (cmds[i].cmd)
-	{
-		printf("O token atual é: \n%s \ninfile: %d\noutfile: %d\n\n", cmds[i].cmds[0], cmds[i].fd_in, cmds[i].fd_out);
-		i++;
-	}
+	exitcode = core(cmds, envp);
+	// while (cmds[i].cmd)
+	// {
+	// 	printf("O token atual é: \n%s \ninfile: %d\noutfile: %d\n\n", cmds[i].cmds[0], cmds[i].fd_in, cmds[i].fd_out);
+	// 	i++;
+	// }
 	free_cmds(cmds);
 	free_tokens(tokens);
 	free(line);
