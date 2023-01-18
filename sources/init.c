@@ -21,4 +21,6 @@ void	init_global(t_data *d)
 	d->cwd = NULL;
 	d->str = NULL;
 	d->cmd = NULL;
+	d->std_in_fd = dup(0);
+	d->std_out_fd = dup(1);
 }

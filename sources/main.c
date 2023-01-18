@@ -44,6 +44,7 @@ void	free_cmds(t_cmd *cmds)
 	while (index >= 0)
 	{
 		free(cmds[index].cmd);
+		free(cmds[index].path_cmd);
 		strsclear(cmds[index].cmds);
 		index--;
 	}
@@ -64,62 +65,60 @@ void	free_tokens(t_token *tokens)
 }
 
 //TO DEBUG: TOKENIZER FILLING PROCESS
-int main(int argc, char **argv, char **envp)
+// int main(int argc, char **argv, char **envp)
+// {
+// 	t_token *tokens;
+// 	t_cmd	*cmds;
+// 	char 	*line;
+// 	int		exitcode;
+
+// 	(void) argc; (void) argv;
+// 	line = ft_strdup("< infile grep \"Brasil\" | wc -w >> outfile");
+// 	tokens = tokenize(line);
+// 	check_syntax(tokens);
+// 	cmds = init_cmd_table(tokens);
+// 	split_cmds(cmds);
+// 	exitcode = core(cmds, envp);
+// 	free_cmds(cmds);
+// 	free_tokens(tokens);
+// 	free(line);
+// 	(void)tokens;
+// }
+
+int	main(int argc, char *argv[], char *envp[])
 {
-	int 	i;
+	struct sigaction	act;
+	struct sigaction	act_2;
 	t_token *tokens;
 	t_cmd	*cmds;
-	char 	*line;
 	int		exitcode;
 
-	i = 0;
-	line = NULL;
-	(void)argc;
-	(void)argv;
-	line = ft_strdup("< infile grep \"Brasil\" | wc -w >> outfile");
-	tokens = tokenize(line);
-	check_syntax(tokens);
-	cmds = init_cmd_table(tokens);
-	split_cmds(cmds);
-	exitcode = core(cmds, envp);
-	// while (cmds[i].cmd)
-	// {
-	// 	printf("O token atual é: \n%s \ninfile: %d\noutfile: %d\n\n", cmds[i].cmds[0], cmds[i].fd_in, cmds[i].fd_out);
-	// 	i++;
-	// }
-	free_cmds(cmds);
-	free_tokens(tokens);
-	free(line);
-	(void)tokens;
+	if (argc == 0 || !argv[0])
+		return (1);
+	set_signals(&act, &act_2);
+	init_global(&g_data);
+	g_data.envp = set_env(envp);
+	while (1)
+	{
+		g_data.cwd = getcwd(NULL, 0);
+		g_data.prompt_name = join_three("minishell:~", g_data.cwd, "$ ");
+		free(g_data.cwd);
+		g_data.str = set_prompt(g_data.prompt_name);
+		if (is_expansible(g_data.str))
+			g_data.str = expand_str(g_data.str);
+		if (!g_data.str)
+		{
+			break_free(&g_data);
+			write(1, "\n", 1);
+			exit(127);
+		}
+		tokens = tokenize(g_data.str);
+		check_syntax(tokens);
+		cmds = init_cmd_table(tokens);
+		split_cmds(cmds);
+		exitcode = core(cmds, envp);
+		free_cmds(cmds);
+		free_tokens(tokens);
+		half_break_free(&g_data);
+	}
 }
-
-// int	main(int argc, char *argv[], char *envp[])
-// {
-// 	struct sigaction	act;
-// 	struct sigaction	act_2;
-
-// 	if (argc == 0 || !argv[0])
-// 		return (1);
-// 	set_signals(&act, &act_2);
-// 	init_global(&g_data);
-// 	g_data.envp = set_env(envp);
-// 	while (1)
-// 	{
-// 		g_data.cwd = getcwd(NULL, 0);
-// 		g_data.prompt_name = join_three("minishell:~", g_data.cwd, "$ ");
-// 		free(g_data.cwd);
-// 		g_data.str = set_prompt(g_data.prompt_name);
-// 		if (is_expansible(g_data.str))
-// 			g_data.str = expand_str(g_data.str);
-// 		// g_data.prompt = ft_split(g_data.str, ' ');
-// 		g_data.prompt = ft_split(g_data.str, ' ');
-// 		if (!g_data.str)
-// 		{
-// 			break_free(&g_data);
-// 			write(1, "\n", 1);
-// 			exit(127);
-// 		}
-// 		executor(g_data.prompt, g_data.envp);
-// 		half_break_free(&g_data);
-// 	}
-// }

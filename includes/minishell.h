@@ -60,6 +60,8 @@ typedef struct s_data
 	char	*cwd;
 	char	*str;
 	char	*cmd;
+	int		std_in_fd;
+	int		std_out_fd;
 }			t_data;
 
 typedef struct s_token
