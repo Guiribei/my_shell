@@ -12,22 +12,38 @@
 
 #include "minishell.h"
 
-static void change_inout(t_cmd *cmd)
+void	select_inout(t_cmd *cmds, int i)
 {
-	if(dup2(cmd->fd_in, 0) == -1)
-		printf("dup failed\n");
-	if(dup2(cmd->fd_out, 1) == -1)
-		printf("dup failed\n");
+	if (cmds[i].where_read == FILE_IN)
+	{
+		if(dup2(cmds[i].fd_in, 0) == -1)
+			printf("dup failed\n");
+	}
+	if (cmds[i].where_read == PIPE_0)
+	{
+		close(cmds[i - 1].pipe[1]);
+		if(dup2(cmds[i - 1].pipe[0], 0) == -1)
+			printf("dup failed\n");
+	}
+	if (cmds[i].where_write == PIPE_1)
+	{
+		close(cmds[i].pipe[0]);
+		if(dup2(cmds[i].pipe[1], 1) == -1)
+			printf("dup failed\n");
+	}
+	if (cmds[i].where_write == FILE_OUT)
+	{
+		if(dup2(cmds[i].fd_out, 1) == -1)
+			printf("dup failed\n");
+	}
 }
 
-static void	child(t_cmd *cmd, char **envp)
+static void	child(t_cmd *cmds, char **envp, int i)
 {
-	count_cmds();
-	change_inout(cmd);
-	//full_close(cmd);
-	if (cmd->cmds == NULL || cmd->path_cmd == NULL)
+	select_inout(cmds, i);
+	if (cmds[i].cmds == NULL || cmds[i].path_cmd == NULL)
 		printf("Command not found, child\n");
-	if (execve(cmd->path_cmd, cmd->cmds, envp) == -1)
+	if (execve(cmds[i].path_cmd, cmds[i].cmds, envp) == -1)
 		printf("faild execve");
 }
 
@@ -38,7 +54,7 @@ static int	parent(t_cmd *cmds)
 	int		exitcode;
 	int		i;
 
-	//full_close();
+	full_close(cmds);
 	exitcode = 1;
 	i = 0;
 	while (cmds[i].cmd)
@@ -68,7 +84,6 @@ int	core(t_cmd *cmds, char **envp)
 			printf("%s: Command not found\n", cmds[i].cmds[0]);
 			return (127);
 		}
-		printf("FD_IN: %d\t FD_OUT: %d\t\n", cmds[i].fd_in, cmds[i].fd_out);
 		cmds[i].pid = fork();
 		if (cmds[i].pid == -1)
 		{
@@ -76,7 +91,7 @@ int	core(t_cmd *cmds, char **envp)
 			return (1);
 		}
 		else if (cmds[i].pid == 0)
-			child(&cmds[i], envp);
+			child(cmds, envp, i);
 		i++;
 	}
 	exitcode = parent(cmds);

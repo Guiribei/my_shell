@@ -39,7 +39,7 @@ char	**get_paths(char **envp)
 			path = ft_strdup(envp[index]);
 		index++;
 	}
-	paths = ft_split(path, ':');
+	paths = ft_split(path + 5, ':');
 	free(path);
 	append_slash_to_path(paths);
 	return (paths);

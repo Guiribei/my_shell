@@ -54,3 +54,15 @@ void	strsclear(char **ptrs)
 		ptrs = NULL;
 	}
 }
+
+void	full_close(t_cmd *cmd)
+{
+	if (cmd->fd_in != -1)
+		close(cmd->fd_in);
+	if (cmd->fd_out != -1)
+		close(cmd->fd_out);
+	if (cmd->pipe[0] != 0)
+		close(cmd->pipe[0]);
+	if (cmd->pipe[1] != 0)
+		close(cmd->pipe[1]);
+}

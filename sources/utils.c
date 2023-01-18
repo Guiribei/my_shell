@@ -27,3 +27,13 @@ t_bool	is(const char *s, int c)
 	}
 	return (FALSE);
 }
+
+int	count_iterations(t_cmd *cmds)
+{
+	int	i;
+
+	i = 0;
+	while (cmds[i].cmd)
+		i++;
+	return (i);
+}

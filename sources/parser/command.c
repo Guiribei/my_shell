@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+extern t_data	g_data;
+
 static void	open_input_file(t_cmd	*cmds, char *file)
 {
 	cmds->fd_in = open(file, O_RDONLY, 644);
@@ -60,9 +62,11 @@ void	safe_init(t_cmd *cmds, int size)
 		cmds[i].cmds = NULL;
 		cmds[i].fd_in = 0;
 		cmds[i].fd_out = 1;
-		cmds[i].pipe = NULL;
 		cmds[i].path_cmd = NULL;
 		cmds[i].pid = -1;
+		cmds[i].where_read = STD_IN;
+		cmds[i].where_write = STD_OUT;
+		memset(cmds[i].pipe, 0, 2);
 		i++;
 	}
 }
@@ -85,6 +89,7 @@ t_cmd	*init_cmd_table(t_token *tokens)
 			while (tokens[i + 2].name && (cmp(tokens[i + 2].name, "<")))
 				i += 2;
 			open_input_file(&cmds[j], tokens[i + 1].name);
+			cmds[j].where_read = FILE_IN;
 			i++;
 		}
 		else if (cmp(tokens[i].name, "<"))
@@ -92,6 +97,7 @@ t_cmd	*init_cmd_table(t_token *tokens)
 			while (tokens[i + 2].name && (cmp(tokens[i + 2].name, "<")))
 				i += 2;
 			open_input_file(&cmds[j - 1], tokens[i + 1].name);
+			cmds[j].where_read = FILE_IN;
 			i++;
 		}
 		else if (cmp(tokens[i].name, ">") || cmp(tokens[i].name, ">>"))
@@ -99,18 +105,23 @@ t_cmd	*init_cmd_table(t_token *tokens)
 			while (tokens[i + 2].name && (cmp(tokens[i + 2].name, ">") || cmp(tokens[i + 2].name, ">>")))
 				i += 2;
 			if (cmp(tokens[i].name, ">"))
+			{
 				open_output_file(&cmds[j], tokens[i + 1].name);
+				cmds[j].where_write = FILE_OUT;
+			}
 			else
+			{
 				open_append_file(&cmds[j], tokens[i + 1].name);
+				cmds[j].where_write = FILE_OUT;
+			}
 			i++;
 		}
 		else if (cmp(tokens[i].name, "|"))
 		{
-			cmds[j].pipe = ft_calloc(2, sizeof(int));
 			if (pipe(cmds[j].pipe) == -1)
 				printf("minishell: pipe failed\n");//lacking a decent error message and loop breaking
-			cmds[j].fd_out = cmds[j].pipe[0];
-			cmds[j + 1].fd_in = cmds[j].pipe[1];
+			cmds[j].where_write = PIPE_1;
+			cmds[j + 1].where_read = PIPE_0;
 			j++;
 		}
 		else

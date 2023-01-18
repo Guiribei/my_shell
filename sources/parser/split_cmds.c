@@ -17,6 +17,8 @@ static int	before_split(char *cmd)
 	int	i;
 	int	j;
 
+	if (!cmd)
+		return (0);
 	i = -1;
 	while (cmd[++i])
 	{

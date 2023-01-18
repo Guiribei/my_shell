@@ -25,12 +25,31 @@
 # include <unistd.h>
 
 # define LLONG_MAX 9223372036854775807
+# define STD_IN 0
+# define STD_OUT 1
+# define FILE_IN 2
+# define FILE_OUT 3
+# define PIPE_0 4
+# define PIPE_1 5
 
 typedef enum e_bool
 {
 	FALSE,
 	TRUE
 }			t_bool;
+
+typedef struct s_cmd
+{
+	char	*cmd;
+	char	**cmds;
+	int		fd_in;
+	int		fd_out;
+	char	*path_cmd;
+	int		pid;
+	int		where_read;
+	int		where_write;
+	int		pipe[2];
+}			t_cmd;
 
 typedef struct s_data
 {
@@ -48,17 +67,6 @@ typedef struct s_token
 	char	*name;
 	int		size;
 }			t_token;
-
-typedef struct s_cmd
-{
-	char	*cmd;
-	char	**cmds;
-	int		fd_in;
-	int		fd_out;
-	int		*pipe;
-	char	*path_cmd;
-	int		pid;
-}			t_cmd;
 
 void		echo(char **str);
 void		strclear(char **str);
@@ -121,6 +129,7 @@ void		fill_single(int *i, char *line, int *curr_token, t_token **tokens);
 void		fill_pipe(t_token **tokens, int *curr_token, char *line, int i);
 void		fill_greater(t_token **tokens, int *curr_token, int *i, char *line);
 void		fill_less(t_token **tokens, int *curr_token, int *i, char *line);
+void		full_close(t_cmd *cmd);
 void		check_syntax(t_token *tokens);
 t_cmd		*init_cmd_table(t_token *tokens);
 t_bool		cmp(char *s1, char *s2);
