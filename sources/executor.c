@@ -3,72 +3,98 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/29 19:34:51 by guribeir          #+#    #+#             */
-/*   Updated: 2022/12/16 12:37:39 by edu              ###   ########.fr       */
+/*   Created: 2023/01/06 21:00:15 by guribeir          #+#    #+#             */
+/*   Updated: 2023/01/19 21:20:12 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern t_data	g_data;
-
-void	error_handler(char *cmd, char *error)
+void	select_inout(t_cmd *cmds, int i)
 {
-	write(1, "minishell: ", 11);
-	ft_putstr_fd(cmd, 1);
-	write(1, ": ", 2);
-	ft_putstr_fd(error, 1);
-	write(1, "\n", 1);
+	if (cmds[i].where_read == FILE_IN)
+	{
+		if(dup2(cmds[i].fd_in, 0) == -1)
+			printf("dup failed\n");
+	}
+	if (cmds[i].where_read == PIPE_0)
+	{
+		close(cmds[i - 1].pipe[1]);
+		if(dup2(cmds[i - 1].pipe[0], 0) == -1)
+			printf("dup failed\n");
+	}
+	if (cmds[i].where_write == PIPE_1)
+	{
+		close(cmds[i].pipe[0]);
+		if(dup2(cmds[i].pipe[1], 1) == -1)
+			printf("dup failed\n");
+	}
+	if (cmds[i].where_write == FILE_OUT)
+	{
+		if(dup2(cmds[i].fd_out, 1) == -1)
+			printf("dup failed\n");
+	}
 }
 
-int	is_builtin(char **prompt, char **envp)
+static void	child(t_cmd *cmds, char **envp, int i)
 {
-	if (ft_strncmp(prompt[0], "cd", 2) == 0)
-		cd(envp, prompt[1]);
-	else if (ft_strncmp(prompt[0], "pwd", 3) == 0)
-		pwd();
-	else if (ft_strncmp(prompt[0], "echo", 4) == 0)
-		echo(prompt);
-	else if (ft_strncmp(prompt[0], "env", 4) == 0)
-		builtin_env();
-	else if (ft_strncmp(prompt[0], "exit", 4) == 0)
-		builtin_exit(prompt);
-	else if (ft_strncmp(prompt[0], "export", 6) == 0)
-		builtin_export(prompt[1]);
-	else if (ft_strncmp(prompt[0], "unset", 5) == 0)
-		builtin_unset(prompt[1]);
-	else
-		return (1);
-	return (0);
+	select_inout(cmds, i);
+	if (cmds[i].cmds == NULL || cmds[i].path_cmd == NULL)
+		printf("Command not found, child\n");
+	if (execve(cmds[i].path_cmd, cmds[i].cmds, envp) == -1)
+		printf("faild execve");
 }
 
-int	executor(char **prompt, char **envp)
+static int	parent(t_cmd *cmds)
 {
-	int		pid;
 	int		status;
-	char	**paths;
-	char	*cmd;
+	int		exitcode;
+	int		i;
+	int		j;
 
-	if (prompt[0] == NULL)
-		return (0);
-	if (is_builtin(prompt, envp) == 1)
+	full_close(cmds);
+	exitcode = 1;
+	i = 0;
+	j = count_iterations(cmds);
+	while (cmds[i].cmd)
+	{
+		waitpid(-1, &status, 0);
+		if (WIFEXITED(status))
+			exitcode = WEXITSTATUS(status);
+		i++;
+	}
+	return (exitcode);
+}
+
+int	core(t_cmd *cmds, char **envp)
+{
+	int		exitcode;
+	int		i;
+	char	**paths;
+	
+	i = 0;
+	while (cmds[i].cmd)
 	{
 		paths = get_paths(envp);
-		cmd = find_command(prompt[0], paths);
+		cmds[i].path_cmd = find_command(cmds[i].cmds[0], paths);
 		strsclear(paths);
-		if (!cmd)
+		if (!cmds[i].path_cmd)
 		{
-			error_handler(prompt[0], "command not found");
+			printf("%s: Command not found\n", cmds[i].cmds[0]);
 			return (127);
 		}
-		pid = fork();
-		if (pid == 0 && envp != NULL)
-			execve(cmd, &prompt[0], envp);
-		else
-			waitpid(pid, &status, 0);
-		free(cmd);
+		cmds[i].pid = fork();
+		if (cmds[i].pid == -1)
+		{
+			printf("minishell: fork: pid not found\n");
+			return (1);
+		}
+		else if (cmds[i].pid == 0)
+			child(cmds, envp, i);
+		i++;
 	}
-	return (0);
+	exitcode = parent(cmds);
+	return (exitcode);
 }
