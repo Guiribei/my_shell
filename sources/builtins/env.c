@@ -6,7 +6,7 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:25:43 by coder             #+#    #+#             */
-/*   Updated: 2022/12/17 15:57:18 by edu              ###   ########.fr       */
+/*   Updated: 2023/01/19 17:21:21 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ char	**set_env(char *envp[])
 	new_envp = NULL;
 	while (envp[index])
 		index++;
-	new_envp = ft_calloc(sizeof(char *), index + 1);
-	new_envp[index] = NULL;
-	index = 0;
+	new_envp = ft_calloc(sizeof(char *), index + 2);
+	new_envp[index + 1] = NULL;
+	new_envp[0] = ft_strdup("?=0");
+	index = 1;
 	while (envp[index])
 	{
 		new_envp[index] = ft_strdup(envp[index]);
@@ -38,7 +39,7 @@ int	builtin_env(void)
 {
 	int	index;
 
-	index = 0;
+	index = 1;
 	while (g_data.envp[index])
 	{
 		ft_putendl_fd(g_data.envp[index], 1);

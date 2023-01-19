@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_variables.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott <etachott@student.42sp.org.b      +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:09:50 by etachott          #+#    #+#             */
-/*   Updated: 2022/12/21 14:05:11 by etachott         ###   ########.fr       */
+/*   Updated: 2023/01/19 17:20:32 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ char	*expand_str(char *str)
 		pos++;
 		strclear(&final);
 		final = key_to_value(str + pos);
-		while (((65 <= str[pos] && str[pos] <= 90)
-				 || str[pos] == '_') && str[pos])
+		while (((65 <= str[pos] && str[pos] <= 90) || str[pos] == '_'
+			|| (str[pos] == '?')) && str[pos])
 			pos++;
 		if (*(str + pos))
 			temp2 = ft_strdup(str + pos);
