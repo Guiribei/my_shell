@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 22:13:00 by coder             #+#    #+#             */
-/*   Updated: 2023/01/19 23:41:05 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/20 00:44:07 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,27 +62,6 @@ void	free_tokens(t_token *tokens)
 	free(tokens);
 }
 
-//TO DEBUG: TOKENIZER FILLING PROCESS
-// int main(int argc, char **argv, char **envp)
-// {
-// 	t_token *tokens;
-// 	t_cmd	*cmds;
-// 	char 	*line;
-// 	int		exitcode;
-
-// 	(void) argc; (void) argv;
-// 	line = ft_strdup("< infile grep \"Brasil\" | wc -w >> outfile");
-// 	tokens = tokenize(line);
-// 	check_syntax(tokens);
-// 	cmds = init_cmd_table(tokens);
-// 	split_cmds(cmds);
-// 	exitcode = core(cmds, envp);
-// 	free_cmds(cmds);
-// 	free_tokens(tokens);
-// 	free(line);
-// 	(void)tokens;
-// }
-
 int	main(int argc, char *argv[], char *envp[])
 {
 	struct sigaction	act;
@@ -114,7 +93,7 @@ int	main(int argc, char *argv[], char *envp[])
 		check_syntax(tokens);
 		cmds = init_cmd_table(tokens);
 		split_cmds(cmds);
-		exitcode = core(cmds, envp);
+		exitcode = core(cmds, g_data.envp);
 		free_cmds(cmds);
 		free_tokens(tokens);
 		half_break_free(&g_data);

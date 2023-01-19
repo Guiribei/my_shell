@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:23:50 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/19 22:00:00 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/20 00:39:02 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,27 +36,4 @@ int	count_iterations(t_cmd *cmds)
 	while (cmds[i].cmd)
 		i++;
 	return (i);
-}
-
-void	print_cmd(t_cmd *cmd)
-{
-	if (cmd)
-		printf("CMD POINTER: %p\n", cmd);
-	if (cmd->cmd)
-		printf("COMMAND: %s\n", cmd->cmd);
-	if (cmd->cmds[0])
-		printf("COMMANDS[0]: %s\n", cmd->cmds[0]);
-	if (cmd->fd_in)
-		printf("FD_IN: %d\n", cmd->fd_in);
-	if (cmd->fd_out)
-		printf("FD_OUT: %d\n", cmd->fd_out);
-	if (cmd->path_cmd)
-		printf("PATH TO CMD: %s\n", cmd->path_cmd);
-	if (cmd->pid)
-		printf("PID: %d\n", cmd->pid);
-	if (cmd->where_read)
-		printf("WHERE READ: %d\n", cmd->where_read);
-	if (cmd->where_write)
-		printf("WHERE WRITE: %d\n", cmd->where_write);
-	printf("PIPE[0]: %d, PIPE[1]: %d\n", cmd->pipe[0], cmd->pipe[1]);
 }

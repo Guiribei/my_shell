@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2023/01/19 21:55:15 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/20 00:45:59 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_token
 typedef struct sigaction	t_sigaction;
 
 void		echo(char **str);
+int			builtin_run(char **prompt, char **envp);
 void		strclear(char **str);
 void		strsclear(char **ptrs);
 int			pwd(void);
@@ -93,6 +94,7 @@ int			cd(char **envp, char *folder);
 char		*read_env(char **env, char *key);
 char		**change_env(char **envp, char *key, char *value);
 t_bool		is(const char *s, int c);
+int			is_builtin(char **prompt);
 void		builtin_exit(char **args);
 void		init_global(t_data *d);
 void		break_free(t_data *data);

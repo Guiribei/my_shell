@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 21:00:15 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/19 23:45:02 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/20 00:45:06 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,21 +56,7 @@ static int	parent(t_cmd *cmds)
 	int		i;
 
 	i = 0;
-	// printf("BEFORE FULL CLOSE: \n");
-	// print_cmd(&cmds[0]);
-	// printf("\n\n");
-	// print_cmd(&cmds[1]);
-	// printf("\n\n");
-	// print_cmd(&cmds[2]);
-	// printf("\n\n");
 	full_close(cmds);
-	// printf("AFTER FULL CLOSE: \n");
-	// print_cmd(&cmds[0]);
-	// printf("\n\n");
-	// print_cmd(&cmds[1]);
-	// printf("\n\n");
-	// print_cmd(&cmds[2]);
-	// printf("\n\n");
 	exitcode = 1;
 	while (cmds[i].cmd)
 	{
@@ -93,7 +79,12 @@ int	core(t_cmd *cmds, char **envp)
 	i = 0;
 	while (cmds[i].cmd)
 	{
-
+		if (is_builtin(cmds[i].cmds))
+		{
+			builtin_run(cmds[i].cmds, envp);
+			i++;
+			continue ;
+		}
 		paths = get_paths(envp);
 		cmds[i].path_cmd = find_command(cmds[i].cmds[0], paths);
 		strsclear(paths);
