@@ -32,7 +32,7 @@ SRC = prompt.c \
 	  fill_tokens_utils.c \
 	  syntax.c \
 	  command.c \
-	  exec.c \
+	  is_builtin.c \
 	  split_cmds.c
 
 
