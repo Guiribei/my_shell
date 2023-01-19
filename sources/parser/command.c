@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 19:01:13 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/17 16:31:21 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/19 23:43:43 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	safe_init(t_cmd *cmds, int size)
 	{
 		cmds[i].cmd = NULL;
 		cmds[i].cmds = NULL;
-		cmds[i].fd_in = 0;
-		cmds[i].fd_out = 1;
+		cmds[i].fd_in = -1;
+		cmds[i].fd_out = -1;
 		cmds[i].path_cmd = NULL;
 		cmds[i].pid = -1;
 		cmds[i].where_read = STD_IN;
@@ -120,7 +120,8 @@ t_cmd	*init_cmd_table(t_token *tokens)
 		{
 			if (pipe(cmds[j].pipe) == -1)
 				printf("minishell: pipe failed\n");//lacking a decent error message and loop breaking
-			cmds[j].where_write = PIPE_1;
+			if (cmds[j].where_write != FILE_OUT)
+				cmds[j].where_write = PIPE_1;
 			cmds[j + 1].where_read = PIPE_0;
 			j++;
 		}

@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2023/01/17 17:11:52 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/19 21:55:15 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ typedef struct s_token
 	int		size;
 }			t_token;
 
+typedef struct sigaction	t_sigaction;
+
 void		echo(char **str);
 void		strclear(char **str);
 void		strsclear(char **ptrs);
@@ -80,6 +82,7 @@ char		**set_env(char *envp[]);
 int			builtin_env(void);
 int			builtin_export(char *name);
 int			builtin_unset(char *key);
+int			count_iterations(t_cmd *cmds);
 int			executor(char **prompt, char **envp);
 char		**get_paths(char **envp);
 char		*find_command(char *command, char **paths);
@@ -123,6 +126,7 @@ void		allocate_less(int *curr_token, int *curr_token_size,
 void		allocate_pipe(int *curr_token, int *curr_token_size);
 void		skip_double_quotes(char *line, int *i, int *tokens);
 void		skip_single_quotes(char *line, int *i, int *tokens);
+void		print_cmd(t_cmd *cmd);
 void		skip_pipe(int *i, int *tokens);
 void		skip_gt(int *i, int *tokens, char *line);
 void		skip_lt(int *i, int *tokens, char *line);

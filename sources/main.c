@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 22:13:00 by coder             #+#    #+#             */
-/*   Updated: 2023/01/17 17:19:48 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/19 23:41:05 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void	break_free(t_data *data)
 		strsclear(data->envp);
 	rl_clear_history();
 }
-
-
 
 void	free_cmds(t_cmd *cmds)
 {

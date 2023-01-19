@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 15:40:34 by etachott          #+#    #+#             */
-/*   Updated: 2022/12/14 15:43:59 by etachott         ###   ########.fr       */
+/*   Updated: 2023/01/19 19:02:36 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,3 +24,10 @@ void	init_global(t_data *d)
 	d->std_in_fd = dup(0);
 	d->std_out_fd = dup(1);
 }
+
+// void	init_sigaction(t_sigaction *action, void (*handler)(int), int signal)
+// {
+// 	action.sa_flags = 0;
+// 	action.sa_handler = handler;
+// 	sigaction(SIGUSR1, &sigact, NULL);
+// }

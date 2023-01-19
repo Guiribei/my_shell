@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 17:37:30 by guribeir          #+#    #+#             */
-/*   Updated: 2022/12/07 19:08:06 by etachott         ###   ########.fr       */
+/*   Updated: 2023/01/19 23:43:47 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,4 @@ void	full_close(t_cmd *cmds)
 			close(cmds[i].pipe[1]);
 		i++;
 	}
-	dup2(0, g_data.std_in_fd);
-	dup2(1, g_data.std_out_fd);
 }
