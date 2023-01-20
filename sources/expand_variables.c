@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_variables.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:09:50 by etachott          #+#    #+#             */
-/*   Updated: 2023/01/20 19:02:41 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/20 16:51:00 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,45 @@ int	is_expansible(char *str)
 
 	index = 0;
 	if (!str)
-		return (-1);
+		return (0);
 	while (str[index])
 	{
 		if (str[index] == '$'
 			&& ((65 <= str[index + 1] && str[index + 1] <= 90)
 			|| str[index + 1] == '?'))
-		{
-			printf("É expansível!\n");
 			return (1);
-		}
 		index++;
 	}
 	return (0);
 }
 
-char	*key_to_value(char *key)
+static int	has_cash_after_single_quotes(char *str)
+{
+	char	*quote_pos;
+	int		index;
+	int		expandable;
+
+	index = 0;
+	expandable = -1;
+	quote_pos = ft_strnstr(str, "\'", ft_strlen(str));
+	if (is_expansible(quote_pos))
+		return (1);
+	return (0);
+}
+
+char	*key_to_value(char *key_start)
 {
 	char	*final;
 	char	*temp;
+	char	*key;
 	int		index;
 
 	index = 0;
 	final = NULL;
+	while (((65 <= key_start[index] && key_start[index] <= 90) || key_start[index] == '_'
+		|| (key_start[index] == '?')) && key_start[index])
+		index++;
+	key = ft_strndup(key_start, index);
 	temp = ft_strjoin(key, "=");
 	while (g_data.envp[index])
 	{
@@ -56,6 +72,7 @@ char	*key_to_value(char *key)
 	return (final);
 }
 
+
 char	*expand_str(char *str)
 {
 	char	*final;
@@ -66,6 +83,8 @@ char	*expand_str(char *str)
 
 	if (!str)
 		return (NULL);
+	if (has_cash_after_single_quotes(str))
+		return (str);
 	final = ft_strdup(str);
 	pos = 0;
 	temp2 = NULL;
