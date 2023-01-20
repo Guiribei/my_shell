@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: vkist-si <vkist-si@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2023/01/20 18:45:21 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/20 21:59:45 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define FILE_OUT 3
 # define PIPE_0 4
 # define PIPE_1 5
+# define HEREDOC "/tmp/heredoc"
 
 typedef enum e_bool
 {
@@ -147,5 +148,6 @@ t_bool		cmp(char *s1, char *s2);
 void		safe_init(t_cmd *cmds, int size);
 void		split_cmds(t_cmd *cmds);
 int			core(t_cmd *cmds, char **envp);
+int 		heredoc(t_cmd *cmds, char *delimiter);
 
 #endif
