@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:09:58 by tkomeno           #+#    #+#             */
-/*   Updated: 2022/12/23 22:13:32 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/20 15:31:06 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	count_as_token(char *line, int *i, int *tokens)
 {
 	(*tokens)++;
-	while (line[*i] && !ft_isspace(line[*i]))
+	while (line[*i] && !ft_isspace(line[*i]) && !is_token(line[*i]))
 		(*i)++;
 }
 

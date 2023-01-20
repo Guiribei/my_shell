@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   allocate_tokens.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 17:06:54 by tkomeno           #+#    #+#             */
-/*   Updated: 2023/01/16 18:17:27 by etachott         ###   ########.fr       */
+/*   Updated: 2023/01/20 17:13:31 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,14 @@ t_token	*allocate_tokens(char *line)
 void	allocate_normal(char *line, int *i, int *curr_token,
 		int *curr_token_size)
 {
-	while (line[*i] && !ft_isspace(line[*i]))
+	while (line[*i] && !ft_isspace(line[*i]) && !is_token(line[*i]))
 	{
 		(*i)++;
 		(*curr_token_size)++;
 	}
 	(*curr_token)++;
+	if (ft_isspace(line[*i]))
+		(*i)++;
 }
 
 int	actual_allocation(t_token **tokens, int curr_token, int curr_token_size)
@@ -47,18 +49,21 @@ t_token	*allocate_tokens_content(char *line, t_token *tokens, int curr_token,
 {
 	int	i;
 
-	i = -1;
-	while (line[++i])
+	i = 0;
+	while (line[i])
 	{
 		curr_token_size = 0;
 		if (ft_isspace(line[i]))
+		{
+			i++;
 			continue ;
+		}
 		else if (line[i] == '"')
 			allocate_double(&curr_token, &curr_token_size, line, &i);
 		else if (line[i] == '\'')
 			allocate_single(&curr_token, &curr_token_size, line, &i);
 		else if (line[i] == '|')
-			allocate_pipe(&curr_token, &curr_token_size);
+			allocate_pipe(&curr_token, &curr_token_size, &i);
 		else if (line[i] == '>')
 			allocate_greater(&curr_token, &curr_token_size, line, &i);
 		else if (line[i] == '<')
@@ -70,6 +75,5 @@ t_token	*allocate_tokens_content(char *line, t_token *tokens, int curr_token,
 		if (!line[i])
 			break ;
 	}
-	//tokens[count_tokens]
 	return (tokens);
 }

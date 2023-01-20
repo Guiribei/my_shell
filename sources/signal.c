@@ -6,20 +6,11 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 14:57:34 by coder             #+#    #+#             */
-/*   Updated: 2022/12/07 16:30:44 by etachott         ###   ########.fr       */
+/*   Updated: 2023/01/20 19:09:24 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// void	suspend_sigquit(void)
-// {
-// 	struct sigaction	act;
-	
-// 	ft_memset(&act, 0, sizeof(act));
-// 	act.sa_handler = SIG_IGN;
-// 	sigaction(SIGQUIT, &act, NULL);
-// }
 
 void	sig_handler(int	sig)
 {
@@ -37,8 +28,8 @@ void	set_signals(struct sigaction *act, struct sigaction *act_2)
 
 	sigemptyset(&sigset);
 	act->sa_mask = sigset;
-	act->sa_flags = SA_SIGINFO;
 	act_2->sa_mask = sigset;
+	act->sa_flags = SA_SIGINFO;
 	act_2->sa_flags = SA_SIGINFO;
 	act->sa_handler = &sig_handler;
 	act_2->sa_handler = SIG_IGN;

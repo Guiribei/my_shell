@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 22:15:25 by guribeir          #+#    #+#             */
-/*   Updated: 2022/12/28 20:46:08 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/20 17:46:24 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,11 @@ void	fill_single(int *i, char *line, int *curr_token, t_token **tokens)
 		(*i)++;
 }
 
-void	fill_pipe(t_token **tokens, int *curr_token, char *line, int i)
+void	fill_pipe(t_token **tokens, int *curr_token, char *line, int *i)
 {
-	(*tokens)[*curr_token].name[0] = line[i];
+	(*tokens)[*curr_token].name[0] = line[*i];
 	(*curr_token)++;
+	(*i)++;
 }
 
 void	fill_greater(t_token **tokens, int *curr_token, int *i, char *line)
@@ -70,6 +71,7 @@ void	fill_greater(t_token **tokens, int *curr_token, int *i, char *line)
 		(*tokens)[*curr_token].name[curr_token_size] = line[*i];
 	}
 	(*curr_token)++;
+	(*i)++;
 }
 
 void	fill_less(t_token **tokens, int *curr_token, int *i, char *line)
@@ -85,4 +87,5 @@ void	fill_less(t_token **tokens, int *curr_token, int *i, char *line)
 		(*tokens)[*curr_token].name[curr_token_size] = line[*i];
 	}
 	(*curr_token)++;
+	(*i)++;
 }

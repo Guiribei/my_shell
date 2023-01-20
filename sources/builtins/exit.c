@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkist-si <vkist-si@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 19:48:47 by tkomeno           #+#    #+#             */
-/*   Updated: 2022/12/28 15:54:51 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/01/20 18:39:45 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	check_exit(char **args)
 
 void	builtin_exit(char **args)
 {
-	write (STDERR_FILENO, "exit\n", 5);
+	write (STDERR_FILENO, "exit do nosso\n", 5);
 	if (args[0] && !args[1])
 	{
 		break_free(&g_data);

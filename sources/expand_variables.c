@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_variables.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:09:50 by etachott          #+#    #+#             */
-/*   Updated: 2023/01/19 17:20:32 by etachott         ###   ########.fr       */
+/*   Updated: 2023/01/20 19:02:41 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ int	is_expansible(char *str)
 		if (str[index] == '$'
 			&& ((65 <= str[index + 1] && str[index + 1] <= 90)
 			|| str[index + 1] == '?'))
+		{
+			printf("É expansível!\n");
 			return (1);
+		}
 		index++;
 	}
 	return (0);

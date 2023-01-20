@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 21:00:15 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/20 00:45:06 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/20 18:32:28 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static int	parent(t_cmd *cmds)
 	i = 0;
 	full_close(cmds);
 	exitcode = 1;
+	status = 0;
 	while (cmds[i].cmd)
 	{
 		pid = waitpid(cmds[i].pid, &status, 0);

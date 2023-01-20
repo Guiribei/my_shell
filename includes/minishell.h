@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2023/01/20 00:45:59 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/20 18:45:21 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,6 @@ typedef struct s_cmd
 	int		pipe[2];
 }			t_cmd;
 
-typedef struct s_data
-{
-	int		exit_status;
-	char	**prompt;
-	char	**envp;
-	char	*prompt_name;
-	char	*cwd;
-	char	*str;
-	char	*cmd;
-	int		std_in_fd;
-	int		std_out_fd;
-}			t_data;
-
 typedef struct s_token
 {
 	char	*name;
@@ -71,6 +58,21 @@ typedef struct s_token
 }			t_token;
 
 typedef struct sigaction	t_sigaction;
+
+typedef struct s_data
+{
+	char	*cmd;
+	char	*cwd;
+	char	**envp;
+	char	**prompt;
+	char	*prompt_name;
+	char	*str;
+	int		exit_status;
+	int		std_in_fd;
+	int		std_out_fd;
+	t_cmd	*cmds;
+	t_token	*tokens;
+}			t_data;
 
 void		echo(char **str);
 int			builtin_run(char **prompt, char **envp);
@@ -95,6 +97,7 @@ char		*read_env(char **env, char *key);
 char		**change_env(char **envp, char *key, char *value);
 t_bool		is(const char *s, int c);
 int			is_builtin(char **prompt);
+int			is_token(char c);
 void		builtin_exit(char **args);
 void		init_global(t_data *d);
 void		break_free(t_data *data);
@@ -125,7 +128,7 @@ void		allocate_greater(int *curr_token, int *curr_token_size, char *line,
 			int *i);
 void		allocate_less(int *curr_token, int *curr_token_size,
 			char *line, int *i);
-void		allocate_pipe(int *curr_token, int *curr_token_size);
+void		allocate_pipe(int *curr_token, int *curr_token_size, int *i);
 void		skip_double_quotes(char *line, int *i, int *tokens);
 void		skip_single_quotes(char *line, int *i, int *tokens);
 void		print_cmd(t_cmd *cmd);
@@ -134,7 +137,7 @@ void		skip_gt(int *i, int *tokens, char *line);
 void		skip_lt(int *i, int *tokens, char *line);
 void		fill_double(int *i, char *line, int *curr_token, t_token **tokens);
 void		fill_single(int *i, char *line, int *curr_token, t_token **tokens);
-void		fill_pipe(t_token **tokens, int *curr_token, char *line, int i);
+void		fill_pipe(t_token **tokens, int *curr_token, char *line, int *i);
 void		fill_greater(t_token **tokens, int *curr_token, int *i, char *line);
 void		fill_less(t_token **tokens, int *curr_token, int *i, char *line);
 void		full_close(t_cmd *cmd);

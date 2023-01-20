@@ -33,7 +33,8 @@ SRC = prompt.c \
 	  syntax.c \
 	  command.c \
 	  is_builtin.c \
-	  split_cmds.c
+	  split_cmds.c \
+	  is_token.c
 
 
 OBJ = ${SRC:%.c=$(PATH_OBJ)%.o}

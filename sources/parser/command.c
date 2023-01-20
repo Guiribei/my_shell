@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 19:01:13 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/19 23:43:43 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/20 18:26:12 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ extern t_data	g_data;
 
 static void	open_input_file(t_cmd	*cmds, char *file)
 {
-	cmds->fd_in = open(file, O_RDONLY, 644);
+	cmds->fd_in = open(file, O_RDONLY);
 	if (cmds->fd_in == -1)
 		printf("minishell: open failed\n");
 }
@@ -60,8 +60,8 @@ void	safe_init(t_cmd *cmds, int size)
 	{
 		cmds[i].cmd = NULL;
 		cmds[i].cmds = NULL;
-		cmds[i].fd_in = -1;
-		cmds[i].fd_out = -1;
+		cmds[i].fd_in = 0;
+		cmds[i].fd_out = 1;
 		cmds[i].path_cmd = NULL;
 		cmds[i].pid = -1;
 		cmds[i].where_read = STD_IN;
@@ -84,7 +84,7 @@ t_cmd	*init_cmd_table(t_token *tokens)
 	safe_init(cmds, count_cmds(tokens) + 1);// aqui também tem calloc (dos ints fd_in e fd_out)
 	while (tokens[i].name)
 	{
-		if (cmp(tokens[i].name, "<") && i == 0)
+		if (cmp(tokens[i].name, "<") && j == 0)
 		{
 			while (tokens[i + 2].name && (cmp(tokens[i + 2].name, "<")))
 				i += 2;
@@ -96,7 +96,7 @@ t_cmd	*init_cmd_table(t_token *tokens)
 		{
 			while (tokens[i + 2].name && (cmp(tokens[i + 2].name, "<")))
 				i += 2;
-			open_input_file(&cmds[j - 1], tokens[i + 1].name);
+			open_input_file(&cmds[j], tokens[i + 1].name);
 			cmds[j].where_read = FILE_IN;
 			i++;
 		}

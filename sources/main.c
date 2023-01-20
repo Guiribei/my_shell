@@ -6,31 +6,13 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 22:13:00 by coder             #+#    #+#             */
-/*   Updated: 2023/01/20 00:44:07 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/20 19:14:22 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_data	g_data;
-
-void	half_break_free(t_data	*data)
-{
-	if (data->prompt)
-		strsclear(data->prompt);
-	if (data->str)
-		strclear(&data->str);
-	if (data->prompt_name)
-		strclear(&data->prompt_name);
-}
-
-void	break_free(t_data *data)
-{
-	half_break_free(data);
-	if (data->envp)
-		strsclear(data->envp);
-	rl_clear_history();
-}
 
 void	free_cmds(t_cmd *cmds)
 {
@@ -54,7 +36,7 @@ void	free_tokens(t_token *tokens)
 	int	index;
 
 	index = 0;
-	while(tokens[index].name)
+	while (tokens[index].name)
 	{
 		free(tokens[index].name);
 		index++;
@@ -62,13 +44,31 @@ void	free_tokens(t_token *tokens)
 	free(tokens);
 }
 
+void	half_break_free(t_data	*data)
+{
+	if (data->prompt)
+		strsclear(data->prompt);
+	if (data->str)
+		strclear(&data->str);
+	if (data->prompt_name)
+		strclear(&data->prompt_name);
+}
+
+void	break_free(t_data *data)
+{
+	if (data)
+		half_break_free(data);
+	if (data->envp)
+		strsclear(data->envp);
+	rl_clear_history();
+}
+
+
 int	main(int argc, char *argv[], char *envp[])
 {
 	struct sigaction	act;
 	struct sigaction	act_2;
-	t_token *tokens;
-	t_cmd	*cmds;
-	int		exitcode;
+	int					exitcode;
 
 	if (argc == 0 || !argv[0])
 		return (1);
@@ -81,21 +81,21 @@ int	main(int argc, char *argv[], char *envp[])
 		g_data.prompt_name = join_three("minishell:~", g_data.cwd, "$ ");
 		free(g_data.cwd);
 		g_data.str = set_prompt(g_data.prompt_name);
-		if (is_expansible(g_data.str))
-			g_data.str = expand_str(g_data.str);
 		if (!g_data.str)
 		{
 			break_free(&g_data);
 			write(1, "\n", 1);
 			exit(127);
 		}
-		tokens = tokenize(g_data.str);
-		check_syntax(tokens);
-		cmds = init_cmd_table(tokens);
-		split_cmds(cmds);
-		exitcode = core(cmds, g_data.envp);
-		free_cmds(cmds);
-		free_tokens(tokens);
+		if (is_expansible(g_data.str))
+			g_data.str = expand_str(g_data.str);
+		g_data.tokens = tokenize(g_data.str);
+		check_syntax(g_data.tokens);
+		g_data.cmds = init_cmd_table(g_data.tokens);
+		split_cmds(g_data.cmds);
+		exitcode = core(g_data.cmds, g_data.envp);
+		free_cmds(g_data.cmds);
+		free_tokens(g_data.tokens);
 		half_break_free(&g_data);
 	}
 }
