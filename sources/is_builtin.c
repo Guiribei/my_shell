@@ -60,6 +60,6 @@ int	builtin_run(char **prompt, char **envp)
 	else if (ft_strncmp(prompt[0], "unset", 5) == 0)
 		exitcode = builtin_unset(prompt[1]);
 	else
-		return (exitcode);
-	return (0);
+		return (1);
+	return (exitcode);
 }

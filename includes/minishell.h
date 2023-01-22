@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkist-si <vkist-si@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2023/01/20 21:59:45 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/01/22 22:39:34 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ void		allocate_pipe(int *curr_token, int *curr_token_size, int *i);
 void		skip_double_quotes(char *line, int *i, int *tokens);
 void		skip_single_quotes(char *line, int *i, int *tokens);
 void		print_cmd(t_cmd *cmd);
+void		perror_handler(char *str1, char *str2, int status, t_cmd *cmds);
 void		skip_pipe(int *i, int *tokens);
 void		skip_gt(int *i, int *tokens, char *line);
 void		skip_lt(int *i, int *tokens, char *line);
@@ -143,7 +144,7 @@ void		fill_greater(t_token **tokens, int *curr_token, int *i, char *line);
 void		fill_less(t_token **tokens, int *curr_token, int *i, char *line);
 void		full_close(t_cmd *cmd);
 void		check_syntax(t_token *tokens);
-t_cmd		*init_cmd_table(t_token *tokens);
+t_cmd		*init_cmd_table(t_token *tokens, int flag_quit);
 t_bool		cmp(char *s1, char *s2);
 void		safe_init(t_cmd *cmds, int size);
 void		split_cmds(t_cmd *cmds);

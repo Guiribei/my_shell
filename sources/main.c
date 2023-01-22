@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 22:13:00 by coder             #+#    #+#             */
-/*   Updated: 2023/01/20 19:14:22 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/22 22:54:25 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,13 @@ int	main(int argc, char *argv[], char *envp[])
 			g_data.str = expand_str(g_data.str);
 		g_data.tokens = tokenize(g_data.str);
 		check_syntax(g_data.tokens);
-		g_data.cmds = init_cmd_table(g_data.tokens);
-		split_cmds(g_data.cmds);
-		exitcode = core(g_data.cmds, g_data.envp);
-		free_cmds(g_data.cmds);
+		g_data.cmds = init_cmd_table(g_data.tokens, 0);
+		if (g_data.cmds)
+		{
+			split_cmds(g_data.cmds);
+			exitcode = core(g_data.cmds, g_data.envp);
+			free_cmds(g_data.cmds);
+		}
 		free_tokens(g_data.tokens);
 		half_break_free(&g_data);
 	}

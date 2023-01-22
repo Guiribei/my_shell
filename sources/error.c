@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 22:30:53 by guribeir          #+#    #+#             */
-/*   Updated: 2022/12/23 22:30:55 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/22 22:28:39 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,15 @@ void	exit_with_error(char *cmd, char *msg, int error)
 	rl_clear_history();
 	break_free(&g_data);
 	exit(error);
+}
+
+void	perror_handler(char *str1, char *str2, int status, t_cmd *cmds)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(str1, 2);
+	ft_putstr_fd(str2, 2);
+	perror("");
+	if (cmds)
+		full_close(cmds);
+	g_data.exit_status = status;
 }
