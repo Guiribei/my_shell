@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 19:01:13 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/23 13:05:11 by etachott         ###   ########.fr       */
+/*   Updated: 2023/01/23 23:07:51 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,9 @@ t_cmd	*init_cmd_table(t_token *tokens, int flag_quit)
 		}
 		else if (cmp(tokens[i].name, "<<"))
 		{
-			cmds[j].cmd = ft_strdup(tokens[i + 1].name);
-			cmds[j].is_heredoc = 1;
+			cmds[i].fd_in = open(HEREDOC, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			cmds[i].fd_in = heredoc(&cmds[i], tokens[i + 1].name);
+			cmds[i].where_read = FILE_IN;
 			i++;
 		}
 		else if (cmp(tokens[i].name, ">") || cmp(tokens[i].name, ">>"))

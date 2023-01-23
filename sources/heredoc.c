@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 21:41:17 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/01/23 13:55:04 by etachott         ###   ########.fr       */
+/*   Updated: 2023/01/23 23:10:49 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,9 @@ int heredoc(t_cmd *cmds, char *delimiter)
 	char *line;
 
 	line = readline("> ");
-	//line = get_next_line(0);
 	while (line && !cmp(line, delimiter))
 	{
-		ft_putstr_fd(line, cmds->fd_in);
+		ft_putendl_fd(line, cmds->fd_in);
 		free(line);
 		line = readline("> ");
 	}

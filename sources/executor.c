@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 21:00:15 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/23 13:54:41 by etachott         ###   ########.fr       */
+/*   Updated: 2023/01/23 22:58:23 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,13 +97,6 @@ int	core(t_cmd *cmds, char **envp)
 		if (is_builtin_unfork(cmds[i].cmd))
 		{
 			builtin_run_unfork(cmds[i].cmds, envp);
-			i++;
-			continue ;
-		}
-		if (cmds[i].is_heredoc)
-		{
-			cmds[i].fd_in = open(HEREDOC, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			cmds[i].fd_in = heredoc(&cmds[i], cmds[i].cmd);
 			i++;
 			continue ;
 		}
