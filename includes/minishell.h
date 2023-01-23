@@ -78,6 +78,7 @@ typedef struct s_data
 
 void		echo(char **str);
 int			builtin_run(char **prompt, char **envp);
+char		**change_exit_status(char **envp, int status);
 void		strclear(char **str);
 void		strsclear(char **ptrs);
 int			pwd(void);

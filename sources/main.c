@@ -68,7 +68,6 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	struct sigaction	act;
 	struct sigaction	act_2;
-	int					exitcode;
 
 	if (argc == 0 || !argv[0])
 		return (1);
@@ -77,6 +76,7 @@ int	main(int argc, char *argv[], char *envp[])
 	g_data.envp = set_env(envp);
 	while (1)
 	{
+		g_data.envp = change_exit_status(g_data.envp, g_data.exit_status);
 		g_data.cwd = getcwd(NULL, 0);
 		g_data.prompt_name = join_three("minishell:~", g_data.cwd, "$ ");
 		free(g_data.cwd);
@@ -95,7 +95,7 @@ int	main(int argc, char *argv[], char *envp[])
 		if (g_data.cmds)
 		{
 			split_cmds(g_data.cmds);
-			exitcode = core(g_data.cmds, g_data.envp);
+			g_data.exit_status = core(g_data.cmds, g_data.envp);
 			free_cmds(g_data.cmds);
 		}
 		free_tokens(g_data.tokens);

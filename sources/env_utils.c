@@ -76,3 +76,25 @@ char	*read_env(char **envp, char *key)
 	}
 	return (NULL);
 }
+
+char	**change_exit_status(char **envp, int status)
+{
+	int		index;
+	char	**new_envp;
+
+	index = 0;
+	new_envp = NULL;
+	while (envp[index])
+		index++;
+	new_envp = ft_calloc(sizeof(char *), index + 2);
+	new_envp[index + 1] = NULL;
+	new_envp[0] = ft_strjoin("?=", ft_itoa(status));
+	index = 1;
+	while (envp[index])
+	{
+		new_envp[index] = ft_strdup(envp[index]);
+		index++;
+	}
+	strsclear(envp);
+	return (new_envp);
+}

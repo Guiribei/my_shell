@@ -60,6 +60,7 @@ char	*key_to_value(char *key_start)
 		index++;
 	key = ft_strndup(key_start, index);
 	temp = ft_strjoin(key, "=");
+	index = 0;
 	while (g_data.envp[index])
 	{
 		if (ft_strncmp(g_data.envp[index], temp, ft_strlen(temp)) == 0)

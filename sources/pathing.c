@@ -68,5 +68,9 @@ char	*find_command(char *command, char **paths)
 		}
 		free(tmp);
 	}
+	if (ft_strncmp(command, "./", 2) == 0)
+		printf("minishell: %s: No such file or directory\n", command);
+	else
+		printf("minishell: %s: command not found\n", command);
 	return (NULL);
 }

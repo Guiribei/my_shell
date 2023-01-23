@@ -23,7 +23,7 @@ void	init_global(t_data *d)
 	// d->tokens = NULL;
 	// d->cmds = NULL;
 	ft_bzero(d, 1);
-	d->exit_status = -1;
+	d->exit_status = 0;
 	d->std_out_fd = dup(1);
 	d->std_in_fd = dup(0);
 }

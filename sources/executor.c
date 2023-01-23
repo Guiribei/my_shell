@@ -19,22 +19,22 @@ void	select_inout(t_cmd *cmds, int i)
 	if (cmds[i].where_read == FILE_IN)
 	{
 		if(dup2(cmds[i].fd_in, 0) == -1)
-			printf("file in dup failed\n");
+			perror_handler("dup: ", "", 1, cmds);
 	}
 	if (cmds[i].where_read == PIPE_0)
 	{
 		if(dup2(cmds[i - 1].pipe[0], 0) == -1)
-			printf("pipe 0 dup failed\n");
+			perror_handler("dup: ", "", 1, cmds);
 	}
 	if (cmds[i].where_write == PIPE_1)
 	{
 		if(dup2(cmds[i].pipe[1], 1) == -1)
-			printf("pipe 1 dup failed\n");
+			perror_handler("dup: ", "", 1, cmds);
 	}
 	if (cmds[i].where_write == FILE_OUT)
 	{
 		if(dup2(cmds[i].fd_out, 1) == -1)
-			printf("file out dup failed\n");
+			perror_handler("dup: ", "", 1, cmds);
 	}
 }
 
@@ -51,13 +51,15 @@ static void	child(t_cmd *cmds, char **envp, int i)
 		execve("/usr/bin/true", cmds[i].cmds, envp);
 	}
 	if (cmds[i].cmds == NULL || cmds[i].path_cmd == NULL)
-		printf("Command not found, child\n");
-	else
 	{
-		ret = execve(cmds[i].path_cmd, cmds[i].cmds, envp);
-		if (ret == -1)
-			printf("faild execve");
+		perror_handler("", cmds[i].cmds[0], 1, cmds);
+		return ;
 	}
+	if (execve(cmds[i].path_cmd, cmds[i].cmds, envp) == -1)
+	{
+		perror("minishell: execve");
+		return ;
+	}	
 }
 
 static int	parent(t_cmd *cmds)
@@ -111,15 +113,12 @@ int	core(t_cmd *cmds, char **envp)
 			cmds[i].path_cmd = find_command(cmds[i].cmds[0], paths);
 			strsclear(paths);
 			if (!cmds[i].path_cmd && !is_builtin_fork(cmds[i].cmd))
-			{
-				printf("%s: Command not found core\n", cmds[i].cmds[0]);
 				return (127);
-			}
 		}
 		cmds[i].pid = fork();
 		if (cmds[i].pid == -1)
 		{
-			printf("minishell: fork: pid not found\n");
+			perror_handler("fork", "pid error", 1, cmds);
 			return (1);
 		}
 		else if (cmds[i].pid == 0)
