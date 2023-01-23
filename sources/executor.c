@@ -6,7 +6,7 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 21:00:15 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/20 19:45:27 by etachott         ###   ########.fr       */
+/*   Updated: 2023/01/23 13:54:41 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	select_inout(t_cmd *cmds, int i)
 	}
 	if (cmds[i].where_read == PIPE_0)
 	{
-		printf("FD IN = %d | FD OUT = %d\n", cmds[i].fd_in, cmds[i].fd_out);
 		if(dup2(cmds[i - 1].pipe[0], 0) == -1)
 			printf("pipe 0 dup failed\n");
 	}
@@ -46,10 +45,13 @@ static void	child(t_cmd *cmds, char **envp, int i)
 	ret = 0;
 	select_inout(cmds, i);
 	full_close(cmds);
+	if (is_builtin_fork(cmds[i].cmd))
+	{
+		builtin_run_fork(cmds[i].cmds);
+		execve("/usr/bin/true", cmds[i].cmds, envp);
+	}
 	if (cmds[i].cmds == NULL || cmds[i].path_cmd == NULL)
 		printf("Command not found, child\n");
-	if (is_builtin(cmds[i].cmds))
-		builtin_run(cmds[i].cmds, envp);
 	else
 	{
 		ret = execve(cmds[i].path_cmd, cmds[i].cmds, envp);
@@ -90,19 +92,29 @@ int	core(t_cmd *cmds, char **envp)
 	i = 0;
 	while (cmds[i].cmd)
 	{
-		/*if (is_builtin(cmds[i].cmds))
+		if (is_builtin_unfork(cmds[i].cmd))
 		{
-			builtin_run(cmds[i].cmds, envp);
+			builtin_run_unfork(cmds[i].cmds, envp);
 			i++;
 			continue ;
-		}*/
-		paths = get_paths(envp);
-		cmds[i].path_cmd = find_command(cmds[i].cmds[0], paths);
-		strsclear(paths);
-		if (!cmds[i].path_cmd)
+		}
+		if (cmds[i].is_heredoc)
 		{
-			printf("%s: Command not found\n", cmds[i].cmds[0]);
-			return (127);
+			cmds[i].fd_in = open(HEREDOC, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			cmds[i].fd_in = heredoc(&cmds[i], cmds[i].cmd);
+			i++;
+			continue ;
+		}
+		if (!cmds[i].is_heredoc)
+		{
+			paths = get_paths(envp);
+			cmds[i].path_cmd = find_command(cmds[i].cmds[0], paths);
+			strsclear(paths);
+			if (!cmds[i].path_cmd && !is_builtin_fork(cmds[i].cmd))
+			{
+				printf("%s: Command not found core\n", cmds[i].cmds[0]);
+				return (127);
+			}
 		}
 		cmds[i].pid = fork();
 		if (cmds[i].pid == -1)

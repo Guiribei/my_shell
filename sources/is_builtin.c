@@ -21,38 +21,53 @@ void	error_handler(char *cmd, char *error)
 	write(1, "\n", 1);
 }
 
-int	is_builtin(char **prompt)
+int	is_builtin_fork(char *cmd)
 {
-	if (ft_strncmp(prompt[0], "cd", 2) == 0)
+	if (ft_strncmp(cmd, "pwd", 3) == 0)
 		return (1);
-	if (ft_strncmp(prompt[0], "pwd", 3) == 0)
+	if (ft_strncmp(cmd, "echo", 4) == 0)
 		return (1);
-	if (ft_strncmp(prompt[0], "echo", 4) == 0)
-		return (1);
-	if (ft_strncmp(prompt[0], "env", 4) == 0)
-		return (1);
-	if (ft_strncmp(prompt[0], "exit", 4) == 0)
-		return (1);
-	if (ft_strncmp(prompt[0], "export", 6) == 0)
-		return (1);
-	if (ft_strncmp(prompt[0], "unset", 5) == 0)
+	if (ft_strncmp(cmd, "env", 4) == 0)
 		return (1);
 	return (0);
 }
 
-int	builtin_run(char **prompt, char **envp)
+int	is_builtin_unfork(char *cmd)
+{
+	if (ft_strncmp(cmd, "cd", 2) == 0)
+		return (1);
+	if (ft_strncmp(cmd, "exit", 4) == 0)
+		return (1);
+	if (ft_strncmp(cmd, "export", 6) == 0)
+		return (1);
+	if (ft_strncmp(cmd, "unset", 5) == 0)
+		return (1);
+	return (0);
+}
+
+int	builtin_run_fork(char **prompt)
+{
+	int	exitcode;
+
+	exitcode = 1;
+	if (ft_strncmp(prompt[0], "pwd", 3) == 0)
+		exitcode = pwd();
+	else if (ft_strncmp(prompt[0], "echo", 4) == 0)
+		echo(prompt);
+	else if (ft_strncmp(prompt[0], "env", 4) == 0)
+		exitcode = builtin_env();
+	else
+		return (1);
+	return (exitcode);
+}
+
+int	builtin_run_unfork(char **prompt, char **envp)
 {
 	int	exitcode;
 
 	exitcode = 1;
 	if (ft_strncmp(prompt[0], "cd", 2) == 0)
 		exitcode = cd(envp, prompt[1]);
-	else if (ft_strncmp(prompt[0], "pwd", 3) == 0)
-		exitcode = pwd();
-	else if (ft_strncmp(prompt[0], "echo", 4) == 0)
-		echo(prompt);
-	else if (ft_strncmp(prompt[0], "env", 4) == 0)
-		exitcode = builtin_env();
 	else if (ft_strncmp(prompt[0], "exit", 4) == 0)
 		builtin_exit(prompt);
 	else if (ft_strncmp(prompt[0], "export", 6) == 0)

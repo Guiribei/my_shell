@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 15:07:59 by guribeir          #+#    #+#             */
-/*   Updated: 2022/12/26 18:52:28 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/23 12:06:58 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	check_syntax(t_token *tokens)
 		{
 			if (cmp(tokens[i + 1].name, "|"))
 				error_syntax("|");
-			else if (cmp(tokens[i + 1].name, ">") || cmp(tokens[i + 1].name, ">>") || cmp(tokens[i + 1].name, "<") || cmp(tokens[i + 1].name, "<<"))
+			else if (cmp(tokens[i + 1].name, ">") || cmp(tokens[i + 1].name, ">>") || cmp(tokens[i + 1].name, "<"))
 				error_syntax("newline");
 		}
 		else if (cmp(tokens[i].name, "<"))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2023/01/22 22:39:34 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/23 13:54:18 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_cmd
 {
 	char	*cmd;
 	char	**cmds;
+	int		is_heredoc;
 	int		fd_in;
 	int		fd_out;
 	char	*path_cmd;
@@ -97,7 +98,10 @@ int			cd(char **envp, char *folder);
 char		*read_env(char **env, char *key);
 char		**change_env(char **envp, char *key, char *value);
 t_bool		is(const char *s, int c);
-int			is_builtin(char **prompt);
+int			is_builtin_fork(char *cmd);
+int			is_builtin_unfork(char *cmd);
+int			builtin_run_fork(char **prompt);
+int			builtin_run_unfork(char **prompt, char **envp);
 int			is_token(char c);
 void		builtin_exit(char **args);
 void		init_global(t_data *d);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 19:01:13 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/22 22:59:59 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/23 13:05:11 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	safe_init(t_cmd *cmds, int size)
 		cmds[i].pid = -1;
 		cmds[i].where_read = STD_IN;
 		cmds[i].where_write = STD_OUT;
+		cmds[i].is_heredoc = 0;
 		memset(cmds[i].pipe, 0, 2);
 		i++;
 	}
@@ -104,9 +105,8 @@ t_cmd	*init_cmd_table(t_token *tokens, int flag_quit)
 		}
 		else if (cmp(tokens[i].name, "<<"))
 		{
-			
-			cmds[j].fd_in = open(HEREDOC, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			cmds[j].fd_in = heredoc(&cmds[j], tokens[i + 1].name);
+			cmds[j].cmd = ft_strdup(tokens[i + 1].name);
+			cmds[j].is_heredoc = 1;
 			i++;
 		}
 		else if (cmp(tokens[i].name, ">") || cmp(tokens[i].name, ">>"))
