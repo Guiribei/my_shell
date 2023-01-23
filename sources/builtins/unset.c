@@ -6,7 +6,7 @@
 /*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 14:02:03 by etachott          #+#    #+#             */
-/*   Updated: 2023/01/23 18:41:42 by etachott         ###   ########.fr       */
+/*   Updated: 2023/01/23 18:51:06 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,12 @@ extern t_data	g_data;
 
 static int	is_valid(char *name)
 {
-	if (ft_strnstr(name, "=", ft_strlen(name)))
+	if (ft_strnstr(name, "=", ft_strlen(name))
+	|| ft_strnstr(name, "-", ft_strlen(name)))
+	{
+		printf("minishell: unset: `%s': not a valid identifier\n", name);
 		return (0);
+	}
 	return (1);
 }
 
