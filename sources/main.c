@@ -78,7 +78,7 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		g_data.envp = change_exit_status(g_data.envp, g_data.exit_status);
 		g_data.cwd = getcwd(NULL, 0);
-		g_data.prompt_name = join_three("minishell:~", g_data.cwd, "$ ");
+		g_data.prompt_name = join_three("\x1b[32mminishell:~\033[0m", g_data.cwd, "\x1b[32m$ \033[0m");
 		free(g_data.cwd);
 		g_data.str = set_prompt(g_data.prompt_name);
 		if (!g_data.str)
