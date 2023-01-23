@@ -14,6 +14,8 @@ SRC = prompt.c \
 	  recreate_envp.c \
 	  join.c \
 	  env.c \
+	  export.c \
+	  unset.c \
 	  echo.c \
 	  pwd.c \
 	  cd.c \

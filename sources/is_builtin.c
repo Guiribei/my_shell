@@ -71,9 +71,9 @@ int	builtin_run_unfork(char **prompt, char **envp)
 	else if (ft_strncmp(prompt[0], "exit", 4) == 0)
 		builtin_exit(prompt);
 	else if (ft_strncmp(prompt[0], "export", 6) == 0)
-		exitcode = builtin_export(prompt[1]);
+		exitcode = builtin_export(prompt);
 	else if (ft_strncmp(prompt[0], "unset", 5) == 0)
-		exitcode = builtin_unset(prompt[1]);
+		exitcode = builtin_unset(prompt);
 	else
 		return (1);
 	return (exitcode);
