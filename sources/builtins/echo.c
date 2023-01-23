@@ -12,13 +12,25 @@
 
 #include "minishell.h"
 
+static int	counter(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
 void	echo(char **str)
 {
 	int	i;
 	int	flag;
+	int	limit;
 
 	i = 1;
 	flag = 0;
+	limit = 0;
 	if (!str[1])
 	{
 		ft_putendl_fd("", 1);
@@ -29,10 +41,12 @@ void	echo(char **str)
 		i++;
 		flag = -1;
 	}
+	limit = counter(str);
 	while (str[i])
 	{
 		ft_putstr_fd(str[i], 1);
-		ft_putchar_fd(' ', 1);
+		if (i < limit - 1)
+			ft_putchar_fd(' ', 1);
 		i++;
 	}
 	if (flag == 0)
