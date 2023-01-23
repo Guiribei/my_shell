@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 17:06:54 by tkomeno           #+#    #+#             */
-/*   Updated: 2023/01/20 17:13:31 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/23 23:21:31 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_token	*allocate_tokens_content(char *line, t_token *tokens, int curr_token,
 			continue ;
 		}
 		else if (line[i] == '"')
-			allocate_double(&curr_token, &curr_token_size, line, &i);
+			allocate_double(&curr_token, &curr_token_size, line, &i);//provavelmente o correto aqui seria apenas pular aspas e não alocar separadamente
 		else if (line[i] == '\'')
 			allocate_single(&curr_token, &curr_token_size, line, &i);
 		else if (line[i] == '|')
