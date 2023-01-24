@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 19:01:13 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/23 23:07:51 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:31:31 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,9 @@ t_cmd	*init_cmd_table(t_token *tokens, int flag_quit)
 		i++;
 	}
 	if (flag_quit)
+	{
+		free_cmds(cmds);
 		return (NULL);
+	}
 	return (cmds);
 }

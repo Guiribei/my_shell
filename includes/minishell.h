@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2023/01/23 18:44:59 by etachott         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:32:14 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include "../libft/libft.h"
-# include <errno.h> //checkar
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -149,7 +148,8 @@ void		fill_pipe(t_token **tokens, int *curr_token, char *line, int *i);
 void		fill_greater(t_token **tokens, int *curr_token, int *i, char *line);
 void		fill_less(t_token **tokens, int *curr_token, int *i, char *line);
 void		full_close(t_cmd *cmd);
-void		check_syntax(t_token *tokens);
+void		free_cmds(t_cmd *cmds);
+int			check_syntax(t_token *tokens);
 t_cmd		*init_cmd_table(t_token *tokens, int flag_quit);
 t_bool		cmp(char *s1, char *s2);
 void		safe_init(t_cmd *cmds, int size);

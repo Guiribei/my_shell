@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 19:09:58 by tkomeno           #+#    #+#             */
-/*   Updated: 2023/01/20 15:31:06 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/24 14:04:59 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ int	count_tokens(char *line)
 	{
 		if (ft_isspace(line[i]))
 			i++;
-		else if (line[i] == '"')
-			skip_double_quotes(line, &i, &tokens);
-		else if (line[i] == '\'')
-			skip_single_quotes(line, &i, &tokens);
+		//else if (line[i] == '"')
+		//	skip_double_quotes(line, &i, &tokens);
+		//else if (line[i] == '\'')
+		//	skip_single_quotes(line, &i, &tokens);
 		else if (line[i] == '|')
 			skip_pipe(&i, &tokens);
 		else if (line[i] == '>')

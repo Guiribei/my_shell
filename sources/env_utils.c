@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 16:29:35 by guribeir          #+#    #+#             */
-/*   Updated: 2022/12/14 18:32:24 by etachott         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:16:11 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,21 +80,24 @@ char	*read_env(char **envp, char *key)
 char	**change_exit_status(char **envp, int status)
 {
 	int		index;
+	char	*str_status;
 	char	**new_envp;
 
 	index = 0;
+	str_status = ft_itoa(status);
 	new_envp = NULL;
 	while (envp[index])
 		index++;
 	new_envp = ft_calloc(sizeof(char *), index + 2);
 	new_envp[index + 1] = NULL;
-	new_envp[0] = ft_strjoin("?=", ft_itoa(status));
+	new_envp[0] = ft_strjoin("?=", str_status);
 	index = 1;
 	while (envp[index])
 	{
 		new_envp[index] = ft_strdup(envp[index]);
 		index++;
 	}
+	strclear(&str_status);
 	strsclear(envp);
 	return (new_envp);
 }

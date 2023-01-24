@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_variables.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:09:50 by etachott          #+#    #+#             */
-/*   Updated: 2023/01/20 16:51:00 by etachott         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:11:49 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,22 @@ static int	has_cash_after_single_quotes(char *str)
 	int		index;
 	int		expandable;
 
-	index = 0;
+	index = -1;
 	expandable = -1;
 	quote_pos = ft_strnstr(str, "\'", ft_strlen(str));
+	while (str[++index])
+	{
+		if (str[index] == '\"')
+		{
+			while (str[++index])
+			{
+				if (str[index] == '\"')
+					break ;
+				if (str[index] == '\'')
+					return (0);
+			}
+		}
+	}
 	if (is_expansible(quote_pos))
 		return (1);
 	return (0);
@@ -72,7 +85,6 @@ char	*key_to_value(char *key_start)
 	free(temp);
 	return (final);
 }
-
 
 char	*expand_str(char *str)
 {

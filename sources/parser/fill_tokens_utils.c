@@ -6,50 +6,50 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 22:15:25 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/20 17:46:24 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/24 13:48:34 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	fill_double(int *i, char *line, int *curr_token, t_token **tokens)
-{
-	int	curr_token_size;
+// void	fill_double(int *i, char *line, int *curr_token, t_token **tokens)
+// {
+// 	int	curr_token_size;
 
-	curr_token_size = 0;
-	(*i)++;
-	while (line[*i] && line[*i] != '"'
-		&& curr_token_size < (*tokens)[*curr_token].size)
-	{
-		(*tokens)[*curr_token].name[curr_token_size] = line[*i];
-		curr_token_size++;
-		(*i)++;
-	}
-	(*curr_token)++;
-	if (line[*i] == '"')
-		(*i)++;
-}
+// 	curr_token_size = 0;
+// 	(*i)++;
+// 	while (line[*i] && line[*i] != '"'
+// 		&& curr_token_size < (*tokens)[*curr_token].size)
+// 	{
+// 		(*tokens)[*curr_token].name[curr_token_size] = line[*i];
+// 		curr_token_size++;
+// 		(*i)++;
+// 	}
+// 	(*curr_token)++;
+// 	if (line[*i] == '"')
+// 		(*i)++;
+// }
 
-void	fill_single(int *i, char *line, int *curr_token, t_token **tokens)
-{
-	int	curr_token_size;
+// void	fill_single(int *i, char *line, int *curr_token, t_token **tokens)
+// {
+// 	int	curr_token_size;
 
-	curr_token_size = 0;
-	(*i)++;
-	while (line[*i] && line[*i] != '\''
-		&& curr_token_size < (*tokens)[*curr_token].size)
-	{
-		if (line[*i] == '~')
-			(*tokens)[*curr_token].name[curr_token_size] = ' ';
-		else
-			(*tokens)[*curr_token].name[curr_token_size] = line[*i];
-		curr_token_size++;
-		(*i)++;
-	}
-	(*curr_token)++;
-	if (line[*i] == '\'')
-		(*i)++;
-}
+// 	curr_token_size = 0;
+// 	(*i)++;
+// 	while (line[*i] && line[*i] != '\''
+// 		&& curr_token_size < (*tokens)[*curr_token].size)
+// 	{
+// 		if (line[*i] == '~')
+// 			(*tokens)[*curr_token].name[curr_token_size] = ' ';
+// 		else
+// 			(*tokens)[*curr_token].name[curr_token_size] = line[*i];
+// 		curr_token_size++;
+// 		(*i)++;
+// 	}
+// 	(*curr_token)++;
+// 	if (line[*i] == '\'')
+// 		(*i)++;
+// }
 
 void	fill_pipe(t_token **tokens, int *curr_token, char *line, int *i)
 {
