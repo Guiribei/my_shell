@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 15:07:59 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/24 15:36:58 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/24 16:11:41 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ int	check_syntax(t_token *tokens)
 	int	count;
 
 	count = 0;
-	while(tokens[count].name)
+	while (tokens[count].name)
 		count++;
 	i = 0;
-	while( i < count - 1)
+	while ( i < count - 1)
 	{
 		if (cmp(tokens[0].name, "|"))
 			return (error_syntax("|"));
@@ -45,39 +45,43 @@ int	check_syntax(t_token *tokens)
 		{
 			if (cmp(tokens[i + 1].name, "|"))
 				return(error_syntax("|"));
-			else if (cmp(tokens[i + 1].name, ">") || cmp(tokens[i + 1].name, ">>") || cmp(tokens[i + 1].name, "<"))
+			else if (cmp(tokens[i + 1].name, ">") || cmp(tokens[i + 1].name, ">>")
+					|| cmp(tokens[i + 1].name, "<"))
 				return(error_syntax("newline"));
 		}
 		else if (cmp(tokens[i].name, "<"))
 		{
 			if (cmp(tokens[i + 1].name, "<"))
 				return(error_syntax("|"));
-			else if (cmp(tokens[i + 1].name, ">") || cmp(tokens[i + 1].name, ">>") || cmp(tokens[i + 1].name, "|") || cmp(tokens[i + 1].name, "<<"))
+			else if (cmp(tokens[i + 1].name, ">") || cmp(tokens[i + 1].name, ">>")
+				|| cmp(tokens[i + 1].name, "|") || cmp(tokens[i + 1].name, "<<"))
 				return(error_syntax(tokens[i + 1].name));
 		}
 		else if (cmp(tokens[i].name, ">"))
 		{
 			if (cmp(tokens[i + 1].name, ">"))
 				return(error_syntax("|"));
-			else if (cmp(tokens[i + 1].name, "|") || cmp(tokens[i + 1].name, ">>") || cmp(tokens[i + 1].name, "<") || cmp(tokens[i + 1].name, "<<"))
+			else if (cmp(tokens[i + 1].name, "|") || cmp(tokens[i + 1].name, ">>")
+				|| cmp(tokens[i + 1].name, "<") || cmp(tokens[i + 1].name, "<<"))
 				return(error_syntax(tokens[i + 1].name));
 		}
 		else if (cmp(tokens[i].name, ">>"))
 		{
 			if (cmp(tokens[i + 1].name, ">>"))
 				return(error_syntax("|"));
-			else if (cmp(tokens[i + 1].name, ">") || cmp(tokens[i + 1].name, "|") || cmp(tokens[i + 1].name, "<") || cmp(tokens[i + 1].name, "<<"))
+			else if (cmp(tokens[i + 1].name, ">") || cmp(tokens[i + 1].name, "|")
+				|| cmp(tokens[i + 1].name, "<") || cmp(tokens[i + 1].name, "<<"))
 				return(error_syntax(tokens[i + 1].name));
 		}
 		else if (cmp(tokens[i].name, "<<"))
 		{
 			if (cmp(tokens[i + 1].name, "<<"))
 				return(error_syntax("|"));
-			else if (cmp(tokens[i + 1].name, ">") || cmp(tokens[i + 1].name, ">>") || cmp(tokens[i + 1].name, "<") || cmp(tokens[i + 1].name, "|"))
-				return(error_syntax(tokens[i + 1].name));
+			else if (cmp(tokens[i + 1].name, ">") || cmp(tokens[i + 1].name, ">>")
+				|| cmp(tokens[i + 1].name, "<") || cmp(tokens[i + 1].name, "|"))
+				return (error_syntax(tokens[i + 1].name));
 		}
-		i++; 
+		i++;
 	}
 	return (0);
 }
-

@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2023/01/24 15:32:14 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/24 16:30:19 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int			ft_isspace(char c);
 int			count_tokens(char *line);
 t_token		*allocate_tokens(char *line);
 t_token		*allocate_tokens_content(char *line, t_token *tokens,
-			int curr_token,int curr_token_size);
+				int curr_token, int curr_token_size);
 t_token		*fill_tokens_content(char *line, t_token *tokens);
 t_token		*tokenize(char *line);
 void		exit_with_error(char *cmd, char *msg, int error);
@@ -127,13 +127,13 @@ char		*expand_str(char *str);
 void		skip_gt(int *i, int *tokens, char *line);
 void		skip_lt(int *i, int *tokens, char *line);
 void		allocate_double(int *curr_token, int *curr_token_size, char *line,
-			int *i);
+				int *i);
 void		allocate_single(int *curr_token, int *curr_token_size, char *line,
-			int *i);
+				int *i);
 void		allocate_greater(int *curr_token, int *curr_token_size, char *line,
-			int *i);
+				int *i);
 void		allocate_less(int *curr_token, int *curr_token_size,
-			char *line, int *i);
+				char *line, int *i);
 void		allocate_pipe(int *curr_token, int *curr_token_size, int *i);
 void		skip_double_quotes(char *line, int *i, int *tokens);
 void		skip_single_quotes(char *line, int *i, int *tokens);
@@ -149,12 +149,15 @@ void		fill_greater(t_token **tokens, int *curr_token, int *i, char *line);
 void		fill_less(t_token **tokens, int *curr_token, int *i, char *line);
 void		full_close(t_cmd *cmd);
 void		free_cmds(t_cmd *cmds);
+void		open_input_file(t_cmd	*cmds, char *file, int *flag_quit);
+void		open_output_file(t_cmd	*cmds, char *file, int *flag_quit);
+void		open_append_file(t_cmd	*cmds, char *file, int *flag_quit);
 int			check_syntax(t_token *tokens);
 t_cmd		*init_cmd_table(t_token *tokens, int flag_quit);
 t_bool		cmp(char *s1, char *s2);
 void		safe_init(t_cmd *cmds, int size);
 void		split_cmds(t_cmd *cmds);
 int			core(t_cmd *cmds, char **envp);
-int 		heredoc(t_cmd *cmds, char *delimiter);
+int			heredoc(t_cmd *cmds, char *delimiter);
 
 #endif

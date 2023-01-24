@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 21:41:17 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/01/23 23:10:49 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/24 16:18:31 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 extern t_data	g_data;
 
-int heredoc(t_cmd *cmds, char *delimiter)
+int	heredoc(t_cmd *cmds, char *delimiter)
 {
-	char *line;
+	char	*line;
 
 	line = readline("> ");
 	while (line && !cmp(line, delimiter))

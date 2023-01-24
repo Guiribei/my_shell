@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 08:47:36 by vcastilh          #+#    #+#             */
-/*   Updated: 2022/12/26 18:20:55 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/24 16:27:50 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ t_list		*ft_lstlast(t_list *lst);
 void		ft_lstadd_back(t_list **lst, t_list *new_node);
 void		ft_lstdelone(t_list *lst, void (*del)(void *));
 void		ft_lstclear(t_list **lst, void (*del)(void *));
-void		ft_lstiter(t_list *lst, void (*)(void *));
+void		ft_lstiter(t_list *lst, void (*f)(void *));
 char		**ft_matrixcpy(char **src);
 int			ft_matrix_size(char **matrix);
 char		*set_key(char *cont);

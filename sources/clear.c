@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 17:37:30 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/20 18:06:27 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/24 16:13:40 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	full_close(t_cmd *cmds)
 	int	i;
 
 	i = 0;
-	while(cmds[i].cmd)
+	while (cmds[i].cmd)
 	{
 		if (cmds[i].fd_in != 0)
 			close(cmds[i].fd_in);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_cmds.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:34:34 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/16 19:00:04 by etachott         ###   ########.fr       */
+/*   Updated: 2023/01/24 16:12:43 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,12 @@ void	split_cmds(t_cmd *cmds)
 {
 	int		i;
 	int		flag;
-	
+
 	if (!cmds)
 		return ;
 	i = 0;
 	flag = 0;
-	while(cmds[i].cmd)
+	while (cmds[i].cmd)
 	{
 		flag = before_split(cmds[i].cmd);
 		cmds[i].cmds = ft_split(cmds[i].cmd, ' ');

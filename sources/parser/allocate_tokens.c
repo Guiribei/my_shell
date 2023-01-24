@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 17:06:54 by tkomeno           #+#    #+#             */
-/*   Updated: 2023/01/24 14:54:05 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/24 16:12:14 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	allocate_normal(char *line, int *i, int *curr_token,
 		if (line[*i] && !ft_isspace(line[*i]) && !is_token(line[*i]))
 		{
 			(*i)++;
-			(*curr_token_size)++;	
+			(*curr_token_size)++;
 		}
 	}
 	(*curr_token)++;
@@ -63,10 +63,6 @@ t_token	*allocate_tokens_content(char *line, t_token *tokens, int curr_token,
 			i++;
 			continue ;
 		}
-		//else if (line[i] == '"')
-		//	allocate_double(&curr_token, &curr_token_size, line, &i);//provavelmente o correto aqui seria apenas pular aspas e não alocar separadamente
-		//else if (line[i] == '\'')
-		//	allocate_single(&curr_token, &curr_token_size, line, &i);
 		else if (line[i] == '|')
 			allocate_pipe(&curr_token, &curr_token_size, &i);
 		else if (line[i] == '>')

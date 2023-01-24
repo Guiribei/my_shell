@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 19:48:47 by tkomeno           #+#    #+#             */
-/*   Updated: 2023/01/20 18:39:45 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:59:17 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,25 @@
 
 extern t_data	g_data;
 
-static int check_return(char *str)
+static int	check_return(char *str)
 {
 	if (ft_strlen(str) > 20)
 		return (0);
 	if (ft_strncmp(str, "-9223372036854775808", 21) == 0)
 		return (0);
- 	while (*str)
+	while (*str)
 	{
-		if ((*str < '0' || *str > '9') && 
-			(*str != '\"' && *str != '-' && *str != '+'))
+		if ((*str < '0' || *str > '9')
+			&& (*str != '\"' && *str != '-' && *str != '+'))
 			return (0);
 		str++;
-	} 
+	}
 	return (1);
 }
+
 void	check_exit(char **args)
 {
-	int	exit_status;
+	int		exit_status;
 	char	*str;
 
 	exit_status = 0;
@@ -39,7 +40,7 @@ void	check_exit(char **args)
 	if (args[2])
 		exit_with_error("exit", "too many arguments", EXIT_FAILURE);
 	else if (!check_return(str))
-		exit_with_error("exit", "numeric argument required", 2);	
+		exit_with_error("exit", "numeric argument required", 2);
 	else
 	{
 		rl_clear_history();

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:25:43 by coder             #+#    #+#             */
-/*   Updated: 2023/01/23 18:44:28 by etachott         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:56:59 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ int	builtin_env(void)
 
 void	env_export_no_arg(void)
 {
-	int	index = 0;
+	int	index;
+
+	index = 0;
 	while (g_data.envp[++index])
 	{
 		printf("declare -x ");

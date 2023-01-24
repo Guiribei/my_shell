@@ -6,43 +6,13 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 19:01:13 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/24 15:31:31 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/24 16:08:05 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 extern t_data	g_data;
-
-static void	open_input_file(t_cmd	*cmds, char *file, int *flag_quit)
-{
-	cmds->fd_in = open(file, O_RDONLY);
-	if (cmds->fd_in == -1)
-	{
-		perror_handler(file, ": ", 1, cmds);
-		(*flag_quit)++;
-	}
-}
-
-static void	open_output_file(t_cmd	*cmds, char *file, int *flag_quit)
-{
-	cmds->fd_out = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (cmds->fd_out == -1)
-	{
-		perror_handler(file, ": ", 1, cmds);
-		(*flag_quit)++;
-	}
-}
-
-static void	open_append_file(t_cmd	*cmds, char *file, int *flag_quit)
-{
-	cmds->fd_out = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (cmds->fd_out == -1)
-	{
-		perror_handler(file, ": ", 1, cmds);
-		(*flag_quit)++;
-	}
-}
 
 int	count_cmds(t_token *tokens)
 {
@@ -51,9 +21,9 @@ int	count_cmds(t_token *tokens)
 
 	count = 1;
 	i = 0;
-	while(tokens[i].name)
+	while (tokens[i].name)
 	{
-		if(cmp(tokens[i].name, "|"))
+		if (cmp(tokens[i].name, "|"))
 			count++;
 		i++;
 	}
@@ -65,7 +35,7 @@ void	safe_init(t_cmd *cmds, int size)
 	int		i;
 
 	i = 0;
-	while(i < size)
+	while (i < size)
 	{
 		cmds[i].cmd = NULL;
 		cmds[i].cmds = NULL;
@@ -87,7 +57,7 @@ t_cmd	*init_cmd_table(t_token *tokens, int flag_quit)
 	char	*temp;
 	int		i;
 	int		j;
-	
+
 	i = 0;
 	j = 0;
 	flag_quit = 0;
@@ -112,7 +82,8 @@ t_cmd	*init_cmd_table(t_token *tokens, int flag_quit)
 		}
 		else if (cmp(tokens[i].name, ">") || cmp(tokens[i].name, ">>"))
 		{
-			while (tokens[i + 2].name && (cmp(tokens[i + 2].name, ">") || cmp(tokens[i + 2].name, ">>")))
+			while (tokens[i + 2].name && (cmp(tokens[i + 2].name, ">")
+					|| cmp(tokens[i + 2].name, ">>")))
 				i += 2;
 			if (cmp(tokens[i].name, ">"))
 			{
@@ -138,7 +109,7 @@ t_cmd	*init_cmd_table(t_token *tokens, int flag_quit)
 		else
 		{
 			if (!cmds[j].cmd)
-		 		cmds[j].cmd = ft_strdup(tokens[i].name);
+				cmds[j].cmd = ft_strdup(tokens[i].name);
 			else
 			{
 				temp = ft_strdup(cmds[j].cmd);

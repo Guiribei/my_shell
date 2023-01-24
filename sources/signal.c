@@ -6,20 +6,19 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 14:57:34 by coder             #+#    #+#             */
-/*   Updated: 2023/01/20 19:09:24 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/24 16:23:00 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	sig_handler(int	sig)
+void	sig_handler(int sig)
 {
 	(void)sig;
-	write(1,"\n",1);
+	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-
 }
 
 void	set_signals(struct sigaction *act, struct sigaction *act_2)

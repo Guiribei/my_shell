@@ -6,34 +6,34 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 21:00:15 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/23 22:58:23 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/24 16:16:19 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern t_data g_data;
+extern t_data	g_data;
 
 void	select_inout(t_cmd *cmds, int i)
 {
 	if (cmds[i].where_read == FILE_IN)
 	{
-		if(dup2(cmds[i].fd_in, 0) == -1)
+		if (dup2(cmds[i].fd_in, 0) == -1)
 			perror_handler("dup: ", "", 1, cmds);
 	}
 	if (cmds[i].where_read == PIPE_0)
 	{
-		if(dup2(cmds[i - 1].pipe[0], 0) == -1)
+		if (dup2(cmds[i - 1].pipe[0], 0) == -1)
 			perror_handler("dup: ", "", 1, cmds);
 	}
 	if (cmds[i].where_write == PIPE_1)
 	{
-		if(dup2(cmds[i].pipe[1], 1) == -1)
+		if (dup2(cmds[i].pipe[1], 1) == -1)
 			perror_handler("dup: ", "", 1, cmds);
 	}
 	if (cmds[i].where_write == FILE_OUT)
 	{
-		if(dup2(cmds[i].fd_out, 1) == -1)
+		if (dup2(cmds[i].fd_out, 1) == -1)
 			perror_handler("dup: ", "", 1, cmds);
 	}
 }
@@ -90,7 +90,7 @@ int	core(t_cmd *cmds, char **envp)
 	int		exitcode;
 	int		i;
 	char	**paths;
-	
+
 	i = 0;
 	while (cmds[i].cmd)
 	{

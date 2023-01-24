@@ -6,13 +6,13 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:09:50 by etachott          #+#    #+#             */
-/*   Updated: 2023/01/24 15:11:49 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/24 16:29:57 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern	t_data	g_data;
+extern t_data	g_data;
 
 int	is_expansible(char *str)
 {
@@ -25,7 +25,7 @@ int	is_expansible(char *str)
 	{
 		if (str[index] == '$'
 			&& ((65 <= str[index + 1] && str[index + 1] <= 90)
-			|| str[index + 1] == '?'))
+				|| str[index + 1] == '?'))
 			return (1);
 		index++;
 	}
@@ -68,8 +68,9 @@ char	*key_to_value(char *key_start)
 
 	index = 0;
 	final = NULL;
-	while (((65 <= key_start[index] && key_start[index] <= 90) || key_start[index] == '_'
-		|| (key_start[index] == '?')) && key_start[index])
+	while (((65 <= key_start[index] && key_start[index] <= 90)
+			|| key_start[index] == '_' || (key_start[index] == '?'))
+		&& key_start[index])
 		index++;
 	key = ft_strndup(key_start, index);
 	temp = ft_strjoin(key, "=");
@@ -111,7 +112,7 @@ char	*expand_str(char *str)
 		strclear(&final);
 		final = key_to_value(str + pos);
 		while (((65 <= str[pos] && str[pos] <= 90) || str[pos] == '_'
-			|| (str[pos] == '?')) && str[pos])
+				|| (str[pos] == '?')) && str[pos])
 			pos++;
 		if (*(str + pos))
 			temp2 = ft_strdup(str + pos);

@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 22:13:00 by coder             #+#    #+#             */
-/*   Updated: 2023/01/24 15:26:11 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/24 16:21:59 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	break_free(t_data *data)
 	rl_clear_history();
 }
 
-
 int	main(int argc, char *argv[], char *envp[])
 {
 	struct sigaction	act;
@@ -78,7 +77,8 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		g_data.envp = change_exit_status(g_data.envp, g_data.exit_status);
 		g_data.cwd = getcwd(NULL, 0);
-		g_data.prompt_name = join_three("\x1b[32mminishell:~\033[0m", g_data.cwd, "\x1b[32m$ \033[0m");
+		g_data.prompt_name = join_three("\x1b[32mminishell:~\033[0m",
+				g_data.cwd, "\x1b[32m$ \033[0m");
 		free(g_data.cwd);
 		g_data.str = set_prompt(g_data.prompt_name);
 		if (!g_data.str)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott <etachott@student.42sp.org.b      +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 21:34:32 by etachott          #+#    #+#             */
-/*   Updated: 2022/12/21 12:31:47 by etachott         ###   ########.fr       */
+/*   Updated: 2023/01/24 16:28:32 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,5 @@ char	*ft_strndup(const char *s, size_t n)
 	ptr = ft_calloc((n + 1), sizeof(char));
 	if (!ptr)
 		return (NULL);
-//	ptr[n] = '\0';
 	return (ft_memcpy(ptr, s, n));
 }

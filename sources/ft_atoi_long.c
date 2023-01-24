@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi_long.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkist-si <vkist-si@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/05 15:29:06 by ridalgo-          #+#    #+#             */
-/*   Updated: 2022/12/28 15:39:56 by vkist-si         ###   ########.fr       */
+/*   Created: 2023/01/24 16:14:58 by guribeir          #+#    #+#             */
+/*   Updated: 2023/01/24 16:15:17 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ long long	ft_atoi_long(char *str)
 	if ((*str == 45) || (*str == 43))
 	{
 		if (*str == 45)
-			sign = -1;	
+			sign = -1;
 		str++;
 	}
 	while (*str)

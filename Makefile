@@ -37,6 +37,7 @@ SRC = prompt.c \
 	  is_builtin.c \
 	  split_cmds.c \
 	  heredoc.c \
+	  open_file.c \
 	  is_token.c
 
 
