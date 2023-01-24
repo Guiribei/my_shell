@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 22:13:00 by coder             #+#    #+#             */
-/*   Updated: 2023/01/24 16:21:59 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/24 18:32:02 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,9 @@ int	main(int argc, char *argv[], char *envp[])
 		if (is_expansible(g_data.str))
 			g_data.str = expand_str(g_data.str);
 		g_data.tokens = tokenize(g_data.str);
-		if (check_syntax(g_data.tokens) != -1)
+		if (check_syntax(g_data.tokens, 0, 0) != -1)
 		{
-			g_data.cmds = init_cmd_table(g_data.tokens, 0);
+			g_data.cmds = init_cmd_table(g_data.tokens);
 			if (g_data.cmds)
 			{
 				split_cmds(g_data.cmds);

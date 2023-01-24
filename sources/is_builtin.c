@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 19:34:51 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/24 16:24:58 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/24 17:50:23 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,26 @@ void	error_handler(char *cmd, char *error)
 	write(1, "\n", 1);
 }
 
-int	is_builtin_fork(char *cmd)
+int	is_builtin_fork(char **prompt)
 {
-	if (ft_strncmp(cmd, "pwd", 4) == 0)
+	if (ft_strncmp(prompt[0], "pwd", 4) == 0)
 		return (1);
-	if (ft_strncmp(cmd, "echo", 5) == 0)
+	if (ft_strncmp(prompt[0], "echo", 5) == 0)
 		return (1);
-	if (ft_strncmp(cmd, "env", 4) == 0)
+	if (ft_strncmp(prompt[0], "env", 4) == 0)
 		return (1);
 	return (0);
 }
 
-int	is_builtin_unfork(char *cmd)
+int	is_builtin_unfork(char **prompt)
 {
-	if (ft_strncmp(cmd, "cd", 3) == 0)
+	if (ft_strncmp(prompt[0], "cd", 3) == 0)
 		return (1);
-	if (ft_strncmp(cmd, "exit", 5) == 0)
+	if (ft_strncmp(prompt[0], "exit", 5) == 0)
 		return (1);
-	if (ft_strncmp(cmd, "export", 7) == 0)
+	if (ft_strncmp(prompt[0], "export", 7) == 0)
 		return (1);
-	if (ft_strncmp(cmd, "unset", 6) == 0)
+	if (ft_strncmp(prompt[0], "unset", 6) == 0)
 		return (1);
 	return (0);
 }
@@ -70,7 +70,7 @@ int	builtin_run_unfork(char **prompt, char **envp)
 		exitcode = cd(envp, prompt[1]);
 	else if (ft_strncmp(prompt[0], "exit", 5) == 0)
 		builtin_exit(prompt);
-	else if (ft_strncmp(prompt[0], "export", 7) == 0)
+	else if (ft_strncmp(prompt[0], "export", 6) == 0)
 		exitcode = builtin_export(prompt);
 	else if (ft_strncmp(prompt[0], "unset", 6) == 0)
 		exitcode = builtin_unset(prompt);

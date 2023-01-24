@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 19:01:13 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/24 16:08:05 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/24 18:04:51 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,79 +51,36 @@ void	safe_init(t_cmd *cmds, int size)
 	}
 }
 
-t_cmd	*init_cmd_table(t_token *tokens, int flag_quit)
+void	*fail_free_cmds(t_cmd *cmds)
+{
+	free_cmds(cmds);
+	return (NULL);
+}
+
+t_cmd	*init_cmd_table(t_token *tokens)
 {
 	t_cmd	*cmds;
-	char	*temp;
 	int		i;
 	int		j;
 
-	i = 0;
+	i = -1;
 	j = 0;
-	flag_quit = 0;
 	cmds = ft_calloc(count_cmds(tokens) + 1, sizeof (t_cmd));
 	safe_init(cmds, count_cmds(tokens) + 1);
-	while (tokens[i].name)
+	while (tokens[++i].name)
 	{
 		if (cmp(tokens[i].name, "<") && j == 0)
-		{
-			while (tokens[i + 2].name && (cmp(tokens[i + 2].name, "<")))
-				i += 2;
-			open_input_file(&cmds[j], tokens[i + 1].name, &flag_quit);
-			cmds[j].where_read = FILE_IN;
-			i++;
-		}
+			init_less_than(cmds, tokens, &i, &j);
 		else if (cmp(tokens[i].name, "<<"))
-		{
-			cmds[i].fd_in = open(HEREDOC, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			cmds[i].fd_in = heredoc(&cmds[i], tokens[i + 1].name);
-			cmds[i].where_read = FILE_IN;
-			i++;
-		}
+			init_heredoc(cmds, tokens, &i);
 		else if (cmp(tokens[i].name, ">") || cmp(tokens[i].name, ">>"))
-		{
-			while (tokens[i + 2].name && (cmp(tokens[i + 2].name, ">")
-					|| cmp(tokens[i + 2].name, ">>")))
-				i += 2;
-			if (cmp(tokens[i].name, ">"))
-			{
-				open_output_file(&cmds[j], tokens[i + 1].name, &flag_quit);
-				cmds[j].where_write = FILE_OUT;
-			}
-			else
-			{
-				open_append_file(&cmds[j], tokens[i + 1].name, &flag_quit);
-				cmds[j].where_write = FILE_OUT;
-			}
-			i++;
-		}
+			init_greater_than(cmds, tokens, &i, &j);
 		else if (cmp(tokens[i].name, "|"))
-		{
-			if (pipe(cmds[j].pipe) == -1)
-				perror_handler("pipe", ": ", ++flag_quit, cmds);
-			if (cmds[j].where_write != FILE_OUT)
-				cmds[j].where_write = PIPE_1;
-			cmds[j + 1].where_read = PIPE_0;
-			j++;
-		}
+			init_pipe(cmds, &j);
 		else
-		{
-			if (!cmds[j].cmd)
-				cmds[j].cmd = ft_strdup(tokens[i].name);
-			else
-			{
-				temp = ft_strdup(cmds[j].cmd);
-				free(cmds[j].cmd);
-				cmds[j].cmd = join_three(temp, " ", tokens[i].name);
-				free(temp);
-			}
-		}
-		i++;
+			init_normal(cmds, tokens, &i, &j);
 	}
-	if (flag_quit)
-	{
-		free_cmds(cmds);
-		return (NULL);
-	}
+	if (g_data.flag_quit)
+		return (fail_free_cmds(cmds));
 	return (cmds);
 }

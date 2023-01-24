@@ -33,7 +33,9 @@ SRC = prompt.c \
 	  fill_tokens.c \
 	  fill_tokens_utils.c \
 	  syntax.c \
+	  syntax_comp.c \
 	  command.c \
+	  command_init.c \
 	  is_builtin.c \
 	  split_cmds.c \
 	  heredoc.c \

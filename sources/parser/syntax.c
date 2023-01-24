@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 15:07:59 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/24 16:11:41 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/24 19:12:18 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,58 +28,47 @@ int	error_syntax(char *token)
 	return (-1);
 }
 
-int	check_syntax(t_token *tokens)
+int	compare_signs(t_token *tokens, int *i)
 {
-	int	i;
-	int	count;
+	if (cmp(tokens[*i].name, "<"))
+	{
+		if (lesser_than_middle_syntax(tokens, i) == -1)
+			return (-1);
+	}
+	else if (cmp(tokens[*i].name, ">"))
+	{
+		if (greater_than_middle_syntax(tokens, i) == -1)
+			return (-1);
+	}
+	else if (cmp(tokens[*i].name, ">>"))
+	{
+		if (append_syntax(tokens, i) == -1)
+			return (-1);
+	}
+	else if (cmp(tokens[*i].name, "<<"))
+	{
+		if (heredoc_syntax(tokens, i) == -1)
+			return (-1);
+	}
+	return (0);
+}
 
-	count = 0;
+int	check_syntax(t_token *tokens, int i, int count)
+{
 	while (tokens[count].name)
 		count++;
-	i = 0;
-	while ( i < count - 1)
+	while (i < count - 1)
 	{
 		if (cmp(tokens[0].name, "|"))
 			return (error_syntax("|"));
 		else if (cmp(tokens[i].name, "|"))
 		{
-			if (cmp(tokens[i + 1].name, "|"))
-				return(error_syntax("|"));
-			else if (cmp(tokens[i + 1].name, ">") || cmp(tokens[i + 1].name, ">>")
-					|| cmp(tokens[i + 1].name, "<"))
-				return(error_syntax("newline"));
+			if (pipe_middle_syntax(tokens, &i) == -1)
+				return (-1);
 		}
-		else if (cmp(tokens[i].name, "<"))
+		if (compare_signs(tokens, &i) == -1)
 		{
-			if (cmp(tokens[i + 1].name, "<"))
-				return(error_syntax("|"));
-			else if (cmp(tokens[i + 1].name, ">") || cmp(tokens[i + 1].name, ">>")
-				|| cmp(tokens[i + 1].name, "|") || cmp(tokens[i + 1].name, "<<"))
-				return(error_syntax(tokens[i + 1].name));
-		}
-		else if (cmp(tokens[i].name, ">"))
-		{
-			if (cmp(tokens[i + 1].name, ">"))
-				return(error_syntax("|"));
-			else if (cmp(tokens[i + 1].name, "|") || cmp(tokens[i + 1].name, ">>")
-				|| cmp(tokens[i + 1].name, "<") || cmp(tokens[i + 1].name, "<<"))
-				return(error_syntax(tokens[i + 1].name));
-		}
-		else if (cmp(tokens[i].name, ">>"))
-		{
-			if (cmp(tokens[i + 1].name, ">>"))
-				return(error_syntax("|"));
-			else if (cmp(tokens[i + 1].name, ">") || cmp(tokens[i + 1].name, "|")
-				|| cmp(tokens[i + 1].name, "<") || cmp(tokens[i + 1].name, "<<"))
-				return(error_syntax(tokens[i + 1].name));
-		}
-		else if (cmp(tokens[i].name, "<<"))
-		{
-			if (cmp(tokens[i + 1].name, "<<"))
-				return(error_syntax("|"));
-			else if (cmp(tokens[i + 1].name, ">") || cmp(tokens[i + 1].name, ">>")
-				|| cmp(tokens[i + 1].name, "<") || cmp(tokens[i + 1].name, "|"))
-				return (error_syntax(tokens[i + 1].name));
+			return (-1);
 		}
 		i++;
 	}

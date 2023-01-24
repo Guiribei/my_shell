@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2023/01/24 16:30:19 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/24 19:21:47 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,14 @@ typedef struct s_token
 	int		size;
 }			t_token;
 
+typedef struct s_string
+{
+	char	*final;
+	char	*temp1;
+	char	*temp2;
+	char	*temp3;
+}			t_string;
+
 typedef struct sigaction	t_sigaction;
 
 typedef struct s_data
@@ -71,6 +79,7 @@ typedef struct s_data
 	int		exit_status;
 	int		std_in_fd;
 	int		std_out_fd;
+	int		flag_quit;
 	t_cmd	*cmds;
 	t_token	*tokens;
 }			t_data;
@@ -99,8 +108,8 @@ int			cd(char **envp, char *folder);
 char		*read_env(char **env, char *key);
 char		**change_env(char **envp, char *key, char *value);
 t_bool		is(const char *s, int c);
-int			is_builtin_fork(char *cmd);
-int			is_builtin_unfork(char *cmd);
+int			is_builtin_fork(char **prompt);
+int			is_builtin_unfork(char **prompt);
 int			builtin_run_fork(char **prompt);
 int			builtin_run_unfork(char **prompt, char **envp);
 int			is_token(char c);
@@ -152,12 +161,23 @@ void		free_cmds(t_cmd *cmds);
 void		open_input_file(t_cmd	*cmds, char *file, int *flag_quit);
 void		open_output_file(t_cmd	*cmds, char *file, int *flag_quit);
 void		open_append_file(t_cmd	*cmds, char *file, int *flag_quit);
-int			check_syntax(t_token *tokens);
-t_cmd		*init_cmd_table(t_token *tokens, int flag_quit);
+int			check_syntax(t_token *tokens, int i, int count);
+t_cmd		*init_cmd_table(t_token *tokens);
 t_bool		cmp(char *s1, char *s2);
 void		safe_init(t_cmd *cmds, int size);
 void		split_cmds(t_cmd *cmds);
 int			core(t_cmd *cmds, char **envp);
 int			heredoc(t_cmd *cmds, char *delimiter);
+void		init_heredoc(t_cmd *cmds, t_token *tokens, int *i);
+void		init_less_than(t_cmd *cmds, t_token *tokens, int *i, int *j);
+void		init_greater_than(t_cmd *cmds, t_token *tokens, int *i, int *j);
+void		init_normal(t_cmd *cmds, t_token *tokens, int *i, int *j);
+void		init_pipe(t_cmd *cmds, int *j);
+int			pipe_middle_syntax(t_token *tokens, int *i);
+int			lesser_than_middle_syntax(t_token *tokens, int *i);
+int			greater_than_middle_syntax(t_token *tokens, int *i);
+int			append_syntax(t_token *tokens, int *i);
+int			heredoc_syntax(t_token *tokens, int *i);
+int			error_syntax(char *token);
 
 #endif
