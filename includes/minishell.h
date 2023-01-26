@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2023/01/24 19:21:47 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/26 18:32:02 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct s_data
 	int		std_in_fd;
 	int		std_out_fd;
 	int		flag_quit;
+	int		i;
 	t_cmd	*cmds;
 	t_token	*tokens;
 }			t_data;
@@ -100,7 +101,7 @@ int			count_iterations(t_cmd *cmds);
 int			executor(char **prompt, char **envp);
 void		env_export_no_arg(void);
 char		**get_paths(char **envp);
-char		*find_command(char *command, char **paths);
+char		*find_command(char *command, char **paths, int i);
 char		**recreate_envp(t_list *env_lst);
 char		*join_three(char *s1, char *s2, char *s3);
 void		ft_envfree(t_list **env);
@@ -151,8 +152,8 @@ void		perror_handler(char *str1, char *str2, int status, t_cmd *cmds);
 void		skip_pipe(int *i, int *tokens);
 void		skip_gt(int *i, int *tokens, char *line);
 void		skip_lt(int *i, int *tokens, char *line);
-void		fill_double(int *i, char *line, int *curr_token, t_token **tokens);
-void		fill_single(int *i, char *line, int *curr_token, t_token **tokens);
+void		fill_double(int *i, char *line, int *curr_token, t_token **tokens, int *test);
+void		fill_single(int *i, char *line, int *curr_token, t_token **tokens, int *test);
 void		fill_pipe(t_token **tokens, int *curr_token, char *line, int *i);
 void		fill_greater(t_token **tokens, int *curr_token, int *i, char *line);
 void		fill_less(t_token **tokens, int *curr_token, int *i, char *line);
@@ -179,5 +180,6 @@ int			greater_than_middle_syntax(t_token *tokens, int *i);
 int			append_syntax(t_token *tokens, int *i);
 int			heredoc_syntax(t_token *tokens, int *i);
 int			error_syntax(char *token);
+void		expand_variables(char **input);
 
 #endif

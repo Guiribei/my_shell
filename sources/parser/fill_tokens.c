@@ -6,11 +6,13 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 17:07:22 by tkomeno           #+#    #+#             */
-/*   Updated: 2023/01/24 16:13:26 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/26 19:52:18 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern t_data	g_data;
 
 void	fill_normal(char *line, int *i, t_token **tokens, int *curr_token)
 {
@@ -31,8 +33,6 @@ void	fill_normal(char *line, int *i, t_token **tokens, int *curr_token)
 		}
 	}
 	(*curr_token)++;
-	if (ft_isspace(line[*i]) || line[*i] == '\'' || line[*i] == '\"')
-		(*i)++;
 }
 
 t_token	*fill_tokens_content(char *line, t_token *tokens)
@@ -40,6 +40,7 @@ t_token	*fill_tokens_content(char *line, t_token *tokens)
 	int	i;
 	int	curr_token;
 
+	int test = 0;
 	curr_token = 0;
 	i = 0;
 	while (line[i])
@@ -49,6 +50,10 @@ t_token	*fill_tokens_content(char *line, t_token *tokens)
 			i++;
 			continue ;
 		}
+		else if (line[i] == '"')
+			fill_double(&i, line, &curr_token, &tokens, &test);
+		else if (line[i] == '\'')
+			fill_single(&i, line, &curr_token, &tokens, &test);
 		else if (line[i] == '|')
 			fill_pipe(&tokens, &curr_token, line, &i);
 		else if (line[i] == '>')

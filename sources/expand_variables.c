@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:09:50 by etachott          #+#    #+#             */
-/*   Updated: 2023/01/24 20:40:40 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/26 19:45:35 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,132 +14,107 @@
 
 extern t_data	g_data;
 
-int	is_expansible(char *str)
+static int	is_varname(char c)
 {
-	int	index;
-
-	index = 0;
-	if (!str)
-		return (0);
-	while (str[index])
-	{
-		if (str[index] == '$' && (ft_isalpha(str[index + 1])
-			|| str[index + 1] == '?'))
-			return (1);
-		index++;
-	}
-	return (0);
+	return (ft_isalnum(c) || c == '_' || c == '?');
 }
 
-static int	has_cash_after_single_quotes(char *str)
+static char	*find_var_position(char *input)
 {
-	char	*quote_pos;
-	int		index;
-	int		expandable;
-
-	index = -1;
-	expandable = -1;
-	quote_pos = ft_strnstr(str, "\'", ft_strlen(str));
-	while (str[++index])
+	while (*input)
 	{
-		if (str[index] == '\"')
+		if (*input == '\'')
 		{
-			while (str[++index])
+			input++;
+			while (*input && *input != '\'')
+				input++;
+		}
+		if (*input == '\"')
+		{
+			input++;
+			while (*input && *input != '\"')
 			{
-				if (str[index] == '\"')
-					break ;
-				if (str[index] == '\'')
-					return (0);
+				if (*input == '$' && is_varname(input[1]))
+					return (input);
+				input++;
 			}
 		}
+		if (*input == '$' && is_varname(input[1]))
+			return (input);
+		input++;
 	}
-	if (is_expansible(quote_pos))
-		return (1);
-	return (0);
+	return (NULL);
 }
 
-char	*key_to_value(char *key_start)
+static void	update_input(char **input, char *var_value, char *second_part)
 {
-	char	*final;
-	char	*temp;
+	char	*first_part;
+	char	*updated_input;
+
+	if (!*input[0] && !var_value)
+		first_part = ft_strdup("");
+	else if (!*input[0] && var_value)
+		first_part = ft_strdup(var_value);
+	else if (!var_value)
+		first_part = ft_strdup(*input);
+	else
+		first_part = ft_strjoin(*input, var_value);
+	updated_input = ft_strjoin(first_part, second_part);
+	free(first_part);
+	free(*input);
+	*input = updated_input;
+}
+
+char	*fill_non_printable(void)
+{
+	char	*str;
+
+	str = calloc(2, sizeof(char));
+	str[0] = 2;
+	return (str);
+}
+
+static char	*var_to_value(char *var_name)
+{
 	char	*key;
+	int		key_size;
 	int		index;
 
-	index = 0;
-	final = NULL;
-	while (((ft_isalpha(key_start[index]))
-			|| key_start[index] == '_' || (key_start[index] == '?'))
-		&& key_start[index])
-		index++;
-	key = ft_strndup(key_start, index);
-	temp = ft_strjoin(key, "=");
+	key = ft_strjoin(var_name, "=");
+	key_size = ft_strlen(key);
 	index = 0;
 	while (g_data.envp[index])
 	{
-		if (ft_strncmp(g_data.envp[index], temp, ft_strlen(temp)) == 0)
-			final = ft_strdup(g_data.envp[index] + ft_strlen(temp));
+		if (ft_strncmp(g_data.envp[index], key, key_size) == 0)
+		{
+			free(key);
+			return (ft_strdup(g_data.envp[index] + key_size));
+		}
 		index++;
 	}
-	if (!final)
-		final = ft_strdup(" ");
-	free(temp);
-	return (final);
+	free(key);
+	return (NULL);
 }
 
-void	clear_four_string(char *temp1, char *temp2, char *str, char *final)
+void	expand_variables(char **input)
 {
-	strclear(&str);
-	strclear(&temp1);
-	if (temp2)
-		strclear(&temp2);
-	strclear(&final);
-}
+	char	*var_position;
+	char	*var_name;
+	char	*var_value;
+	int		name_size;
 
-int	count_valid_vars(char *str)
-{
-	int	index;
-	int	count;
-
-	index = -1;
-	count = 0;
-	while (str[++index])
+	var_position = find_var_position(*input);
+	if (var_position)
 	{
-		if (str[index] == '$' && (ft_isalpha(str[index + 1])
-			|| str[index + 1] == '_' || str[index + 1] == '?'))
-			count++;
+		name_size = 0;
+		while (is_varname(var_position[name_size + 1]))
+			name_size++;
+		var_name = ft_substr(var_position, 1, name_size);
+		*var_position = '\0';
+		var_value = var_to_value(var_name);
+		update_input(input, var_value, (var_position + 1 + name_size));
+		free(var_name);
+		free(var_value);
+		expand_variables(input);
 	}
-	return (count);
-}
-
-char	*expand_str(char *str)
-{
-	char	*final;
-	char	*temp1;
-	char	*temp2;
-	char	*temp3;
-	int		pos;
-
-	if (!str)
-		return (NULL);
-	if (has_cash_after_single_quotes(str))
-		return (str);
-	pos = 0;
-	temp2 = NULL;
-	temp3 = NULL;
-	final = NULL;
-	while (str[pos] != '$')
-		pos++;
-	temp1 = ft_strndup(str, pos);
-	pos++;
-	final = key_to_value(str + pos);
-	while (((ft_isalpha(str[pos]) || str[pos] == '_'
-			|| (str[pos] == '?')) && str[pos]))
-		pos++;
-	if (*(str + pos))
-		temp2 = ft_strdup(str + pos);
-	temp3 = join_three(temp1, final, temp2);
-	clear_four_string(temp1, temp2, str, final);
-	// if (is_expansible(temp3))
-	// 	expand_str(temp3);
-	return (temp3);
 }

@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 15:40:34 by etachott          #+#    #+#             */
-/*   Updated: 2023/01/24 16:17:32 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/26 13:54:23 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@ void	init_global(t_data *d)
 {
 	ft_bzero(d, 1);
 	d->exit_status = 0;
-	d->std_out_fd = dup(1);
 	d->std_in_fd = dup(0);
+	d->std_out_fd = dup(1);
 }

@@ -6,31 +6,33 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 21:46:36 by tkomeno           #+#    #+#             */
-/*   Updated: 2023/01/24 14:05:24 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/24 21:00:31 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void	skip_double_quotes(char *line, int *i, int *tokens)
-// {
-// 	(*tokens)++;
-// 	(*i)++;
-// 	while (line[*i] && line[*i] != '"')
-// 		(*i)++;
-// 	if (line[*i] == '"')
-// 		(*i)++;
-// }
+void	skip_double_quotes(char *line, int *i, int *tokens)
+{
+	(*i)++;
+	while (line[*i] && line[*i] != '"')
+		(*i)++;
+	if (line[*i] == '"')
+		(*i)++;
+	if ((!line[*i]) || is_token(line[*i]))
+		(*tokens)++;
+}
 
-// void	skip_single_quotes(char *line, int *i, int *tokens)
-// {
-// 	(*tokens)++;
-// 	(*i)++;
-// 	while (line[*i] && line[*i] != '\'')
-// 		(*i)++;
-// 	if (line[*i] == '\'')
-// 		(*i)++;
-// }
+void	skip_single_quotes(char *line, int *i, int *tokens)
+{
+	(*i)++;
+	while (line[*i] && line[*i] != '\'')
+		(*i)++;
+	if (line[*i] == '\'')
+		(*i)++;
+	if ((!line[*i]) || is_token(line[*i]))
+		(*tokens)++;
+}
 
 void	skip_pipe(int *i, int *tokens)
 {

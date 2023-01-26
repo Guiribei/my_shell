@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 22:13:00 by coder             #+#    #+#             */
-/*   Updated: 2023/01/24 18:32:02 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/26 18:34:09 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	free_tokens(t_token *tokens)
 
 void	half_break_free(t_data	*data)
 {
+	data->flag_quit = 0;
 	if (data->prompt)
 		strsclear(data->prompt);
 	if (data->str)
@@ -87,8 +88,7 @@ int	main(int argc, char *argv[], char *envp[])
 			write(1, "\n", 1);
 			exit(127);
 		}
-		if (is_expansible(g_data.str))
-			g_data.str = expand_str(g_data.str);
+		expand_variables(&g_data.str);
 		g_data.tokens = tokenize(g_data.str);
 		if (check_syntax(g_data.tokens, 0, 0) != -1)
 		{

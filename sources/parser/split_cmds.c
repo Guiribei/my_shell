@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:34:34 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/24 16:12:43 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/26 19:50:08 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ static int	before_split(char *cmd)
 	i = -1;
 	while (cmd[++i])
 	{
-		if (cmd[i] == '\'')
+		if (cmd[i] == '\'' && cmd[i + 1] && cmd[i + 1] == ' ')
 		{
 			j = i + 1;
-			while (cmd[j] != '\'')
+			while (cmd[j] && cmd[j] != '\'')
 			{
 				if (cmd[j] == ' ')
-					cmd[j] = (char)(2);
+					cmd[j] = (char)(3);
 				j++;
 			}
 			return (1);
@@ -37,13 +37,13 @@ static int	before_split(char *cmd)
 	i = -1;
 	while (cmd[++i])
 	{
-		if (cmd[i] == '\"')
+		if (cmd[i] == '\"' && cmd[i + 1] && cmd[i + 1] == ' ')
 		{
 			j = i + 1;
-			while (cmd[j] != '\"')
+			while (cmd[j] && cmd[j] != '\"')
 			{
 				if (cmd[j] == ' ')
-					cmd[j] = (char)(2);
+					cmd[j] = (char)(3);
 				j++;
 			}
 			return (1);
@@ -62,11 +62,11 @@ static void	put_space(t_cmd *cmds)
 	while (cmds[++i].cmd)
 	{
 		j = -1;
-		while (cmds[++i].cmd[++j])
+		while (cmds[i].cmd[++j])
 		{
-			if (cmds[i].cmd[j] == (char)(2))
+			if (cmds[i].cmd[j] == (char)(3))
 			{
-				while (cmds[i].cmd[j] == (char)(2))
+				while (cmds[i].cmd[j] == (char)(3))
 				{
 					cmds[i].cmd[j] = ' ';
 					j++;

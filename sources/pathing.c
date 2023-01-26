@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pathing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 19:35:53 by guribeir          #+#    #+#             */
-/*   Updated: 2022/12/15 15:22:13 by etachott         ###   ########.fr       */
+/*   Updated: 2023/01/26 02:05:11 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,8 @@ char	**get_paths(char **envp)
 	return (paths);
 }
 
-char	*find_command(char *command, char **paths)
+char	*find_command(char *command, char **paths, int i)
 {
-	int		i;
 	char	*tmp;
 	char	*path;
 
@@ -57,7 +56,6 @@ char	*find_command(char *command, char **paths)
 		tmp = ft_strdup(command);
 		return (tmp);
 	}
-	i = -1;
 	while (paths[++i])
 	{
 		tmp = ft_strjoin(paths[i], command);

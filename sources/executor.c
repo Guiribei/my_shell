@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 21:00:15 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/24 17:49:51 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/26 19:57:03 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	child(t_cmd *cmds, char **envp, int i)
 	ret = 0;
 	select_inout(cmds, i);
 	full_close(cmds);
-	if (is_builtin_fork(cmds[i].cmds))
+	if (is_builtin_fork(cmds[i].cmds)) //!(cmp(cmds[i].cmd, " ")) &&
 	{
 		builtin_run_fork(cmds[i].cmds);
 		execve("/usr/bin/true", cmds[i].cmds, envp);
@@ -94,7 +94,7 @@ int	core(t_cmd *cmds, char **envp)
 	i = 0;
 	while (cmds[i].cmd)
 	{
-		if (is_builtin_unfork(cmds[i].cmds))
+		if (is_builtin_unfork(cmds[i].cmds)) //!(cmp(cmds[i].cmd, " ")) &&
 		{
 			builtin_run_unfork(cmds[i].cmds, envp);
 			i++;
@@ -103,7 +103,7 @@ int	core(t_cmd *cmds, char **envp)
 		if (!cmds[i].is_heredoc)
 		{
 			paths = get_paths(envp);
-			cmds[i].path_cmd = find_command(cmds[i].cmds[0], paths);
+			cmds[i].path_cmd = find_command(cmds[i].cmds[0], paths, -1);
 			strsclear(paths);
 			if (!cmds[i].path_cmd && !is_builtin_fork(cmds[i].cmds))
 				return (127);

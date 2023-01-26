@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 19:34:51 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/24 17:50:23 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/26 13:55:24 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	builtin_run_unfork(char **prompt, char **envp)
 		exitcode = cd(envp, prompt[1]);
 	else if (ft_strncmp(prompt[0], "exit", 5) == 0)
 		builtin_exit(prompt);
-	else if (ft_strncmp(prompt[0], "export", 6) == 0)
+	else if (ft_strncmp(prompt[0], "export", 7) == 0)
 		exitcode = builtin_export(prompt);
 	else if (ft_strncmp(prompt[0], "unset", 6) == 0)
 		exitcode = builtin_unset(prompt);
