@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 21:00:15 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/27 01:30:42 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/27 21:22:29 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,17 +85,24 @@ static int	parent(t_cmd *cmds)
 	return (exitcode);
 }
 
+int	run_builtin_unfork(t_cmd *cmds, char **envp, int i)
+{
+	if (is_builtin_unfork(cmds[i].cmds))
+	{
+		builtin_run_unfork(cmds[i].cmds, envp);
+		return (1);
+	}
+	return (0);
+}
+
 int	core(t_cmd *cmds, char **envp, int exitcode, int i)
 {
 	char	**paths;
 
 	while (cmds[++i].cmd)
 	{
-		if (is_builtin_unfork(cmds[i].cmds))
-		{
-			builtin_run_unfork(cmds[i].cmds, envp);
+		if (run_builtin_unfork(cmds, envp, i))
 			continue ;
-		}
 		if (!cmds[i].is_heredoc)
 		{
 			paths = get_paths(envp);
