@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 17:37:30 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/24 16:13:40 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/27 01:35:38 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,21 +57,22 @@ void	strsclear(char **ptrs)
 	}
 }
 
-void	full_close(t_cmd *cmds)
+void	half_break_free(t_data	*data)
 {
-	int	i;
+	data->flag_quit = 0;
+	if (data->prompt)
+		strsclear(data->prompt);
+	if (data->str)
+		strclear(&data->str);
+	if (data->prompt_name)
+		strclear(&data->prompt_name);
+}
 
-	i = 0;
-	while (cmds[i].cmd)
-	{
-		if (cmds[i].fd_in != 0)
-			close(cmds[i].fd_in);
-		if (cmds[i].fd_out != 1)
-			close(cmds[i].fd_out);
-		if (cmds[i].pipe[0] != 0)
-			close(cmds[i].pipe[0]);
-		if (cmds[i].pipe[1] != 0)
-			close(cmds[i].pipe[1]);
-		i++;
-	}
+void	break_free(t_data *data)
+{
+	if (data)
+		half_break_free(data);
+	if (data->envp)
+		strsclear(data->envp);
+	rl_clear_history();
 }

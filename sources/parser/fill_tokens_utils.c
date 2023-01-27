@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 22:15:25 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/26 01:43:44 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/26 21:01:38 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,43 +14,43 @@
 
 extern t_data	g_data;
 
-void	fill_double(int *i, char *line, int *curr_token, t_token **tokens, int *test)
+void	fill_double(int *i, char *line, int *curr_token, t_token **tokens)
 {
 	(*i)++;
 	while (line[*i] && line[*i] != '"'
-		&& (*test) < (*tokens)[*curr_token].size)
+		&& (g_data.index) < (*tokens)[*curr_token].size)
 	{
-		(*tokens)[*curr_token].name[*test] = line[*i];
-		(*test)++;
+		(*tokens)[*curr_token].name[g_data.index] = line[*i];
+		(g_data.index)++;
 		(*i)++;
 	}
 	if (line[*i] == '"')
 		(*i)++;
 	if ((!line[*i]) || is_token(line[*i]))
 	{
-		(*test) = 0;
+		(g_data.index) = 0;
 		(*curr_token)++;
 	}
 }
 
-void	fill_single(int *i, char *line, int *curr_token, t_token **tokens, int *test)
+void	fill_single(int *i, char *line, int *curr_token, t_token **tokens)
 {
 	(*i)++;
 	while (line[*i] && line[*i] != '\''
-		&& (*test) < (*tokens)[*curr_token].size)
+		&& (g_data.index) < (*tokens)[*curr_token].size)
 	{
 		if (line[*i] == '~')
-			(*tokens)[*curr_token].name[*test] = ' ';
+			(*tokens)[*curr_token].name[g_data.index] = ' ';
 		else
-			(*tokens)[*curr_token].name[*test] = line[*i];
-		(*test)++;
+			(*tokens)[*curr_token].name[g_data.index] = line[*i];
+		(g_data.index)++;
 		(*i)++;
 	}
 	if (line[*i] == '\'')
 		(*i)++;
 	if ((!line[*i]) || is_token(line[*i]))
 	{
-		(*test) = 0;
+		(g_data.index) = 0;
 		(*curr_token)++;
 	}
 }

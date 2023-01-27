@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 22:30:53 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/24 16:19:13 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/27 01:35:10 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,35 @@ void	perror_handler(char *str1, char *str2, int status, t_cmd *cmds)
 	if (cmds)
 		full_close(cmds);
 	g_data.exit_status = status;
+}
+
+int	perror_handler_int(char *str1, char *str2, int status, t_cmd *cmds)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(str1, 2);
+	ft_putstr_fd(str2, 2);
+	perror("");
+	if (cmds)
+		full_close(cmds);
+	g_data.exit_status = status;
+	return (status);
+}
+
+void	full_close(t_cmd *cmds)
+{
+	int	i;
+
+	i = 0;
+	while (cmds[i].cmd)
+	{
+		if (cmds[i].fd_in != 0)
+			close(cmds[i].fd_in);
+		if (cmds[i].fd_out != 1)
+			close(cmds[i].fd_out);
+		if (cmds[i].pipe[0] != 0)
+			close(cmds[i].pipe[0]);
+		if (cmds[i].pipe[1] != 0)
+			close(cmds[i].pipe[1]);
+		i++;
+	}
 }

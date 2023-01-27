@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:23:50 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/20 00:39:02 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/26 22:33:27 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,22 @@ int	count_iterations(t_cmd *cmds)
 	while (cmds[i].cmd)
 		i++;
 	return (i);
+}
+
+char	*fill_non_printable(void)
+{
+	char	*str;
+
+	str = calloc(2, sizeof(char));
+	str[0] = 3;
+	return (str);
+}
+
+char	*fill_non_space(void)
+{
+	char	*str;
+
+	str = calloc(2, sizeof(char));
+	str[0] = 4;
+	return (str);
 }

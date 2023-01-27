@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 21:00:15 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/26 19:57:03 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/27 01:30:42 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	child(t_cmd *cmds, char **envp, int i)
 	ret = 0;
 	select_inout(cmds, i);
 	full_close(cmds);
-	if (is_builtin_fork(cmds[i].cmds)) //!(cmp(cmds[i].cmd, " ")) &&
+	if (is_builtin_fork(cmds[i].cmds))
 	{
 		builtin_run_fork(cmds[i].cmds);
 		execve("/usr/bin/true", cmds[i].cmds, envp);
@@ -85,19 +85,15 @@ static int	parent(t_cmd *cmds)
 	return (exitcode);
 }
 
-int	core(t_cmd *cmds, char **envp)
+int	core(t_cmd *cmds, char **envp, int exitcode, int i)
 {
-	int		exitcode;
-	int		i;
 	char	**paths;
 
-	i = 0;
-	while (cmds[i].cmd)
+	while (cmds[++i].cmd)
 	{
-		if (is_builtin_unfork(cmds[i].cmds)) //!(cmp(cmds[i].cmd, " ")) &&
+		if (is_builtin_unfork(cmds[i].cmds))
 		{
 			builtin_run_unfork(cmds[i].cmds, envp);
-			i++;
 			continue ;
 		}
 		if (!cmds[i].is_heredoc)
@@ -110,13 +106,9 @@ int	core(t_cmd *cmds, char **envp)
 		}
 		cmds[i].pid = fork();
 		if (cmds[i].pid == -1)
-		{
-			perror_handler("fork", "pid error", 1, cmds);
-			return (1);
-		}
+			return (perror_handler_int("fork", "pid error", 1, cmds));
 		else if (cmds[i].pid == 0)
 			child(cmds, envp, i);
-		i++;
 	}
 	exitcode = parent(cmds);
 	return (exitcode);

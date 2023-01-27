@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 18:00:35 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/24 18:03:33 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/26 22:32:35 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,19 @@ void	init_greater_than(t_cmd *cmds, t_token *tokens, int *i, int *j)
 void	init_normal(t_cmd *cmds, t_token *tokens, int *i, int *j)
 {
 	char	*temp;
+	char	*aux;
 
 	temp = NULL;
+	aux = NULL;
 	if (!cmds[*j].cmd)
 		cmds[*j].cmd = ft_strdup(tokens[*i].name);
 	else
 	{
+		aux = fill_non_space();
 		temp = ft_strdup(cmds[*j].cmd);
 		free(cmds[*j].cmd);
-		cmds[*j].cmd = join_three(temp, " ", tokens[*i].name);
+		cmds[*j].cmd = join_three(temp, aux, tokens[*i].name);
+		free(aux);
 		free(temp);
 	}
 }

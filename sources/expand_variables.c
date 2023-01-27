@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:09:50 by etachott          #+#    #+#             */
-/*   Updated: 2023/01/26 19:45:35 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/26 22:32:48 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,6 @@ static void	update_input(char **input, char *var_value, char *second_part)
 	*input = updated_input;
 }
 
-char	*fill_non_printable(void)
-{
-	char	*str;
-
-	str = calloc(2, sizeof(char));
-	str[0] = 2;
-	return (str);
-}
-
 static char	*var_to_value(char *var_name)
 {
 	char	*key;
@@ -93,7 +84,7 @@ static char	*var_to_value(char *var_name)
 		index++;
 	}
 	free(key);
-	return (NULL);
+	return (fill_non_printable());
 }
 
 void	expand_variables(char **input)

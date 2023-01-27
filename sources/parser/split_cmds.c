@@ -6,17 +6,44 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:34:34 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/26 19:50:08 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/26 22:46:00 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	before_split(char *cmd)
+static int	before_double_quote(char *cmd)
 {
 	int	i;
 	int	j;
 
+	if (!cmd)
+		return (0);
+	i = -1;
+	while (cmd[++i])
+	{
+		if (cmd[i] == '\"' && cmd[i + 1] && cmd[i + 1] == ' ')
+		{
+			j = i + 1;
+			while (cmd[j] && cmd[j] != '\"')
+			{
+				if (cmd[j] == ' ')
+					cmd[j] = (char)(3);
+				j++;
+			}
+			return (1);
+		}
+	}
+	return (0);
+}
+
+static int	before_split(char *cmd)
+{
+	int	i;
+	int	j;
+	int	ret;
+
+	ret = 0;
 	if (!cmd)
 		return (0);
 	i = -1;
@@ -34,22 +61,8 @@ static int	before_split(char *cmd)
 			return (1);
 		}
 	}
-	i = -1;
-	while (cmd[++i])
-	{
-		if (cmd[i] == '\"' && cmd[i + 1] && cmd[i + 1] == ' ')
-		{
-			j = i + 1;
-			while (cmd[j] && cmd[j] != '\"')
-			{
-				if (cmd[j] == ' ')
-					cmd[j] = (char)(3);
-				j++;
-			}
-			return (1);
-		}
-	}
-	return (0);
+	ret = before_double_quote(cmd);
+	return (ret);
 }
 
 static void	put_space(t_cmd *cmds)
@@ -93,7 +106,7 @@ void	split_cmds(t_cmd *cmds)
 	while (cmds[i].cmd)
 	{
 		flag = before_split(cmds[i].cmd);
-		cmds[i].cmds = ft_split(cmds[i].cmd, ' ');
+		cmds[i].cmds = ft_split(cmds[i].cmd, 4);
 		if (flag)
 			put_space(cmds);
 		if (!cmds[i].cmds)
