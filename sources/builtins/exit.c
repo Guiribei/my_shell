@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 19:48:47 by tkomeno           #+#    #+#             */
-/*   Updated: 2023/01/24 15:59:17 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/27 20:29:34 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	check_exit(char **args)
 
 void	builtin_exit(char **args)
 {
-	write (STDERR_FILENO, "exit do nosso\n", 5);
+	write (STDERR_FILENO, "exit\n", 5);
 	if (args[0] && !args[1])
 	{
 		break_free(&g_data);
