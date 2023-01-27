@@ -47,7 +47,7 @@ OBJ = ${SRC:%.c=$(PATH_OBJ)%.o}
 
 INCLUDE = -I ./includes/
 LIBFT = ./libft/libft.a
-FLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address
+FLAGS = -Wall -Wextra -Werror -g3
 LINKERS = -lrt -lm -lreadline
 
 all:		$(NAME)
@@ -83,9 +83,4 @@ fclean: clean
 
 re: fclean all
 	
-incendio: fclean
-	git add .
-	git commit -m "Emergency commit"
-	git push
-
-.PHONY: all clean fclean re incendio
+.PHONY: all clean fclean re

@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 17:37:30 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/27 01:35:38 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/27 20:08:54 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,6 @@ void	strclear(char **str)
 		free(*str);
 		*str = NULL;
 	}
-}
-
-int	count_rows(char **matrix)
-{
-	int	i;
-
-	i = 0;
-	while (matrix[i])
-		i++;
-	return (i);
 }
 
 void	strsclear(char **ptrs)
@@ -75,4 +65,17 @@ void	break_free(t_data *data)
 	if (data->envp)
 		strsclear(data->envp);
 	rl_clear_history();
+}
+
+void	free_tokens(t_token *tokens)
+{
+	int	index;
+
+	index = 0;
+	while (tokens[index].name)
+	{
+		free(tokens[index].name);
+		index++;
+	}
+	free(tokens);
 }

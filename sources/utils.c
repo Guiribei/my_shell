@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:23:50 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/26 22:33:27 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/27 20:06:57 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,14 @@ char	*fill_non_space(void)
 	str = calloc(2, sizeof(char));
 	str[0] = 4;
 	return (str);
+}
+
+int	count_rows(char **matrix)
+{
+	int	i;
+
+	i = 0;
+	while (matrix[i])
+		i++;
+	return (i);
 }

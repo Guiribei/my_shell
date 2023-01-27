@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2023/01/27 02:17:04 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/27 20:09:39 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,9 +128,11 @@ char		**set_env(char *envp[]);
 /*Memory and fd clearing functions*/
 
 void		break_free(t_data *data);
+int			count_rows(char **matrix);
 void		exit_with_error(char *cmd, char *msg, int error);
 int			error_syntax(char *token);
 void		free_cmds(t_cmd *cmds);
+void		free_tokens(t_token *tokens);
 void		full_close(t_cmd *cmd);
 void		half_break_free(t_data *data);
 void		perror_handler(char *str1, char *str2, int status, t_cmd *cmds);

@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 17:06:54 by tkomeno           #+#    #+#             */
-/*   Updated: 2023/01/27 02:53:33 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/27 19:56:09 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,12 @@ extern t_data	g_data;
 t_token	*allocate_tokens(char *line)
 {
 	t_token	*tokens;
+	int		tokens_count;
 
-	tokens = ft_calloc(sizeof(t_token), (count_tokens(line) + 1));
+	tokens_count = count_tokens(line);
+	if (tokens_count == 0)
+		return (NULL);
+	tokens = ft_calloc(sizeof(t_token), (tokens_count + 1));
 	if (!tokens)
 		return (NULL);
 	return (tokens);
@@ -27,6 +31,8 @@ t_token	*allocate_tokens(char *line)
 void	allocate_normal(char *line, int *i, int *curr_token,
 		int *curr_token_size)
 {
+	while (line[*i] == ' ')
+		(*i)++;
 	while (line[*i] && !ft_isspace(line[*i]) && !is_token(line[*i]))
 	{
 		while (line[*i] == '\"' || line[*i] == '\'')

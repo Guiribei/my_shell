@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 22:13:00 by coder             #+#    #+#             */
-/*   Updated: 2023/01/27 01:45:30 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/27 20:16:19 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,6 @@ void	free_cmds(t_cmd *cmds)
 	free(cmds);
 }
 
-static void	free_tokens(t_token *tokens)
-{
-	int	index;
-
-	index = 0;
-	while (tokens[index].name)
-	{
-		free(tokens[index].name);
-		index++;
-	}
-	free(tokens);
-}
-
 static void	get_str(void)
 {
 	g_data.envp = change_exit_status(g_data.envp, g_data.exit_status);
@@ -63,6 +50,13 @@ static void	parse_and_execute(void)
 		g_data.exit_status = core(g_data.cmds, g_data.envp, 0, -1);
 		free_cmds(g_data.cmds);
 	}
+}
+
+static void	syntax_right_execute(void)
+{
+	if (check_syntax(g_data.tokens, 0, 0) != -1)
+		parse_and_execute();
+	free_tokens(g_data.tokens);
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -86,9 +80,8 @@ int	main(int argc, char *argv[], char *envp[])
 		}
 		expand_variables(&g_data.str);
 		g_data.tokens = tokenize(g_data.str);
-		if (check_syntax(g_data.tokens, 0, 0) != -1)
-			parse_and_execute();
-		free_tokens(g_data.tokens);
+		if (g_data.tokens)
+			syntax_right_execute();
 		half_break_free(&g_data);
 	}
 }

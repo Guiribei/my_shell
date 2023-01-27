@@ -6,32 +6,11 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 16:29:35 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/24 16:24:20 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/27 19:54:59 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// void	ft_envfree(t_list **env)
-// {
-// 	t_list	*prev_node;
-// 	int		index;
-
-// 	index = 0;
-// 	prev_node = *env;
-// 	if (!*env || !env)
-// 		return ;
-// 	while (*env && prev_node)
-// 	{
-// 		*env = (*env)->next;
-// 		free(prev_node->key);
-// 		free(prev_node->value);
-// 		free(prev_node);
-// 		prev_node = *env;
-// 		index++;
-// 	}
-// 	*env = NULL;
-// }
 
 char	**change_env(char **envp, char *key, char *value)
 {
