@@ -95,6 +95,7 @@ typedef struct s_data
 
 void		init_global(t_data *d);
 char		*set_prompt(const char *name);
+void		set_execute_signals(int child_pid);
 void		set_signals(struct sigaction *act, struct sigaction *act_2);
 
 /*Builtins and it's aux functions*/

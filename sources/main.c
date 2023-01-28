@@ -61,12 +61,12 @@ static void	syntax_right_execute(void)
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	struct sigaction	act;
-	struct sigaction	act_2;
+	struct sigaction	s_sigint;
+	struct sigaction	s_sigquit;
 
 	if (argc == 0 || !argv[0])
 		return (1);
-	set_signals(&act, &act_2);
+	set_signals(&s_sigint, &s_sigquit);
 	init_global(&g_data);
 	g_data.envp = set_env(envp);
 	while (1)

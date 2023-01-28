@@ -37,11 +37,9 @@ void	echo(char **str)
 {
 	int	i;
 	int	flag;
-	int	limit;
 
 	i = 1;
 	flag = 0;
-	limit = 0;
 	if (!str[1])
 	{
 		ft_putendl_fd("", 1);

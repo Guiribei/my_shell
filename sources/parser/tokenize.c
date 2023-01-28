@@ -17,9 +17,7 @@ extern t_data	g_data;
 t_token	*tokenize(char *line)
 {
 	t_token	*tokens;
-	int		flag;
 
-	flag = 0;
 	tokens = allocate_tokens(line);
 	if (!tokens)
 		return (NULL);

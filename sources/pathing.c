@@ -72,17 +72,14 @@ int	exit_error_no_path(char **paths, char *command)
 
 char	*find_command(char *command, char **paths, int i)
 {
-	char	*tmp;
 	char	*path;
+	char	*tmp;
 
 	if (exit_error_no_path(paths, command))
 		return (NULL);
 	path = NULL;
 	if (access(command, F_OK | X_OK) == 0)
-	{
-		tmp = ft_strdup(command);
-		return (tmp);
-	}
+		return (ft_strdup(command));
 	while (paths[++i])
 	{
 		tmp = ft_strjoin(paths[i], command);

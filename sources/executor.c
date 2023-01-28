@@ -40,9 +40,6 @@ void	select_inout(t_cmd *cmds, int i)
 
 static void	child(t_cmd *cmds, char **envp, int i)
 {
-	int	ret;
-
-	ret = 0;
 	select_inout(cmds, i);
 	full_close(cmds);
 	if (is_builtin_fork(cmds[i].cmds))
@@ -64,7 +61,6 @@ static void	child(t_cmd *cmds, char **envp, int i)
 
 static int	parent(t_cmd *cmds)
 {
-	pid_t	pid;
 	int		status;
 	int		exitcode;
 	int		i;
@@ -75,7 +71,7 @@ static int	parent(t_cmd *cmds)
 	status = 0;
 	while (cmds[i].cmd)
 	{
-		pid = waitpid(cmds[i].pid, &status, 0);
+		waitpid(cmds[i].pid, &status, 0);
 		if (WIFEXITED(status))
 			exitcode = WEXITSTATUS(status);
 		i++;
@@ -112,6 +108,7 @@ int	core(t_cmd *cmds, char **envp, int exitcode, int i)
 				return (127);
 		}
 		cmds[i].pid = fork();
+		set_execute_signals(cmds[i].pid);
 		if (cmds[i].pid == -1)
 			return (perror_handler_int("fork", "pid error", 1, cmds));
 		else if (cmds[i].pid == 0)

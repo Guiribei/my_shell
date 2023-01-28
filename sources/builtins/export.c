@@ -30,9 +30,6 @@ static int	has_dash(char *name)
 
 static int	is_valid(char *name, int *invalid_flag)
 {
-	int	index;
-
-	index = 0;
 	if (ft_isdigit(name[0]) || has_dash(name) || name[0] == '=')
 	{
 		*(invalid_flag) += 1;

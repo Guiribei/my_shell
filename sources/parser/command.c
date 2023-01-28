@@ -46,7 +46,7 @@ void	safe_init(t_cmd *cmds, int size)
 		cmds[i].where_read = STD_IN;
 		cmds[i].where_write = STD_OUT;
 		cmds[i].is_heredoc = 0;
-		memset(cmds[i].pipe, 0, 2);
+		memset(cmds[i].pipe, 0, 2 * sizeof(int));
 		i++;
 	}
 }
