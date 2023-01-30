@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 22:13:00 by coder             #+#    #+#             */
-/*   Updated: 2023/01/27 21:09:48 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/01/31 00:46:42 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ int	main(int argc, char *argv[], char *envp[])
 
 	if (argc == 0 || !argv[0])
 		return (1);
-	set_signals(&s_sigint, &s_sigquit);
 	init_global(&g_data);
 	g_data.envp = set_env(envp);
 	while (1)
 	{
+		set_signals(&s_sigint, &s_sigquit);
 		get_str();
 		if (!g_data.str)
 		{
