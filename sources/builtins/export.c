@@ -58,27 +58,27 @@ static void	append_to_envp(char *name)
 {
 	char	**temp;
 	char	*key;
-	int		index;
+	int		i;
 	int		envp_size;
 
-	index = -1;
+	i = -1;
 	key = get_key(name);
-	while (g_data.envp[++index])
+	while (g_data.envp[++i])
 	{
-		if (ft_strncmp(g_data.envp[index], key, ft_strlen(key)) == 0)
+		if (ft_strncmp(g_data.envp[i], key, ft_strlen(g_data.envp[i])) == 0)
 		{
 			free(key);
-			g_data.envp[index] = ft_strdup(name);
+			g_data.envp[i] = ft_strdup(name);
 			return ;
 		}
 	}
 	free(key);
-	index = -1;
+	i = -1;
 	envp_size = ft_matrix_size(g_data.envp);
 	temp = ft_calloc(sizeof(char *), envp_size + 2);
-	while (g_data.envp[++index])
-		temp[index] = ft_strdup(g_data.envp[index]);
-	temp[index] = ft_strdup(name);
+	while (g_data.envp[++i])
+		temp[i] = ft_strdup(g_data.envp[i]);
+	temp[i] = ft_strdup(name);
 	strsclear(g_data.envp);
 	g_data.envp = temp;
 }
