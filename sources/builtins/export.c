@@ -14,12 +14,12 @@
 
 extern t_data	g_data;
 
-static int	has_dash(char *name)
+static int	has_dash_before_equal(char *name)
 {
 	int	index;
 
 	index = 0;
-	while (name[index])
+	while (name[index] && name[index] != '=')
 	{
 		if (name[index] == '-')
 			return (1);
@@ -30,7 +30,7 @@ static int	has_dash(char *name)
 
 static int	is_valid(char *name, int *invalid_flag)
 {
-	if (ft_isdigit(name[0]) || has_dash(name) || name[0] == '=')
+	if (ft_isdigit(name[0]) || has_dash_before_equal(name) || name[0] == '=')
 	{
 		*(invalid_flag) += 1;
 		if (*(invalid_flag) == 1)
