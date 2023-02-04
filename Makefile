@@ -15,6 +15,7 @@ SRC = prompt.c \
 	  join.c \
 	  env.c \
 	  export.c \
+	  export_utils.c \
 	  unset.c \
 	  echo.c \
 	  pwd.c \

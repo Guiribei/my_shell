@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 22:13:00 by coder             #+#    #+#             */
-/*   Updated: 2023/01/31 00:46:42 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/04 15:57:27 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	main(int argc, char *argv[], char *envp[])
 		return (1);
 	init_global(&g_data);
 	g_data.envp = set_env(envp);
+	g_data.fenvp = set_env(envp);
 	while (1)
 	{
 		set_signals(&s_sigint, &s_sigquit);

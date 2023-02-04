@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 14:02:00 by etachott          #+#    #+#             */
-/*   Updated: 2023/02/03 01:21:14 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/04 19:16:43 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ static int	is_valid(char *name, int *invalid_flag)
 		return (0);
 	}
 	if (!ft_strnstr(name, "=", ft_strlen(name)))
+	{
+		append_to_fake_envp(name);
 		return (0);
+	}
 	return (1);
 }
 
@@ -101,7 +104,10 @@ int	builtin_export(char **argv)
 	while (index < argv_size)
 	{
 		if (is_valid(argv[index], &invalid_flag))
+		{
+			append_to_fake_envp(argv[index]);
 			append_to_envp(argv[index]);
+		}
 		else
 			return (1);
 		index++;

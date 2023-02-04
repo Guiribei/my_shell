@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2023/02/03 01:49:43 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/04 19:16:47 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct s_data
 	char	*cmd;
 	char	*cwd;
 	char	**envp;
+	char	**fenvp;
 	char	**prompt;
 	char	*prompt_name;
 	char	*str;
@@ -100,6 +101,7 @@ void		set_signals(struct sigaction *act, struct sigaction *act_2);
 
 /*Builtins and it's aux functions*/
 
+void		append_to_fake_envp(char *name);
 int			cd(char **envp, char *folder);
 char		**change_exit_status(char **envp, int status);
 int			echo(char **str);

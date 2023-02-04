@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 17:37:30 by guribeir          #+#    #+#             */
-/*   Updated: 2023/02/03 02:33:31 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/04 19:26:28 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	break_free(t_data *data)
 		half_break_free(data);
 	if (data->envp)
 		strsclear(data->envp);
+	if (data->fenvp)
+		strsclear(data->f 	envp);
 	rl_clear_history();
 }
 

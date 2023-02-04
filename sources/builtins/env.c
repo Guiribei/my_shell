@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:25:43 by coder             #+#    #+#             */
-/*   Updated: 2023/01/24 15:56:59 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/04 16:00:08 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void	env_export_no_arg(void)
 	int	index;
 
 	index = 0;
-	while (g_data.envp[++index])
+	while (g_data.fenvp[++index])
 	{
 		printf("declare -x ");
-		printf("%s\n", g_data.envp[index]);
+		printf("%s\n", g_data.fenvp[index]);
 	}
 }
