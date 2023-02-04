@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 14:02:03 by etachott          #+#    #+#             */
-/*   Updated: 2023/02/03 02:46:31 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/04 20:41:26 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,30 +28,88 @@ static int	is_valid(char *name)
 static void	remove_from_envp(char *name)
 {
 	char	**temp;
-	char	*tmp_str;
+	char	*tmp;
 	int		size;
-	int		index;
+	int		i;
 
-	tmp_str = ft_strjoin(name, "=");
-	index = 0;
+	tmp = ft_strjoin(name, "=");
+	i = 0;
 	size = ft_matrix_size(g_data.envp);
 	temp = ft_calloc(sizeof(char *), size);
 	temp[size - 1] = NULL;
 	size = 0;
 	while (size < ft_matrix_size(g_data.envp) - 1)
 	{
-		if (ft_strncmp(g_data.envp[index], tmp_str, ft_strlen(tmp_str)) == 0)
-			index++;
+		if (ft_strncmp(g_data.envp[i], tmp, ft_strlen(g_data.envp[i])) == 0)
+			i++;
 		else
 		{
-			temp[size] = ft_strdup(g_data.envp[index]);
+			temp[size] = ft_strdup(g_data.envp[i]);
 			size++;
-			index++;
+			i++;
 		}
 	}
 	strsclear(g_data.envp);
 	g_data.envp = temp;
-	free(tmp_str);
+	free(tmp);
+}
+
+static void	remove_from_fenvp(char *name)
+{
+	char	**temp;
+	char	*tmp;
+	int		size;
+	int		i;
+
+	tmp = ft_strjoin(name, "=");
+	i = 0;
+	size = ft_matrix_size(g_data.fenvp);
+	temp = ft_calloc(sizeof(char *), size);
+	temp[size - 1] = NULL;
+	size = 0;
+	while (size < ft_matrix_size(g_data.fenvp) - 1)
+	{
+		if (ft_strncmp(g_data.fenvp[i], tmp, ft_strlen(g_data.fenvp[i])) == 0)
+			i++;
+		else
+		{
+			temp[size] = ft_strdup(g_data.fenvp[i]);
+			size++;
+			i++;
+		}
+	}
+	strsclear(g_data.fenvp);
+	g_data.fenvp = temp;
+	free(tmp);
+}
+
+static void	remove_from_fenvp_no_equal(char *name)
+{
+	char	**temp;
+	char	*tmp;
+	int		size;
+	int		i;
+
+	tmp = ft_strdup(name);
+	i = 0;
+	size = ft_matrix_size(g_data.fenvp);
+	temp = ft_calloc(sizeof(char *), size);
+	temp[size - 1] = NULL;
+	size = 0;
+	while (size < ft_matrix_size(g_data.fenvp) - 1)
+	{
+		if (ft_strncmp(g_data.fenvp[i], tmp, ft_strlen(g_data.fenvp[i])) == 0)
+			i++;
+		else
+		{
+			temp[size] = ft_strdup(g_data.fenvp[i]);
+			size++;
+			i++;
+		}
+	}
+	strsclear(g_data.fenvp);
+	g_data.fenvp = temp;
+	free(tmp);
 }
 
 int	builtin_unset(char **argv)
@@ -64,7 +122,11 @@ int	builtin_unset(char **argv)
 	while (argv[++index])
 	{
 		if (is_valid(argv[index]))
+		{
+			remove_from_fenvp(argv[index]);
+			remove_from_fenvp_no_equal(argv[index]);
 			remove_from_envp(argv[index]);
+		}
 		else
 			return (1);
 	}

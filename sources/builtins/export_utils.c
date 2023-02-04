@@ -6,7 +6,7 @@
 /*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 16:01:45 by etachott          #+#    #+#             */
-/*   Updated: 2023/02/04 20:14:37 by etachott         ###   ########.fr       */
+/*   Updated: 2023/02/04 20:25:18 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	append_to_fake_envp(char *name)
 		if (ft_strncmp(g_data.fenvp[i], key, ft_strlen(g_data.fenvp[i])) == 0)
 		{
 			free(key);
+			free(g_data.fenvp[i]);
 			g_data.fenvp[i] = ft_strdup(name);
 			return ;
 		}
