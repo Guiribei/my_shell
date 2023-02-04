@@ -6,11 +6,13 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 16:20:44 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/24 17:03:27 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/03 02:34:08 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern t_data	g_data;
 
 static int	counter(char **str)
 {
@@ -33,7 +35,7 @@ void	put_str_increment(char **str, int *i)
 	(*i)++;
 }
 
-void	echo(char **str)
+int	echo(char **str)
 {
 	int	i;
 	int	flag;
@@ -43,7 +45,8 @@ void	echo(char **str)
 	if (!str[1])
 	{
 		ft_putendl_fd("", 1);
-		return ;
+		g_data.exit_status = 0;
+		return (0);
 	}
 	if (ft_strncmp(str[i], "-n", 3) == 0)
 	{
@@ -54,4 +57,6 @@ void	echo(char **str)
 		put_str_increment(str, &i);
 	if (flag == 0)
 		ft_putchar_fd('\n', 1);
+	g_data.exit_status = 0;
+	return (0);
 }

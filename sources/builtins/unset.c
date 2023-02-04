@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 14:02:03 by etachott          #+#    #+#             */
-/*   Updated: 2023/01/24 15:59:51 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/03 02:46:31 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int	builtin_unset(char **argv)
 	{
 		if (is_valid(argv[index]))
 			remove_from_envp(argv[index]);
+		else
+			return (1);
 	}
 	return (0);
 }

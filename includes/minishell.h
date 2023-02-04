@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2023/01/27 20:56:18 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/03 01:49:43 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void		set_signals(struct sigaction *act, struct sigaction *act_2);
 
 int			cd(char **envp, char *folder);
 char		**change_exit_status(char **envp, int status);
-void		echo(char **str);
+int			echo(char **str);
 int			builtin_env(void);
 void		builtin_exit(char **args);
 int			builtin_export(char **argv);

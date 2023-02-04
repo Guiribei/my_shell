@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 21:00:15 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/27 21:22:29 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/03 14:48:13 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ static void	child(t_cmd *cmds, char **envp, int i)
 	full_close(cmds);
 	if (is_builtin_fork(cmds[i].cmds))
 	{
-		builtin_run_fork(cmds[i].cmds);
-		execve("/usr/bin/true", cmds[i].cmds, envp);
+		g_data.exit_status = builtin_run_fork(cmds[i].cmds);
+		exit(g_data.exit_status);
 	}
 	if (cmds[i].cmds == NULL || cmds[i].path_cmd == NULL)
 	{
@@ -62,30 +62,28 @@ static void	child(t_cmd *cmds, char **envp, int i)
 static int	parent(t_cmd *cmds)
 {
 	int		status;
-	int		exitcode;
 	int		i;
 
 	i = 0;
 	full_close(cmds);
-	exitcode = 1;
 	status = 0;
 	while (cmds[i].cmd)
 	{
 		waitpid(cmds[i].pid, &status, 0);
 		if (WIFEXITED(status))
-			exitcode = WEXITSTATUS(status);
+			g_data.exit_status = WEXITSTATUS(status);
 		i++;
 	}
 	dup2(0, g_data.std_in_fd);
 	dup2(1, g_data.std_out_fd);
-	return (exitcode);
+	return (g_data.exit_status);
 }
 
 int	run_builtin_unfork(t_cmd *cmds, char **envp, int i)
 {
-	if (is_builtin_unfork(cmds[i].cmds))
+	if (is_builtin_unfork(cmds[i].cmds)) //&& cmds[i].where_write != PIPE_1
 	{
-		builtin_run_unfork(cmds[i].cmds, envp);
+		g_data.exit_status = builtin_run_unfork(cmds[i].cmds, envp);
 		return (1);
 	}
 	return (0);
@@ -98,7 +96,12 @@ int	core(t_cmd *cmds, char **envp, int exitcode, int i)
 	while (cmds[++i].cmd)
 	{
 		if (run_builtin_unfork(cmds, envp, i))
-			continue ;
+		{
+			if (cmds[i + 1].cmd)le
+				continue ;
+			else
+				return (g_data.exit_status);
+		}
 		if (!cmds[i].is_heredoc)
 		{
 			paths = get_paths(envp);

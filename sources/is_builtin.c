@@ -6,11 +6,13 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 19:34:51 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/26 13:55:24 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/03 02:21:40 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern t_data	g_data;
 
 void	error_handler(char *cmd, char *error)
 {
@@ -49,11 +51,11 @@ int	builtin_run_fork(char **prompt)
 {
 	int	exitcode;
 
-	exitcode = 1;
+	exitcode = 0;
 	if (ft_strncmp(prompt[0], "pwd", 4) == 0)
 		exitcode = pwd();
 	else if (ft_strncmp(prompt[0], "echo", 5) == 0)
-		echo(prompt);
+		exitcode = echo(prompt);
 	else if (ft_strncmp(prompt[0], "env", 4) == 0)
 		exitcode = builtin_env();
 	else
@@ -66,8 +68,9 @@ int	builtin_run_unfork(char **prompt, char **envp)
 	int	exitcode;
 
 	exitcode = 1;
-	if (ft_strncmp(prompt[0], "cd", 3) == 0)
+	if (ft_strncmp(prompt[0], "cd", 3) == 0){
 		exitcode = cd(envp, prompt[1]);
+	}
 	else if (ft_strncmp(prompt[0], "exit", 5) == 0)
 		builtin_exit(prompt);
 	else if (ft_strncmp(prompt[0], "export", 7) == 0)
@@ -76,5 +79,6 @@ int	builtin_run_unfork(char **prompt, char **envp)
 		exitcode = builtin_unset(prompt);
 	else
 		return (1);
+	g_data.exit_status = exitcode;
 	return (exitcode);
 }

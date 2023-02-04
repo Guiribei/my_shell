@@ -63,6 +63,7 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	struct sigaction	s_sigint;
 	struct sigaction	s_sigquit;
+	int					exit_sts;
 
 	if (argc == 0 || !argv[0])
 		return (1);
@@ -74,9 +75,10 @@ int	main(int argc, char *argv[], char *envp[])
 		get_str();
 		if (!g_data.str)
 		{
+			exit_sts = g_data.exit_status;
 			break_free(&g_data);
 			write(1, "\n", 1);
-			exit(127);
+			exit(exit_sts);
 		}
 		expand_variables(&g_data.str);
 		g_data.tokens = tokenize(g_data.str);
