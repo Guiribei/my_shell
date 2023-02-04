@@ -16,11 +16,14 @@ extern t_data	g_data;
 
 int	heredoc(t_cmd *cmds, char *delimiter)
 {
-	char	*line;
+	struct sigaction	s_sigint;
+	struct sigaction	s_sigquit;
+	char				*line;
 
 	line = readline("> ");
 	while (line && !cmp(line, delimiter))
 	{
+		set_signals(&s_sigint, &s_sigquit);
 		ft_putendl_fd(line, cmds->fd_in);
 		free(line);
 		line = readline("> ");
