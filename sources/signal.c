@@ -6,11 +6,13 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 14:57:34 by coder             #+#    #+#             */
-/*   Updated: 2023/01/24 16:23:00 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/04 03:21:58 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern t_data	g_data;
 
 void	sig_handler(int sig)
 {
