@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 21:00:15 by guribeir          #+#    #+#             */
-/*   Updated: 2023/02/03 14:48:13 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/04 02:58:30 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	core(t_cmd *cmds, char **envp, int exitcode, int i)
 	{
 		if (run_builtin_unfork(cmds, envp, i))
 		{
-			if (cmds[i + 1].cmd)le
+			if (cmds[i + 1].cmd)
 				continue ;
 			else
 				return (g_data.exit_status);

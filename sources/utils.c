@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:23:50 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/27 20:06:57 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/04 03:07:32 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*fill_non_printable(void)
 	char	*str;
 
 	str = calloc(2, sizeof(char));
-	str[0] = 3;
+	str[0] = 32;
 	return (str);
 }
 
