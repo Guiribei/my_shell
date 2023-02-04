@@ -6,7 +6,7 @@
 /*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2023/02/04 19:16:47 by etachott         ###   ########.fr       */
+/*   Updated: 2023/02/04 20:14:04 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void		set_signals(struct sigaction *act, struct sigaction *act_2);
 /*Builtins and it's aux functions*/
 
 void		append_to_fake_envp(char *name);
+int			env_export_no_arg(void);
 int			cd(char **envp, char *folder);
 char		**change_exit_status(char **envp, int status);
 int			echo(char **str);
@@ -119,7 +120,6 @@ int			pwd(void);
 /*Enviroment functions*/
 
 char		**change_env(char **envp, char *key, char *value);
-void		env_export_no_arg(void);
 char		*expand_str(char *str);
 void		expand_variables(char **input);
 void		ft_envfree(t_list **env);

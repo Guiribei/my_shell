@@ -6,7 +6,7 @@
 /*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 14:02:00 by etachott          #+#    #+#             */
-/*   Updated: 2023/02/04 20:07:38 by etachott         ###   ########.fr       */
+/*   Updated: 2023/02/04 20:13:15 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,7 @@ int	builtin_export(char **argv)
 	if (!argv)
 		return (0);
 	if (!argv[1])
-	{
-		env_export_no_arg();
-		return (0);
-	}
+		return (env_export_no_arg());
 	index = 1;
 	argv_size = ft_matrix_size(argv);
 	while (index < argv_size)

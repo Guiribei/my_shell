@@ -6,7 +6,7 @@
 /*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:25:43 by coder             #+#    #+#             */
-/*   Updated: 2023/02/04 16:00:08 by etachott         ###   ########.fr       */
+/*   Updated: 2023/02/04 20:15:04 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	builtin_env(void)
 	return (0);
 }
 
-void	env_export_no_arg(void)
+int	env_export_no_arg(void)
 {
 	int	index;
 
@@ -58,4 +58,5 @@ void	env_export_no_arg(void)
 		printf("declare -x ");
 		printf("%s\n", g_data.fenvp[index]);
 	}
+	return (0);
 }

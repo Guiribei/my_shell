@@ -6,13 +6,13 @@
 /*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 16:01:45 by etachott          #+#    #+#             */
-/*   Updated: 2023/02/04 19:16:54 by etachott         ###   ########.fr       */
+/*   Updated: 2023/02/04 20:14:37 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern t_data   g_data;
+extern t_data	g_data;
 
 static char	*get_key(char *name)
 {
