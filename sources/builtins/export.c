@@ -6,7 +6,7 @@
 /*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 14:02:00 by etachott          #+#    #+#             */
-/*   Updated: 2023/02/04 19:16:43 by etachott         ###   ########.fr       */
+/*   Updated: 2023/02/04 20:07:38 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern t_data	g_data;
 
-static int	has_dash_before_equal(char *name)
+static int	has_dash(char *name)
 {
 	int	index;
 
@@ -30,7 +30,7 @@ static int	has_dash_before_equal(char *name)
 
 static int	is_valid(char *name, int *invalid_flag)
 {
-	if (ft_isdigit(name[0]) || has_dash_before_equal(name) || name[0] == '=')
+	if (!ft_isalpha_under(name[0]) || has_dash(name) || name[0] == '=')
 	{
 		*(invalid_flag) += 1;
 		if (*(invalid_flag) == 1)

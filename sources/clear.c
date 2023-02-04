@@ -6,7 +6,7 @@
 /*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 17:37:30 by guribeir          #+#    #+#             */
-/*   Updated: 2023/02/04 19:26:28 by etachott         ###   ########.fr       */
+/*   Updated: 2023/02/04 19:57:28 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	break_free(t_data *data)
 	if (data->envp)
 		strsclear(data->envp);
 	if (data->fenvp)
-		strsclear(data->f 	envp);
+		strsclear(data->fenvp);
 	rl_clear_history();
 }
 
