@@ -26,7 +26,7 @@ void	fill_double(int *i, char *line, int *curr_token, t_token **tokens)
 	}
 	if (line[*i] == '"')
 		(*i)++;
-	if ((!line[*i]) || is_token(line[*i]))
+	if ((!line[*i]) || is_token(line[*i]) || ft_isspace(line[*i]))
 	{
 		(g_data.index) = 0;
 		(*curr_token)++;
@@ -48,7 +48,7 @@ void	fill_single(int *i, char *line, int *curr_token, t_token **tokens)
 	}
 	if (line[*i] == '\'')
 		(*i)++;
-	if ((!line[*i]) || is_token(line[*i]))
+	if ((!line[*i]) || is_token(line[*i]) || ft_isspace(line[*i]))
 	{
 		(g_data.index) = 0;
 		(*curr_token)++;

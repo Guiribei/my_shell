@@ -16,25 +16,22 @@ extern t_data	g_data;
 
 void	fill_normal(char *line, int *i, t_token **tokens, int *curr_token)
 {
-	int	curr_token_size;
-
-	curr_token_size = 0;
-	while (line[*i] && !ft_isspace(line[*i]) && !is_token(line[*i])
-		&& curr_token_size < (*tokens)[*curr_token].size)
+	while (line[*i] && !ft_isspace(line[*i]) && !is_token(line[*i]) &&
+		!is_quote(line[*i]) && g_data.index < (*tokens)[*curr_token].size)
 	{
-		while (line[*i] == '\"' || line[*i] == '\'')
-			(*i)++;
 		if (line[*i] && !ft_isspace(line[*i]) && !is_token(line[*i])
-			&& curr_token_size < (*tokens)[*curr_token].size)
+			&& g_data.index < (*tokens)[*curr_token].size)
 		{
-			(*tokens)[*curr_token].name[curr_token_size] = line[*i];
+			(*tokens)[*curr_token].name[g_data.index] = line[*i];
 			(*i)++;
-			curr_token_size++;
+			g_data.index++;
 		}
-		while (line[*i] == '\"' || line[*i] == '\'')
-			(*i)++;
 	}
-	(*curr_token)++;
+	if ((!line[*i]) || is_token(line[*i]) || ft_isspace(line[*i]))
+	{
+		(g_data.index) = 0;
+		(*curr_token)++;
+	}
 }
 
 t_token	*fill_tokens_content(char *line, t_token *tokens, int curr_token, int i)

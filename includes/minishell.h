@@ -88,6 +88,7 @@ typedef struct s_data
 	int		flag_quit;
 	int		i;
 	int		j;
+	int		skip;
 	t_cmd	*cmds;
 	t_token	*tokens;
 }			t_data;
@@ -180,6 +181,7 @@ int			count_tokens(char *line);
 t_token		*tokenize(char *line);
 long long	ft_atoi_long(char *str);
 int			is_token(char c);
+int			is_quote(char c);
 t_bool		is(const char *s, int c);
 void		print_cmd(t_cmd *cmd);
 void		skip_gt(int *i, int *tokens, char *line);

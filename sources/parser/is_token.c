@@ -14,7 +14,14 @@
 
 int	is_token(char c)
 {
-	if (c == '|' || c == '<' || c == '>' || c == ' ')
+	if (c == '|' || c == '<' || c == '>')
+		return (1);
+	return (0);
+}
+
+int	is_quote(char c)
+{
+	if (c == '\'' || c == '\"')
 		return (1);
 	return (0);
 }

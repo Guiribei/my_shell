@@ -19,7 +19,7 @@ void	skip_double_quotes(char *line, int *i, int *tokens)
 		(*i)++;
 	if (line[*i] == '"')
 		(*i)++;
-	if ((!line[*i]) || is_token(line[*i]))
+	if ((!line[*i]) || is_token(line[*i]) || ft_isspace(line[*i]))
 		(*tokens)++;
 }
 
@@ -30,7 +30,7 @@ void	skip_single_quotes(char *line, int *i, int *tokens)
 		(*i)++;
 	if (line[*i] == '\'')
 		(*i)++;
-	if ((!line[*i]) || is_token(line[*i]))
+	if ((!line[*i]) || is_token(line[*i]) || ft_isspace(line[*i]))
 		(*tokens)++;
 }
 

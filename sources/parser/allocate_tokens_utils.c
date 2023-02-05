@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+extern t_data	g_data;
+
 void	allocate_double(int *curr_token, int *curr_token_size, char *line,
 		int *i)
 {
@@ -23,7 +25,7 @@ void	allocate_double(int *curr_token, int *curr_token_size, char *line,
 	}
 	if (line[*i] == '"')
 		(*i)++;
-	if ((!line[*i]) || is_token(line[*i]))
+	if ((!line[*i]) || is_token(line[*i]) || ft_isspace(line[*i]))
 		(*curr_token)++;
 }
 
@@ -38,7 +40,7 @@ void	allocate_single(int *curr_token, int *curr_token_size, char *line,
 	}
 	if (line[*i] == '\'')
 		(*i)++;
-	if ((!line[*i]) || is_token(line[*i]))
+	if ((!line[*i]) || is_token(line[*i]) || ft_isspace(line[*i]))
 		(*curr_token)++;
 }
 
@@ -47,6 +49,7 @@ void	allocate_pipe(int *curr_token, int *curr_token_size, int *i)
 	(*curr_token)++;
 	(*curr_token_size)++;
 	(*i)++;
+	g_data.skip = 1;
 }
 
 void	allocate_greater(int *curr_token, int *curr_token_size, char *line,
@@ -60,6 +63,7 @@ void	allocate_greater(int *curr_token, int *curr_token_size, char *line,
 		(*curr_token_size)++;
 	}
 	(*i)++;
+	g_data.skip = 1;
 }
 
 void	allocate_less(int *curr_token, int *curr_token_size, char *line, int *i)
@@ -72,4 +76,5 @@ void	allocate_less(int *curr_token, int *curr_token_size, char *line, int *i)
 		(*curr_token_size)++;
 	}
 	(*i)++;
+	g_data.skip = 1;
 }
