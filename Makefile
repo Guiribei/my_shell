@@ -41,7 +41,8 @@ SRC = prompt.c \
 	  split_cmds.c \
 	  heredoc.c \
 	  open_file.c \
-	  is_token.c
+	  is_token.c \
+	  select_inout.c
 
 
 OBJ = ${SRC:%.c=$(PATH_OBJ)%.o}

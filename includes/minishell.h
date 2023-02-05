@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2023/02/04 20:14:04 by etachott         ###   ########.fr       */
+/*   Updated: 2023/02/05 12:51:44 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,6 +211,7 @@ int			heredoc_syntax(t_token *tokens, int *i);
 t_cmd		*init_cmd_table(t_token *tokens);
 char		*join_three(char *s1, char *s2, char *s3);
 void		safe_init(t_cmd *cmds, int size);
+void		select_inout(t_cmd *cmds, int i);
 void		split_cmds(t_cmd *cmds);
 void		open_input_file(t_cmd	*cmds, char *file, int *flag_quit);
 void		open_output_file(t_cmd	*cmds, char *file, int *flag_quit);

@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 17:07:22 by tkomeno           #+#    #+#             */
-/*   Updated: 2023/02/03 03:17:59 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/05 12:48:12 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ extern t_data	g_data;
 
 void	fill_normal(char *line, int *i, t_token **tokens, int *curr_token)
 {
-	while (line[*i] && !ft_isspace(line[*i]) && !is_token(line[*i]) &&
-		!is_quote(line[*i]) && g_data.index < (*tokens)[*curr_token].size)
+	while (line[*i] && !ft_isspace(line[*i]) && !is_token(line[*i])
+		&& !is_quote(line[*i]) && g_data.index < (*tokens)[*curr_token].size)
 	{
 		if (line[*i] && !ft_isspace(line[*i]) && !is_token(line[*i])
 			&& g_data.index < (*tokens)[*curr_token].size)

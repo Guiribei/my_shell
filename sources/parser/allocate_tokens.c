@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 17:06:54 by tkomeno           #+#    #+#             */
-/*   Updated: 2023/02/04 03:34:19 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/05 12:47:32 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	allocate_normal(char *line, int *i, int *curr_token,
 {
 	while (line[*i] == ' ')
 		(*i)++;
-	while (line[*i] && !ft_isspace(line[*i]) && !is_token(line[*i]) && !is_quote(line[*i]))
+	while (line[*i] && !ft_isspace(line[*i])
+		&& !is_token(line[*i]) && !is_quote(line[*i]))
 	{
 		if (line[*i] && !ft_isspace(line[*i]) && !is_token(line[*i]))
 		{
@@ -76,7 +77,8 @@ t_token	*allocate_tokens_content(char *line, t_token *tokens, int curr_token,
 			allocate_less(&curr_token, &curr_token_size, line, &g_data.j);
 		else
 			allocate_normal(line, &g_data.j, &curr_token, &curr_token_size);
-		if (line[g_data.j] && !(is_token(line[g_data.j]) || ft_isspace(line[g_data.j])) && !g_data.skip)
+		if (line[g_data.j] && !(is_token(line[g_data.j])
+				|| ft_isspace(line[g_data.j])) && !g_data.skip)
 			continue ;
 		if (actual_allocation(&tokens, curr_token, &curr_token_size) == -1)
 			return (NULL);

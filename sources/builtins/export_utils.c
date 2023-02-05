@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 16:01:45 by etachott          #+#    #+#             */
-/*   Updated: 2023/02/04 20:25:18 by etachott         ###   ########.fr       */
+/*   Updated: 2023/02/05 12:43:32 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ static char	*get_key(char *name)
 	return (key);
 }
 
+static void	replace_name(char *key, char *name, int i)
+{
+	free(key);
+	free(g_data.fenvp[i]);
+	g_data.fenvp[i] = ft_strdup(name);
+}
+
 void	append_to_fake_envp(char *name)
 {
 	char	**temp;
@@ -41,9 +48,7 @@ void	append_to_fake_envp(char *name)
 	{
 		if (ft_strncmp(g_data.fenvp[i], key, ft_strlen(g_data.fenvp[i])) == 0)
 		{
-			free(key);
-			free(g_data.fenvp[i]);
-			g_data.fenvp[i] = ft_strdup(name);
+			replace_name(key, name, i);
 			return ;
 		}
 	}
