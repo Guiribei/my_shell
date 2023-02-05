@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 18:00:35 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/26 22:32:35 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/05 12:24:27 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,29 +24,43 @@ void	init_heredoc(t_cmd *cmds, t_token *tokens, int *i)
 
 void	init_less_than(t_cmd *cmds, t_token *tokens, int *i, int *j)
 {
-	while (tokens[*i + 2].name && (cmp(tokens[*i + 2].name, "<")))
-		*i += 2;
-	open_input_file(&cmds[*j], tokens[*i + 1].name, &g_data.flag_quit);
-	cmds[*j].where_read = FILE_IN;
-	(*i)++;
+	while (cmp(tokens[*i].name, "<"))
+	{
+		open_input_file(&cmds[*j], tokens[*i + 1].name, &g_data.flag_quit);
+		if (g_data.flag_quit != 0)
+			break ;
+		cmds[*j].where_read = FILE_IN;
+		if (tokens[*i + 2].name && (cmp(tokens[*i + 2].name, "<")))
+			*i += 2;
+		else
+			(*i)++;
+	}
 }
 
 void	init_greater_than(t_cmd *cmds, t_token *tokens, int *i, int *j)
 {
-	while (tokens[*i + 2].name && (cmp(tokens[*i + 2].name, ">")
-			|| cmp(tokens[*i + 2].name, ">>")))
-		*i += 2;
-	if (cmp(tokens[*i].name, ">"))
+	while ((cmp(tokens[*i].name, ">") || cmp(tokens[*i].name, ">>")))
 	{
-		open_output_file(&cmds[*j], tokens[*i + 1].name, &g_data.flag_quit);
-		cmds[*j].where_write = FILE_OUT;
+		if (cmp(tokens[*i].name, ">"))
+		{
+			open_output_file(&cmds[*j], tokens[*i +1].name, &g_data.flag_quit);
+			if (g_data.flag_quit != 0)
+				break ;
+			cmds[*j].where_write = FILE_OUT;
+		}
+		else
+		{
+			open_append_file(&cmds[*j], tokens[*i +1].name, &g_data.flag_quit);
+			if (g_data.flag_quit != 0)
+				break ;
+			cmds[*j].where_write = FILE_OUT;
+		}
+		if (tokens[*i + 2].name && (cmp(tokens[*i + 2].name, ">")
+				|| cmp(tokens[*i + 2].name, ">>")))
+			*i += 2;
+		else
+			(*i)++;
 	}
-	else
-	{
-		open_append_file(&cmds[*j], tokens[*i + 1].name, &g_data.flag_quit);
-		cmds[*j].where_write = FILE_OUT;
-	}
-	(*i)++;
 }
 
 void	init_normal(t_cmd *cmds, t_token *tokens, int *i, int *j)
