@@ -6,7 +6,7 @@
 /*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 14:02:00 by etachott          #+#    #+#             */
-/*   Updated: 2023/02/04 20:18:26 by etachott         ###   ########.fr       */
+/*   Updated: 2023/02/05 22:28:18 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,6 @@ static int	is_valid(char *name, int *invalid_flag)
 		*(invalid_flag) += 1;
 		if (*(invalid_flag) == 1)
 			printf("minishell: export `%s': not a valid identifier\n", name);
-		return (0);
-	}
-	if (!ft_strnstr(name, "=", ft_strlen(name)))
-	{
-		append_to_fake_envp(name);
 		return (0);
 	}
 	return (1);
@@ -86,28 +81,29 @@ static void	append_to_envp(char *name)
 	g_data.envp = temp;
 }
 
-int	builtin_export(char **argv)
+int	builtin_export(char **av)
 {
 	static int	invalid_flag = 0;
-	int			index;
-	int			argv_size;
+	int			av_sz;
 
-	if (!argv)
+	if (!av)
 		return (0);
-	if (!argv[1])
+	if (!av[1])
 		return (env_export_no_arg());
-	index = 1;
-	argv_size = ft_matrix_size(argv);
-	while (index < argv_size)
+	av_sz = ft_matrix_size(av);
+	while (--av_sz)
 	{
-		if (is_valid(argv[index], &invalid_flag))
+		if (is_valid(av[av_sz], &invalid_flag)
+			&& !ft_strnstr(av[av_sz], "=", ft_strlen(av[av_sz])))
+			append_to_fake_envp(av[av_sz]);
+		else if (is_valid(av[av_sz], &invalid_flag)
+			&& ft_strnstr(av[av_sz], "=", ft_strlen(av[av_sz])))
 		{
-			append_to_fake_envp(argv[index]);
-			append_to_envp(argv[index]);
+			append_to_fake_envp(av[av_sz]);
+			append_to_envp(av[av_sz]);
 		}
 		else
 			return (1);
-		index++;
 	}
 	invalid_flag = 0;
 	return (0);
