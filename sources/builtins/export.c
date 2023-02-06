@@ -6,7 +6,7 @@
 /*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 14:02:00 by etachott          #+#    #+#             */
-/*   Updated: 2023/02/05 22:28:18 by etachott         ###   ########.fr       */
+/*   Updated: 2023/02/05 22:52:34 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,25 @@
 
 extern t_data	g_data;
 
-static int	has_dash(char *name)
-{
-	int	index;
-
-	index = 0;
-	while (name[index] && name[index] != '=')
-	{
-		if (name[index] == '-')
-			return (1);
-		index++;
-	}
-	return (0);
-}
-
 static int	is_valid(char *name, int *invalid_flag)
 {
-	if (!ft_isalpha_under(name[0]) || has_dash(name) || name[0] == '=')
+	char	*str;
+	int		index;
+
+	index = 0;
+	str = "not a valid indentifier\n";
+	while (name[index] && name[index] != '=')
 	{
-		*(invalid_flag) += 1;
-		if (*(invalid_flag) == 1)
-			printf("minishell: export `%s': not a valid identifier\n", name);
-		return (0);
+		if (!ft_isalpha_under(name[index]))
+		{
+			*(invalid_flag) += 1;
+			if (*(invalid_flag) == 1)
+			{
+				printf("minishell: export `%s': %s", name, str);
+				return (0);
+			}
+		}
+		index++;
 	}
 	return (1);
 }
@@ -90,8 +87,8 @@ int	builtin_export(char **av)
 		return (0);
 	if (!av[1])
 		return (env_export_no_arg());
-	av_sz = ft_matrix_size(av);
-	while (--av_sz)
+	av_sz = 0;
+	while (++av_sz < ft_matrix_size(av))
 	{
 		if (is_valid(av[av_sz], &invalid_flag)
 			&& !ft_strnstr(av[av_sz], "=", ft_strlen(av[av_sz])))
