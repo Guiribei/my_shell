@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   allocate_tokens.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 17:06:54 by tkomeno           #+#    #+#             */
-/*   Updated: 2023/02/05 12:47:32 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/08 11:11:48 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_token	*allocate_tokens(char *line)
 	if (tokens_count == 0)
 		return (NULL);
 	tokens = ft_calloc(sizeof(t_token), (tokens_count + 1));
+	tokens[tokens_count].is_sentinel = 1;
 	if (!tokens)
 		return (NULL);
 	return (tokens);

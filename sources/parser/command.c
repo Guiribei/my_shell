@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 19:01:13 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/24 18:04:51 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/08 11:06:46 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	count_cmds(t_token *tokens)
 
 void	safe_init(t_cmd *cmds, int size)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (i < size)

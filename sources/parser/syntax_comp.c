@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_comp.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 19:09:32 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/24 19:14:24 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/08 13:10:51 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	pipe_middle_syntax(t_token *tokens, int *i)
 {
+	if (tokens[*i + 1].is_sentinel)
+		return (error_syntax("newline"));
 	if (cmp(tokens[*i + 1].name, "|"))
 		return (error_syntax("|"));
 	else if (cmp(tokens[*i + 1].name, ">") || cmp(tokens[*i + 1].name, ">>")
@@ -24,6 +26,8 @@ int	pipe_middle_syntax(t_token *tokens, int *i)
 
 int	lesser_than_middle_syntax(t_token *tokens, int *i)
 {
+	if (tokens[*i + 1].is_sentinel)
+		return (error_syntax("newline"));
 	if (cmp(tokens[*i + 1].name, "<"))
 		return (error_syntax("|"));
 	else if (cmp(tokens[*i + 1].name, ">") || cmp(tokens[*i + 1].name, ">>")
@@ -34,6 +38,8 @@ int	lesser_than_middle_syntax(t_token *tokens, int *i)
 
 int	greater_than_middle_syntax(t_token *tokens, int *i)
 {
+	if (tokens[*i + 1].is_sentinel)
+		return (error_syntax("newline"));
 	if (cmp(tokens[*i + 1].name, ">"))
 		return (error_syntax("|"));
 	else if (cmp(tokens[*i + 1].name, "|") || cmp(tokens[*i + 1].name, ">>")
@@ -44,6 +50,8 @@ int	greater_than_middle_syntax(t_token *tokens, int *i)
 
 int	append_syntax(t_token *tokens, int *i)
 {
+	if (tokens[*i + 1].is_sentinel)
+		return (error_syntax("newline"));
 	if (cmp(tokens[*i + 1].name, ">>"))
 		return (error_syntax("|"));
 	else if (cmp(tokens[*i + 1].name, ">") || cmp(tokens[*i + 1].name, "|")
@@ -54,6 +62,8 @@ int	append_syntax(t_token *tokens, int *i)
 
 int	heredoc_syntax(t_token *tokens, int *i)
 {
+	if (tokens[*i + 1].is_sentinel)
+		return (error_syntax("newline"));
 	if (cmp(tokens[*i + 1].name, "<<"))
 		return (error_syntax("|"));
 	else if (cmp(tokens[*i + 1].name, ">") || cmp(tokens[*i + 1].name, ">>")

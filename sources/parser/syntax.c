@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 15:07:59 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/24 19:12:18 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/08 12:56:51 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	check_syntax(t_token *tokens, int i, int count)
 {
 	while (tokens[count].name)
 		count++;
-	while (i < count - 1)
+	while (i < count)
 	{
 		if (cmp(tokens[0].name, "|"))
 			return (error_syntax("|"));
