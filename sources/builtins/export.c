@@ -6,7 +6,7 @@
 /*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 14:02:00 by etachott          #+#    #+#             */
-/*   Updated: 2023/02/05 23:07:42 by etachott         ###   ########.fr       */
+/*   Updated: 2023/02/08 15:47:38 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ static void	append_to_envp(char *name)
 	key = get_key(name);
 	while (g_data.envp[++i])
 	{
-		// Write a ft_envcmp, cuz this shit is broken 
-		if (ft_strncmp(g_data.envp[i], key, ft_strlen(g_data.envp[i])) == 0)
+		if (!ft_envcmp(g_data.fenvp[i], key))
 		{
 			free(key);
 			g_data.envp[i] = ft_strdup(name);

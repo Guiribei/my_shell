@@ -6,7 +6,7 @@
 /*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/23 08:47:36 by vcastilh          #+#    #+#             */
-/*   Updated: 2023/02/04 20:03:24 by etachott         ###   ########.fr       */
+/*   Updated: 2023/02/08 15:48:40 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
+int			ft_envcmp(char *envp_str, char *key);
 int			ft_isalpha(int c);
 int			ft_isalpha_under(int c);
 int			ft_isdigit(int c);

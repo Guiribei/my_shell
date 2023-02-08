@@ -1,7 +1,8 @@
 NAME = libft.a
 CFLAGS = -Wall -Werror -Wextra -I. -c -g3
 CC = gcc 
-FILES = ft_isalpha.c \
+FILES = ft_envcmp.c \
+		ft_isalpha.c \
 		ft_isalpha_under.c \
 		ft_isdigit.c \
 		ft_isalnum.c \
