@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 17:37:30 by guribeir          #+#    #+#             */
-/*   Updated: 2023/02/04 19:57:28 by etachott         ###   ########.fr       */
+/*   Updated: 2023/02/12 16:06:52 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	half_break_free(t_data	*data)
 		strclear(&data->str);
 	if (data->prompt_name)
 		strclear(&data->prompt_name);
+	close_fds();
 }
 
 void	break_free(t_data *data)

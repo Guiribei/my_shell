@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2023/02/08 11:07:00 by etachott         ###   ########.fr       */
+/*   Updated: 2023/02/12 15:31:24 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ char		**set_env(char *envp[]);
 /*Memory and fd clearing functions*/
 
 void		break_free(t_data *data);
+void		close_fds(void);
 int			count_rows(char **matrix);
 void		exit_with_error(char *cmd, char *msg, int error);
 int			error_syntax(char *token);

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_envcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 13:42:41 by etachott          #+#    #+#             */
-/*   Updated: 2023/02/08 16:15:25 by etachott         ###   ########.fr       */
+/*   Updated: 2023/02/12 15:34:22 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "stdio.h"
 
 static int	count_var_size(char *envp_str)
 {
