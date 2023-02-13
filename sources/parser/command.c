@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 19:01:13 by guribeir          #+#    #+#             */
-/*   Updated: 2023/02/08 11:06:46 by etachott         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:36:43 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_cmd	*init_cmd_table(t_token *tokens)
 		if (cmp(tokens[i].name, "<") && j == 0)
 			init_less_than(cmds, tokens, &i, &j);
 		else if (cmp(tokens[i].name, "<<"))
-			init_heredoc(cmds, tokens, &i);
+			init_heredoc(cmds, tokens, &i, &j);
 		else if (cmp(tokens[i].name, ">") || cmp(tokens[i].name, ">>"))
 			init_greater_than(cmds, tokens, &i, &j);
 		else if (cmp(tokens[i].name, "|"))
@@ -80,7 +80,5 @@ t_cmd	*init_cmd_table(t_token *tokens)
 		else
 			init_normal(cmds, tokens, &i, &j);
 	}
-	if (g_data.flag_quit)
-		return (fail_free_cmds(cmds));
 	return (cmds);
 }

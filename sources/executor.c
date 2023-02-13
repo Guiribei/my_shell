@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 21:00:15 by guribeir          #+#    #+#             */
-/*   Updated: 2023/02/05 13:03:12 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/13 19:58:50 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ static void	child(t_cmd *cmds, char **envp, int i)
 	if (is_builtin_fork(cmds[i].cmds))
 	{
 		g_data.exit_status = builtin_run_fork(cmds[i].cmds);
+		break_free(&g_data);
+		free_cmds(cmds);
+		free_tokens(g_data.tokens);
 		exit(g_data.exit_status);
 	}
 	if (cmds[i].cmds == NULL || cmds[i].path_cmd == NULL)
@@ -81,10 +84,9 @@ int	core(t_cmd *cmds, char **envp, int exitcode, int i)
 	{
 		if (run_builtin_unfork(cmds, envp, i))
 		{
-			if (cmds[i + 1].cmd)
-				continue ;
-			else
+			if (!cmds[i + 1].cmd)
 				return (g_data.exit_status);
+			continue ;
 		}
 		if (!cmds[i].is_heredoc)
 		{
@@ -92,6 +94,8 @@ int	core(t_cmd *cmds, char **envp, int exitcode, int i)
 			if (!cmds[i].path_cmd && !is_builtin_fork(cmds[i].cmds))
 				return (127);
 		}
+		if (cmds[i].flag_quit != 0)
+			continue ;
 		cmds[i].pid = fork();
 		set_execute_signals(cmds[i].pid);
 		if (cmds[i].pid == -1)

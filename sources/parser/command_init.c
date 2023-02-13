@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 18:00:35 by guribeir          #+#    #+#             */
-/*   Updated: 2023/02/12 17:48:43 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/13 16:36:35 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 extern t_data	g_data;
 
-void	init_heredoc(t_cmd *cmds, t_token *tokens, int *i)
+void	init_heredoc(t_cmd *cmds, t_token *tokens, int *i, int *j)
 {
-	cmds[*i].fd_in = open(HEREDOC, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	cmds[*i].fd_in = heredoc(&cmds[*i], tokens[*i + 1].name);
-	cmds[*i].where_read = FILE_IN;
+	cmds[*j].fd_in = open(HEREDOC, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	cmds[*j].fd_in = heredoc(&cmds[*j], tokens[*i + 1].name);
+	cmds[*j].where_read = FILE_IN;
 	(*i)++;
 }
 
@@ -26,9 +26,9 @@ void	init_less_than(t_cmd *cmds, t_token *tokens, int *i, int *j)
 {
 	while (cmp(tokens[*i].name, "<"))
 	{
-		if (g_data.flag_quit != 0)
+		if (cmds[*j].flag_quit != 0)
 			break ;
-		open_input_file(&cmds[*j], tokens[*i + 1].name, &g_data.flag_quit);
+		open_input_file(&cmds[*j], tokens[*i + 1].name);
 		cmds[*j].where_read = FILE_IN;
 		if (tokens[*i + 2].name && (cmp(tokens[*i + 2].name, "<")))
 			*i += 2;
@@ -43,16 +43,16 @@ void	init_greater_than(t_cmd *cmds, t_token *tokens, int *i, int *j)
 	{
 		if (cmp(tokens[*i].name, ">"))
 		{
-			if (g_data.flag_quit != 0)
+			if (cmds[*j].flag_quit != 0)
 				break ;
-			open_output_file(&cmds[*j], tokens[*i +1].name, &g_data.flag_quit);
+			open_output_file(&cmds[*j], tokens[*i +1].name);
 			cmds[*j].where_write = FILE_OUT;
 		}
 		else
 		{
-			open_append_file(&cmds[*j], tokens[*i +1].name, &g_data.flag_quit);
-			if (g_data.flag_quit != 0)
+			if (cmds[*j].flag_quit != 0)
 				break ;
+			open_append_file(&cmds[*j], tokens[*i +1].name);
 			cmds[*j].where_write = FILE_OUT;
 		}
 		if (tokens[*i + 2].name && (cmp(tokens[*i + 2].name, ">")
@@ -86,7 +86,7 @@ void	init_normal(t_cmd *cmds, t_token *tokens, int *i, int *j)
 void	init_pipe(t_cmd *cmds, int *j)
 {
 	if (pipe(cmds[*j].pipe) == -1)
-		perror_handler("pipe", ": ", ++g_data.flag_quit, cmds);
+		perror_handler("pipe", ": ", ++cmds[*j].flag_quit, cmds);
 	if (cmds[*j].where_write != FILE_OUT)
 		cmds[*j].where_write = PIPE_1;
 	cmds[*j + 1].where_read = PIPE_0;

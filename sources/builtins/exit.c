@@ -6,7 +6,7 @@
 /*   By: guribeir <guribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 19:48:47 by tkomeno           #+#    #+#             */
-/*   Updated: 2023/02/13 13:12:04 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:33:36 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	check_return(char *str)
 	if (ft_strlen(str) > 20)
 		return (0);
 	if (ft_strncmp(str, "-9223372036854775808", 21) == 0)
-		return (0);
+		return (1);
 	while (*str)
 	{
 		if ((*str < '0' || *str > '9')
@@ -52,11 +52,11 @@ void	check_exit(char **args)
 
 void	builtin_exit(char **args)
 {
-	write (STDERR_FILENO, "exit\n", 5);
+	write (1, "exit\n", 5);
 	if (args[0] && !args[1])
 	{
 		break_free(&g_data);
-		exit(EXIT_SUCCESS);
+		exit(0);
 	}
 	else
 		check_exit(args);

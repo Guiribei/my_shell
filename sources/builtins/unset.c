@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 14:02:03 by etachott          #+#    #+#             */
-/*   Updated: 2023/02/08 16:25:36 by etachott         ###   ########.fr       */
+/*   Updated: 2023/02/13 19:54:58 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,25 @@
 
 extern t_data	g_data;
 
+static void	error_handler_unset(char *str1)
+{
+	ft_putstr_fd("minishell: unset `", 2);
+	ft_putstr_fd(str1, 2);
+	ft_putstr_fd(": not a valid identifier\n", 2);
+}
+
 static int	is_valid(char *name)
 {
-	char	*str;
 	int		index;
 
 	index = 0;
-	str = "not a valid indentifier\n";
 	while (name[index])
 	{
-		if (!ft_isalpha_under(name[index]))
+		if (!ft_isalpha_under(name[0]) || name[0] == '=')
+			return (0);
+		if (!ft_isalpha_under(name[index]) && index != 0)
 		{
-			printf("minishell: unset `%s': %s", name, str);
+			error_handler_unset(name);
 			return (0);
 		}
 		index++;
@@ -99,7 +106,7 @@ int	builtin_unset(char **argv)
 	index = 0;
 	invalid_flag = 0;
 	if (!argv[1])
-		return (1);
+		return (0);
 	while (++index < ft_matrix_size(argv))
 	{
 		if (is_valid(argv[index]))

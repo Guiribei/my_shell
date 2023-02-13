@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: guribeir <guribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2023/02/12 15:31:24 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/13 16:30:22 by guribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_cmd
 	int			is_heredoc;
 	int			fd_in;
 	int			fd_out;
+	int			flag_quit;
 	char		*path_cmd;
 	int			pid;
 	t_where		where_read;
@@ -171,7 +172,7 @@ char		*fill_non_space(void);
 t_token		*fill_tokens_content(char *line, t_token *tokens, int curr_token,
 				int i);
 int			greater_than_middle_syntax(t_token *tokens, int *i);
-void		init_heredoc(t_cmd *cmds, t_token *tokens, int *i);
+void		init_heredoc(t_cmd *cmds, t_token *tokens, int *i, int *j);
 void		init_less_than(t_cmd *cmds, t_token *tokens, int *i, int *j);
 void		init_greater_than(t_cmd *cmds, t_token *tokens, int *i, int *j);
 void		init_normal(t_cmd *cmds, t_token *tokens, int *i, int *j);
@@ -215,8 +216,8 @@ char		*join_three(char *s1, char *s2, char *s3);
 void		safe_init(t_cmd *cmds, int size);
 void		select_inout(t_cmd *cmds, int i);
 void		split_cmds(t_cmd *cmds);
-void		open_input_file(t_cmd	*cmds, char *file, int *flag_quit);
-void		open_output_file(t_cmd	*cmds, char *file, int *flag_quit);
-void		open_append_file(t_cmd	*cmds, char *file, int *flag_quit);
+void		open_input_file(t_cmd	*cmds, char *file);
+void		open_output_file(t_cmd	*cmds, char *file);
+void		open_append_file(t_cmd	*cmds, char *file);
 
 #endif
