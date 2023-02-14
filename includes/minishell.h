@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2023/02/13 16:30:22 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/13 22:03:42 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct s_data
 	int		std_in_fd;
 	int		std_out_fd;
 	int		flag_quit;
+	int		error_flag;
 	int		i;
 	int		j;
 	int		skip;
@@ -105,8 +106,9 @@ void		set_signals(struct sigaction *act, struct sigaction *act_2);
 /*Builtins and it's aux functions*/
 
 void		append_to_fake_envp(char *name);
+void		append_to_envp(char *name);
 int			env_export_no_arg(void);
-int			cd(char **envp, char *folder);
+int			cd(char **envp, char **folder);
 char		**change_exit_status(char **envp, int status);
 int			echo(char **str);
 int			builtin_env(void);

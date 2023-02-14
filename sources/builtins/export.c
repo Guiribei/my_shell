@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 14:02:00 by etachott          #+#    #+#             */
-/*   Updated: 2023/02/13 19:54:47 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/13 22:03:27 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static char	*get_key(char *name)
 	return (key);
 }
 
-static void	append_to_envp(char *name)
+void	append_to_envp(char *name)
 {
 	char	**temp;
 	char	*key;

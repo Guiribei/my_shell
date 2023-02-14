@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pathing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 19:35:53 by guribeir          #+#    #+#             */
-/*   Updated: 2023/01/27 21:35:40 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/13 20:44:26 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern t_data	g_data;
 
 void	append_slash_to_path(char **paths)
 {
@@ -64,7 +66,10 @@ int	exit_error_no_path(char **paths, char *command)
 	if (!paths)
 	{
 		if (!is_fork_builtin(command))
+		{
 			printf("minishell: %s: No such file or directory\n", command);
+			g_data.exit_status = 1;
+		}
 		return (1);
 	}
 	return (0);

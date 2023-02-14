@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 19:34:51 by guribeir          #+#    #+#             */
-/*   Updated: 2023/02/04 20:16:19 by etachott         ###   ########.fr       */
+/*   Updated: 2023/02/13 20:29:09 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,7 @@ int	builtin_run_unfork(char **prompt, char **envp)
 
 	exitcode = 1;
 	if (ft_strncmp(prompt[0], "cd", 3) == 0)
-	{
-		exitcode = cd(envp, prompt[1]);
-	}
+		exitcode = cd(envp, prompt);
 	else if (ft_strncmp(prompt[0], "exit", 5) == 0)
 		builtin_exit(prompt);
 	else if (ft_strncmp(prompt[0], "export", 7) == 0)

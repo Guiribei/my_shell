@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_variables.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:09:50 by etachott          #+#    #+#             */
-/*   Updated: 2023/02/04 03:07:27 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/13 21:05:36 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ extern t_data	g_data;
 
 static int	is_varname(char c)
 {
-	return (ft_isalnum(c) || c == '_' || c == '?');
+	return (ft_isalnum(c) || c == '_');
 }
 
 static char	*find_var_position(char *input)
@@ -34,12 +34,12 @@ static char	*find_var_position(char *input)
 			input++;
 			while (*input && *input != '\"')
 			{
-				if (*input == '$' && is_varname(input[1]))
+				if (*input == '$' && (is_varname(input[1]) || input[1] == '?'))
 					return (input);
 				input++;
 			}
 		}
-		if (*input == '$' && is_varname(input[1]))
+		if (*input == '$' && (is_varname(input[1]) || input[1] == '?'))
 			return (input);
 		input++;
 	}
@@ -89,21 +89,29 @@ static char	*var_to_value(char *var_name)
 
 void	expand_variables(char **input)
 {
-	char	*var_position;
+	char	*var_pos;
 	char	*var_name;
 	char	*var_value;
-	int		name_size;
+	int		size;
 
-	var_position = find_var_position(*input);
-	if (var_position)
+	var_pos = find_var_position(*input);
+	if (var_pos)
 	{
-		name_size = 0;
-		while (is_varname(var_position[name_size + 1]))
-			name_size++;
-		var_name = ft_substr(var_position, 1, name_size);
-		*var_position = '\0';
-		var_value = var_to_value(var_name);
-		update_input(input, var_value, (var_position + 1 + name_size));
+		size = 0;
+		while (is_varname(var_pos[size + 1]) || var_pos[size + 1] == '?')
+			size++;
+		var_name = ft_substr(var_pos, 1, size);
+		if (ft_strncmp(var_name, "?", 1) == 0)
+		{
+			*var_pos = '\0';
+			var_value = ft_itoa(g_data.exit_status);
+		}
+		else
+		{
+			*var_pos = '\0';
+			var_value = var_to_value(var_name);
+		}
+		update_input(input, var_value, (var_pos + 1 + size));
 		free(var_name);
 		free(var_value);
 		expand_variables(input);

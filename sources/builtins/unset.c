@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 14:02:03 by etachott          #+#    #+#             */
-/*   Updated: 2023/02/13 19:54:58 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/13 20:27:48 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ static int	is_valid(char *name)
 	index = 0;
 	while (name[index])
 	{
-		if (!ft_isalpha_under(name[0]) || name[0] == '=')
+		if (!ft_isalpha_under(name[0]))
 			return (0);
-		if (!ft_isalpha_under(name[index]) && index != 0)
+		if (!ft_isalpha_under(name[index])
+			&& !ft_isdigit(name[index]) && index != 0)
 		{
 			error_handler_unset(name);
 			return (0);
@@ -55,7 +56,7 @@ static void	remove_from_envp(char *name)
 	size = 0;
 	while (size < ft_matrix_size(g_data.envp) - 1)
 	{
-		if (ft_envcmp(g_data.fenvp[i], name) == 0)
+		if (ft_envcmp(g_data.envp[i], name) == 0)
 			i++;
 		else
 		{

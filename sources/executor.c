@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 21:00:15 by guribeir          #+#    #+#             */
-/*   Updated: 2023/02/13 19:58:50 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/13 21:25:27 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ extern t_data	g_data;
 
 static void	child(t_cmd *cmds, char **envp, int i)
 {
+	g_data.error_flag = 0;
 	select_inout(cmds, i);
 	full_close(cmds);
 	if (is_builtin_fork(cmds[i].cmds))

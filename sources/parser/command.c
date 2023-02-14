@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 19:01:13 by guribeir          #+#    #+#             */
-/*   Updated: 2023/02/13 17:36:43 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/14 00:59:20 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_cmd	*init_cmd_table(t_token *tokens)
 	safe_init(cmds, count_cmds(tokens) + 1);
 	while (tokens[++i].name)
 	{
-		if (cmp(tokens[i].name, "<") && j == 0)
+		if (cmp(tokens[i].name, "<"))
 			init_less_than(cmds, tokens, &i, &j);
 		else if (cmp(tokens[i].name, "<<"))
 			init_heredoc(cmds, tokens, &i, &j);

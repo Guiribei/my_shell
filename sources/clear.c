@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 17:37:30 by guribeir          #+#    #+#             */
-/*   Updated: 2023/02/12 16:06:52 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/13 21:33:59 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	strsclear(char **ptrs)
 void	half_break_free(t_data	*data)
 {
 	data->flag_quit = 0;
+	data->error_flag = 0;
 	if (data->prompt)
 		strsclear(data->prompt);
 	if (data->str)

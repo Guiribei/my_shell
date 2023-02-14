@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:05:55 by guribeir          #+#    #+#             */
-/*   Updated: 2023/02/13 17:38:06 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/13 21:24:58 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	open_input_file(t_cmd	*cmds, char *file)
 	if (cmds->fd_in == -1)
 	{
 		g_data.exit_status = 1;
+		g_data.error_flag = 1;
 		perror_handler(file, ": ", 1, cmds);
 		(cmds->flag_quit)++;
 	}
@@ -35,6 +36,7 @@ void	open_output_file(t_cmd	*cmds, char *file)
 	if (cmds->fd_out == -1)
 	{
 		g_data.exit_status = 1;
+		g_data.error_flag = 1;
 		perror_handler(file, ": ", 1, cmds);
 		(cmds->flag_quit)++;
 	}
@@ -48,6 +50,7 @@ void	open_append_file(t_cmd	*cmds, char *file)
 	if (cmds->fd_out == -1)
 	{
 		g_data.exit_status = 1;
+		g_data.error_flag = 1;
 		perror_handler(file, ": ", 1, cmds);
 		(cmds->flag_quit)++;
 	}
