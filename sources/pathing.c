@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pathing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 19:35:53 by guribeir          #+#    #+#             */
-/*   Updated: 2023/02/13 20:44:26 by etachott         ###   ########.fr       */
+/*   Updated: 2023/02/15 15:43:35 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,22 @@ int	is_fork_builtin(char *cmd)
 	return (0);
 }
 
+static void	error_handler(char *str1, char *str2)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(str1, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putendl_fd(str2, 2);
+}
+
 int	exit_error_no_path(char **paths, char *command)
 {
 	if (!paths)
 	{
 		if (!is_fork_builtin(command))
 		{
-			printf("minishell: %s: No such file or directory\n", command);
+			//printf("minishell: %s: No such file or directory'\n", command);
+			error_handler(command, "No such file or directory");
 			g_data.exit_status = 1;
 		}
 		return (1);
@@ -80,11 +89,11 @@ char	*find_command(char *command, char **paths, int i)
 	char	*path;
 	char	*tmp;
 
+	if (access(command, F_OK | X_OK) == 0)
+		return (ft_strdup(command));
 	if (exit_error_no_path(paths, command))
 		return (NULL);
 	path = NULL;
-	if (access(command, F_OK | X_OK) == 0)
-		return (ft_strdup(command));
 	while (paths[++i])
 	{
 		tmp = ft_strjoin(paths[i], command);
@@ -95,9 +104,11 @@ char	*find_command(char *command, char **paths, int i)
 		}
 		free(tmp);
 	}
-	if (ft_strncmp(command, "./", 2) == 0)
-		printf("minishell: %s: No such file or directory\n", command);
+	if (ft_strncmp(command, "./", 2) == 0  || ft_strncmp(command, "/", 1) == 0)
+		//printf("minishell: %s: No such file or directory\n", command);
+		error_handler(command, "No such file or directory");
 	else
-		printf("minishell: %s: command not found\n", command);
+		//printf("minishell: %s: command not found\n", command);
+		error_handler(command, "command not found");
 	return (NULL);
 }
