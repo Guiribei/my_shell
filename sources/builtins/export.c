@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 14:02:00 by etachott          #+#    #+#             */
-/*   Updated: 2023/02/13 22:03:27 by etachott         ###   ########.fr       */
+/*   Updated: 2023/02/15 09:24:42 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	append_to_envp(char *name)
 		if (!ft_envcmp(g_data.fenvp[i], key))
 		{
 			free(key);
+			free(g_data.envp[i]);
 			g_data.envp[i] = ft_strdup(name);
 			return ;
 		}

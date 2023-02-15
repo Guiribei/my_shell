@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 19:48:47 by tkomeno           #+#    #+#             */
-/*   Updated: 2023/02/13 17:33:36 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/15 09:28:44 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	check_exit(char **args)
 		rl_clear_history();
 		exit_status = ft_atoi_long(args[1]);
 		break_free(&g_data);
+		free_cmds(g_data.cmds);
+		free_tokens(g_data.tokens);
 		exit(exit_status);
 	}
 }
@@ -55,6 +57,8 @@ void	builtin_exit(char **args)
 	write (1, "exit\n", 5);
 	if (args[0] && !args[1])
 	{
+		free_cmds(g_data.cmds);
+		free_tokens(g_data.tokens);
 		break_free(&g_data);
 		exit(0);
 	}
