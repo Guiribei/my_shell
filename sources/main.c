@@ -6,7 +6,7 @@
 /*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 22:13:00 by coder             #+#    #+#             */
-/*   Updated: 2023/02/15 15:51:15 by etachott         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:12:02 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	free_cmds(t_cmd *cmds)
 
 static void	get_str(void)
 {
-	//g_data.envp = change_exit_status(g_data.envp, g_data.exit_status);
 	g_data.cwd = getcwd(NULL, 0);
 	g_data.prompt_name = join_three("\x1b[32mminishell:~\033[0m",
 			g_data.cwd, "\x1b[32m$ \033[0m");

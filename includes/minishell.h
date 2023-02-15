@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 18:16:49 by coder             #+#    #+#             */
-/*   Updated: 2023/02/13 22:03:42 by etachott         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:13:37 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void		set_signals(struct sigaction *act, struct sigaction *act_2);
 /*Builtins and it's aux functions*/
 
 void		append_to_fake_envp(char *name);
-void		append_to_envp(char *name);
+void		append_to_envp(char *name, int i);
 int			env_export_no_arg(void);
 int			cd(char **envp, char **folder);
 char		**change_exit_status(char **envp, int status);
@@ -203,6 +203,7 @@ void		skip_lt(int *i, int *tokens, char *line);
 
 /*Execution functions*/
 
+void		append_slash_to_path(char **paths);
 int			append_syntax(t_token *tokens, int *i);
 int			check_syntax(t_token *tokens, int i, int count);
 t_bool		cmp(char *s1, char *s2);

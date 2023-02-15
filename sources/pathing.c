@@ -6,27 +6,13 @@
 /*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 19:35:53 by guribeir          #+#    #+#             */
-/*   Updated: 2023/02/15 15:43:35 by etachott         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:05:07 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 extern t_data	g_data;
-
-void	append_slash_to_path(char **paths)
-{
-	int		i;
-	char	*tmp;
-
-	i = -1;
-	while (paths[++i])
-	{
-		tmp = ft_strjoin(paths[i], "/");
-		free(paths[i]);
-		paths[i] = tmp;
-	}
-}
 
 char	**get_paths(char **envp)
 {
@@ -61,7 +47,7 @@ int	is_fork_builtin(char *cmd)
 	return (0);
 }
 
-static void	error_handler(char *str1, char *str2)
+static void	error_handler_pathing(char *str1, char *str2)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(str1, 2);
@@ -75,8 +61,7 @@ int	exit_error_no_path(char **paths, char *command)
 	{
 		if (!is_fork_builtin(command))
 		{
-			//printf("minishell: %s: No such file or directory'\n", command);
-			error_handler(command, "No such file or directory");
+			error_handler_pathing(command, "No such file or directory");
 			g_data.exit_status = 1;
 		}
 		return (1);
@@ -104,11 +89,9 @@ char	*find_command(char *command, char **paths, int i)
 		}
 		free(tmp);
 	}
-	if (ft_strncmp(command, "./", 2) == 0  || ft_strncmp(command, "/", 1) == 0)
-		//printf("minishell: %s: No such file or directory\n", command);
-		error_handler(command, "No such file or directory");
+	if (ft_strncmp(command, "./", 2) == 0 || ft_strncmp(command, "/", 1) == 0)
+		error_handler_pathing(command, "No such file or directory");
 	else
-		//printf("minishell: %s: command not found\n", command);
-		error_handler(command, "command not found");
+		error_handler_pathing(command, "command not found");
 	return (NULL);
 }

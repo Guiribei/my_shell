@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_variables.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: etachott < etachott@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 13:09:50 by etachott          #+#    #+#             */
-/*   Updated: 2023/02/13 21:05:36 by etachott         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:08:12 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,16 +101,11 @@ void	expand_variables(char **input)
 		while (is_varname(var_pos[size + 1]) || var_pos[size + 1] == '?')
 			size++;
 		var_name = ft_substr(var_pos, 1, size);
+		*var_pos = '\0';
 		if (ft_strncmp(var_name, "?", 1) == 0)
-		{
-			*var_pos = '\0';
 			var_value = ft_itoa(g_data.exit_status);
-		}
 		else
-		{
-			*var_pos = '\0';
 			var_value = var_to_value(var_name);
-		}
 		update_input(input, var_value, (var_pos + 1 + size));
 		free(var_name);
 		free(var_value);

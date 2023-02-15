@@ -6,7 +6,7 @@
 /*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 14:02:00 by etachott          #+#    #+#             */
-/*   Updated: 2023/02/15 09:24:42 by etachott         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:13:22 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,12 @@ static char	*get_key(char *name)
 	return (key);
 }
 
-void	append_to_envp(char *name)
+void	append_to_envp(char *name, int i)
 {
 	char	**temp;
 	char	*key;
-	int		i;
 	int		envp_size;
 
-	i = -1;
 	key = get_key(name);
 	while (g_data.envp[++i])
 	{
@@ -105,7 +103,7 @@ int	builtin_export(char **av)
 			&& ft_strnstr(av[av_sz], "=", ft_strlen(av[av_sz])))
 		{
 			append_to_fake_envp(av[av_sz]);
-			append_to_envp(av[av_sz]);
+			append_to_envp(av[av_sz], -1);
 		}
 		else
 			return (1);

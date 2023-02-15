@@ -3,29 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guribeir <guribeir@student.42.rio>         +#+  +:+       +#+        */
+/*   By: etachott <etachott@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 22:23:50 by guribeir          #+#    #+#             */
-/*   Updated: 2023/02/04 03:07:32 by guribeir         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:04:54 by etachott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_bool	is(const char *s, int c)
+void	append_slash_to_path(char **paths)
 {
-	size_t	s_len;
-	char	*ptr;
+	int		i;
+	char	*tmp;
 
-	ptr = (char *)s;
-	s_len = ft_strlen(ptr) + 1;
-	while (s_len--)
+	i = -1;
+	while (paths[++i])
 	{
-		if (*ptr == (unsigned char)c)
-			return (TRUE);
-		ptr++;
+		tmp = ft_strjoin(paths[i], "/");
+		free(paths[i]);
+		paths[i] = tmp;
 	}
-	return (FALSE);
 }
 
 int	count_iterations(t_cmd *cmds)
