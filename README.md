@@ -1,6 +1,13 @@
-# Minishell
+<h1 align="center">
+	minishell
+</h1>
 
-This project challenged us to make our own shell. It is basically a reduced version of the Bash shell (a humbly little version of that) written in C. It provides a simple and minimalistic command-line interface for users to interact with the operating system. Developed in pair with @0xEDU.
+<p align="center">
+    <img src="https://github.com/riceset/riceset/blob/main/42_badges/minishelle.png" />
+</p>
+
+> <i>This project challenged us to make our own shell. It is basically a reduced version of the Bash shell (a humbly little version of that) written in C.</i>
+> <i>It provides a simple and minimalistic command-line interface for users to interact with the operating system. Developed in pair with @0xEDU.</i>
 
 ## Features
 
